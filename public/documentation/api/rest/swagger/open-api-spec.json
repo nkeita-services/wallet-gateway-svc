@@ -26,8 +26,15 @@
       }
     },
     {
-      "name": "Wallet Organization",
+      "name": "Wallet Organizations",
       "description": "Wallet Organization",
+      "externalDocs": {
+        "url": "https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app"
+      }
+    },
+    {
+      "name": "Wallet Accounts",
+      "description": "Wallet accounts",
       "externalDocs": {
         "url": "https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app"
       }
