@@ -102,6 +102,7 @@ components:
         streetName:
           type: string
           description: The street name
+          example: 276ca6ba-e871-4d14-ac4f-8649aa381d34
         streetNumber:
           type: string
           description: The street number
@@ -123,6 +124,7 @@ components:
         id:
           type: string
           description: A wallet account identifier provided during this account creation
+          example: 96808ac6-fa7e-4a88-be30-52c3533f4a47
         walletPlanId:
           type: string
           description: The Wallet Platform identifier for the wallet plan this accountrefers to
@@ -150,6 +152,7 @@ components:
         id:
           type: string
           description: An identifier that represents the user in the Wallet Platform
+          example: 5e4203f3-c949-4e66-a732-9eaa803a3a66
         lastName:
           type: string
           description: User last name
