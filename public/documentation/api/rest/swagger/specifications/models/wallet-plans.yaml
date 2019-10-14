@@ -1,0 +1,18 @@
+WalletPlan:
+  type: object
+  properties:
+    currency:
+      $ref: 'currency.yaml#/Currency'
+    status:
+      $ref: '#/WalletPlanStatus'
+
+WalletPlans: array
+  items:
+    $ref: '#/WalletPlan'
+
+WalletPlanStatus:
+  type: string
+  description: Actual Status of the wallet plan
+  enum:
+    - active
+    - deactivated

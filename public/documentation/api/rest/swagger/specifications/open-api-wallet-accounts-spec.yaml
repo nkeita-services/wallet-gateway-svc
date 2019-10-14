@@ -1,0 +1,29 @@
+get:
+  summary: Obtain a list of wallet accounts
+  tags:
+    - Wallet Accounts
+  responses:
+    '200':
+      description: Successfully obtained the list of wallet accounts
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/WalletAccounts'
+post:
+  summary: Create a wallet account
+  tags:
+    - Wallet Accounts
+  requestBody:
+    description: The wallet account info
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/WalletAccount'
+  responses:
+    '201':
+      description: Successfully created the wallet account
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/WalletAccount'

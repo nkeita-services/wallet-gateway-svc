@@ -1,0 +1,29 @@
+get:
+  summary: Obtain a list of wallet organizations
+  tags:
+    - Wallet Organizations
+  responses:
+    '200':
+      description: Successfully obtained the list of organizations plans
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/WalletOrganizations'
+post:
+  summary: Create a wallet organization
+  tags:
+    - Wallet Organizations
+  requestBody:
+    description: The wallet organizations specification
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/WalletOrganization'
+  responses:
+    '201':
+      description: Successfully created the wallet organization
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/WalletOrganization'

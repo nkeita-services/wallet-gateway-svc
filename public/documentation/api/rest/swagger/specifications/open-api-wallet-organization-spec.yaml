@@ -1,0 +1,17 @@
+get:
+  summary: Obtain a wallet organization info
+  tags:
+    - Wallet Organizations
+  parameters:
+    - in: path
+      required: true
+      name: organizationId
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successfully obtained the wallet organization info
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/WalletOrganization'

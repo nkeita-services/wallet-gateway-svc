@@ -1,0 +1,163 @@
+openapi: 3.0.0
+info:
+  title: Wallet Gateway Service
+  version: 0.0.1
+  description: |
+    The Wallet Gateway API is a REST HTTP API for Creating digital wallets. There are different components involved in a digital wallet operations
+
+    # Wallet Plans
+    A wallet plan is used to gather common characteristics of a set of wallet accounts. For example, what currency should be considered or the maximum balance allowed
+    for the associed accounts
+
+    # Wallet Organizations
+    Each legal authority that uses the wallet gateway API needs to be linked with a wallet organization. It could be a company or any type of organizations
+
+    # Wallet Accounts
+    An account is associated with a user. This where the balance is stored
+
+    # Wallet Account Users
+    User data are stored in the
+  termsOfService: 'http://swagger.io/terms/'
+  x-logo:
+    url: 'https://redocly.github.io/redoc/petstore-logo.png'
+    backgroundColor: '#FFFFFF'
+    altText: Petstore logo
+servers:
+  - url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+    description: Testing Server
+  - url: 'https://sandbox.wallet-gateway-svc.nkeita-serives.com'
+    description: Sandbox Server
+tags:
+  - name: Wallet Plans
+    description: Wallet Plans are used to group wallet accounts that have common characteristics
+    externalDocs:
+      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+  - name: Wallet Organizations
+    description: A Wallet Organization is a company that have a set of wallet plans
+    externalDocs:
+      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+  - name: Wallet Accounts
+    description: Wallet accounts
+    externalDocs:
+      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+  - name: Wallet Account Users
+    description: Wallet account owners
+    externalDocs:
+      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+paths:
+  /v1/wallets/plans:
+    $ref: 'open-api-wallet-plans-spec.yaml'
+  /v1/wallets/plans/{planId}:
+    $ref: 'open-api-wallet-plan-spec.yaml'
+  /v1/wallets/organizations:
+    $ref: 'open-api-wallet-organizations-spec.yaml'
+  /v1/wallets/organizations/{organizationId}:
+    $ref: 'open-api-wallet-organization-spec.yaml'
+  /v1/wallets/accounts:
+    $ref: 'open-api-wallet-accounts-spec.yaml'
+  /v1/wallets/accounts/{accountId}:
+    $ref: 'open-api-wallet-account-spec.yaml'
+  /v1/wallets/accounts/users:
+    $ref: 'open-api-wallet-account-users-spec.yaml'
+components:
+  schemas:
+    WalletPlan:
+      type: object
+      properties:
+        currency:
+          $ref: '#/components/schemas/Currency'
+        status:
+          $ref: '#/components/schemas/WalletPlanStatus'
+    WalletPlans:
+      items:
+        $ref: '#/components/schemas/WalletPlan'
+    WalletPlanStatus:
+      type: string
+      description: Actual Status of the wallet plan
+      enum:
+        - active
+        - deactivated
+    Currency:
+      type: string
+      enum:
+        - EUR
+        - GPB
+    WalletOrganization:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    WalletOrganizations:
+      type: array
+      items:
+        $ref: '#/components/schemas/WalletOrganization'
+    Address:
+      type: object
+      properties:
+        streetName:
+          type: string
+        streetNumber:
+          type: string
+        city:
+          type: string
+        zipCode:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+    WalletAccount:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The wallet account identifier provided during this account creation
+        walletPlanId:
+          type: string
+          description: 'The identifier for the wallet plan this account refers to '
+        accountType:
+          type: string
+          description: 'This account can be a master or a regular account '
+          enum:
+            - master
+            - regular
+        balance:
+          type: number
+          description: The actual balance of this account
+        name:
+          type: string
+          description: A name that identifies this account
+        address:
+          $ref: '#/components/schemas/Address'
+    WalletAccounts:
+      type: array
+      items:
+        $ref: '#/components/schemas/WalletAccount'
+    WalletAccountUser:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The user identifier
+        lastName:
+          type: string
+          description: User last name
+        firstName:
+          type: string
+          description: User first name
+        address:
+          $ref: '#/components/schemas/Address'
+          description: User address
+        email:
+          type: string
+          description: user email address
+        phoneNumber:
+          type: string
+          description: User phone number
+          example: '+33613047943'
+    WalletAccountUsers:
+      type: array
+      items:
+        $ref: '#/components/schemas/WalletAccountUser'

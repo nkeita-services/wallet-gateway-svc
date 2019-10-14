@@ -1,0 +1,41 @@
+get:
+  summary: Obtain a wallet account info
+  tags:
+    - Wallet Accounts
+  parameters:
+    - in: path
+      required: true
+      name: accountId
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successfully obtained a wallet account info
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/WalletAccount'
+patch:
+  summary: Update a wallet account
+  tags:
+    - Wallet Accounts
+  parameters:
+    - in: path
+      required: true
+      name: accountId
+      schema:
+        type: string
+  requestBody:
+    description: The wallet account info
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/WalletAccount'
+  responses:
+    '200':
+      description: Successfully patched the wallet account
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/WalletAccount'
