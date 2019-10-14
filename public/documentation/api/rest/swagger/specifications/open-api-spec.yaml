@@ -3,20 +3,23 @@ info:
   title: Wallet Gateway Service
   version: 0.0.1
   description: |
-    The Wallet Gateway API is a REST HTTP API for Creating digital wallets. There are different components involved in a digital wallet operations
+    The Wallet Gateway API is a REST HTTP API for Creating digital wallets. There are different components involved in digital wallet operations
 
     # Wallet Plans
-    A wallet plan is used to gather common characteristics of a set of wallet accounts. For example, what currency should be considered or the maximum balance allowed
+    A wallet plan is used to group common characteristics of a set of wallet accounts. For example, the default currency to use or the balance threshold allowed
     for the associed accounts
 
     # Wallet Organizations
-    Each legal authority that uses the wallet gateway API needs to be linked with a wallet organization. It could be a company or any type of organizations
+    Each legal authority that uses our wallet gateway needs to be linked with a wallet organization. It could be a company or any type of organizations. That is where
+    KYB or legal documents operations take place
 
     # Wallet Accounts
-    An account is associated with a user. This where the balance is stored
+    An account is what represents user interactions with our gateway
 
     # Wallet Account Users
-    User data are stored in the
+    User personal information are handled separately from their acconuts. So we can apply specific security constraints
+
+
   termsOfService: 'http://swagger.io/terms/'
   x-logo:
     url: 'https://redocly.github.io/redoc/petstore-logo.png'
@@ -98,28 +101,34 @@ components:
       properties:
         streetName:
           type: string
+          description: The street name
         streetNumber:
           type: string
+          description: The street number
         city:
           type: string
+          description: The city name
         zipCode:
           type: string
+          description: The zip code
         state:
           type: string
+          description: The state name
         country:
           type: string
+          description: The country name
     WalletAccount:
       type: object
       properties:
         id:
           type: string
-          description: The wallet account identifier provided during this account creation
+          description: A wallet account identifier provided during this account creation
         walletPlanId:
           type: string
-          description: 'The identifier for the wallet plan this account refers to '
+          description: The Wallet Platform identifier for the wallet plan this accountrefers to
         accountType:
           type: string
-          description: 'This account can be a master or a regular account '
+          description: A master account that's linked to an organization or a regular account used by organization customers
           enum:
             - master
             - regular
@@ -140,7 +149,7 @@ components:
       properties:
         id:
           type: string
-          description: The user identifier
+          description: An identifier that represents the user in the Wallet Platform
         lastName:
           type: string
           description: User last name
