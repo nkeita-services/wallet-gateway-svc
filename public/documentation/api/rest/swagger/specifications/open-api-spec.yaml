@@ -26,11 +26,11 @@ info:
     backgroundColor: '#FFFFFF'
     altText: Petstore logo
 servers:
-  - url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+  - url: 'https://wallet-gateway-svc-fjhmnd5asa-ew.a.run.app'
     description: Testing Server
   - url: 'https://sandbox.wallet-gateway-svc.nkeita-serives.com'
     description: Sandbox Server
-  - url: 'https://sandbox.wallet-gateway-svc.nkeita-serives.com'
+  - url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
     description: Production Server
 tags:
   - name: Wallet Plans
