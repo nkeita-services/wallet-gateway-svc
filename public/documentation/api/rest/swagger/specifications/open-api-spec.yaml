@@ -28,7 +28,7 @@ info:
 servers:
   - url: 'https://wallet-gateway-svc-fjhmnd5asa-ew.a.run.app'
     description: Testing Server
-  - url: 'https://sandbox.wallet-gateway-svc.nkeita-serives.com'
+  - url: 'https://wallet-gateway-svc-4q5ec4yf6q-ew.a.run.app'
     description: Sandbox Server
   - url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
     description: Production Server
