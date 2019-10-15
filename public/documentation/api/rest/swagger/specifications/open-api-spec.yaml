@@ -102,19 +102,23 @@ components:
         streetName:
           type: string
           description: The street name
-          example: 276ca6ba-e871-4d14-ac4f-8649aa381d34
+          example: voie de seine
         streetNumber:
           type: string
           description: The street number
+          example: 3
         city:
           type: string
           description: The city name
+          example: paris
         zipCode:
           type: string
           description: The zip code
+          example: 75017
         state:
           type: string
           description: The state name
+          example: France
         country:
           type: string
           description: The country name
