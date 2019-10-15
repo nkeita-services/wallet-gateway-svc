@@ -30,6 +30,8 @@ servers:
     description: Testing Server
   - url: 'https://sandbox.wallet-gateway-svc.nkeita-serives.com'
     description: Sandbox Server
+  - url: 'https://sandbox.wallet-gateway-svc.nkeita-serives.com'
+    description: Production Server
 tags:
   - name: Wallet Plans
     description: Wallet Plans are used to group wallet accounts that have common characteristics
