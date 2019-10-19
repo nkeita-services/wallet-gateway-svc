@@ -1,0 +1,32 @@
+get:
+  summary: Obtain a list of remittance requests
+  tags:
+    - Wallet Remittance
+  responses:
+    '200':
+      description: Successfully obtained the list of wallet remittances
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/WalletRemittances'
+    '404':
+      description: No remittance requests found
+
+post:
+  summary: Create a remittance request
+  tags:
+    - Wallet Remittance
+  requestBody:
+    description: The wallet remittance
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/WalletRemittance'
+  responses:
+    '200':
+      description: Successfully create the wallet remittance request
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/WalletRemittance'

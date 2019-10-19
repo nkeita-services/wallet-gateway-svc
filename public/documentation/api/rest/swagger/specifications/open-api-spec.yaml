@@ -19,6 +19,12 @@ info:
     # Wallet Account Users
     User personal information are handled separately from their acconuts. So we can apply specific security constraints
 
+    # Wallet Fees
+    Operations on wallet components generate fees that are applied to organization master accounts
+
+    # Wallet Remittance
+    This component give access to wallet networks for value transfer. It encapsulates all the inter-wallet operations
+
 
   termsOfService: 'http://swagger.io/terms/'
   x-logo:
@@ -49,6 +55,14 @@ tags:
     description: Wallet account owners
     externalDocs:
       url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+  - name: Wallet Fees
+    description: Wallet fees
+    externalDocs:
+      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+  - name: Wallet Remittance
+    description: Wallet remittance
+    externalDocs:
+      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
 paths:
   /v1/wallets/plans:
     $ref: 'open-api-wallet-plans-spec.yaml'
@@ -64,6 +78,10 @@ paths:
     $ref: 'open-api-wallet-account-spec.yaml'
   /v1/wallets/accounts/users:
     $ref: 'open-api-wallet-account-users-spec.yaml'
+  /v1/wallets/fees:
+    $ref: 'open-api-wallet-fees-spec.yaml'
+  /v1/wallets/remittances:
+    $ref: 'open-api-wallet-remittances-spec.yaml'
 components:
   schemas:
     WalletPlan:
@@ -179,3 +197,55 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/WalletAccountUser'
+    WalletFee:
+      type: object
+      properties:
+        id:
+          type: string
+          description: An identifier that represents the wallet fee
+          example: 5e4203f3-c949-4e66-a732-9eaa803a3a66
+        operation:
+          type: string
+          description: the wallet operation this fee apply to
+          enum:
+            - AccountTopUp
+            - AccountCreation
+        amount:
+          type: number
+          description: the amount of the wallet fee
+          example: 10
+    WalletFees:
+      type: array
+      items:
+        $ref: '#/components/schemas/WalletFee'
+    WalletRemittance:
+      type: object
+      properties:
+        id:
+          type: string
+          description: An identifier that represents the wallet remittance request
+          example: 5e4203f3-c949-4e66-a732-9eaa803a3a66
+        sender:
+          $ref: '#/components/schemas/WalletRemittanceSender'
+        beneficiary:
+          $ref: '#/components/schemas/WalletRemittanceBeneficiary'
+        amount:
+          type: number
+          description: amount to send
+          example: 10
+    WalletRemittanceSender:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: Sender account id
+    WalletRemittanceBeneficiary:
+      type: object
+      properties:
+        accountId:
+          type: string
+          description: Beneficiary account id
+    WalletRemittances:
+      type: array
+      items:
+        $ref: '#/components/schemas/WalletRemittance'

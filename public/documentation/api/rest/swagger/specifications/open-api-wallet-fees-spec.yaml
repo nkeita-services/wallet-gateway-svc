@@ -1,0 +1,32 @@
+get:
+  summary: Obtain a list of wallet fees
+  tags:
+    - Wallet Fees
+  responses:
+    '200':
+      description: Successfully obtained the list of wallet fees
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/WalletFees'
+    '404':
+      description: User not found in the Wallet Platform
+
+post:
+  summary: Create a wallet fee
+  tags:
+    - Wallet Fees
+  requestBody:
+    description: The wallet fee
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/WalletFee'
+  responses:
+    '200':
+      description: Successfully create the wallet fee
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/WalletFee'
