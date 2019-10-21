@@ -8,7 +8,22 @@ get:
       content:
         application/json:
           schema:
-            $ref: 'open-api-spec.yaml#/components/schemas/WalletPlans'
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletPlans:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletPlans'
+    '500':
+      description: Error while obtaining the list of wallet plans
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/ErrorResponse'
+
 post:
   summary: Create a wallet plan
   tags:

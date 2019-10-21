@@ -84,6 +84,27 @@ paths:
     $ref: 'open-api-wallet-remittances-spec.yaml'
 components:
   schemas:
+    ResponseStatus:
+      type: string
+      enum:
+        - success
+        - fail
+        - error
+    ResponseStatusCode:
+      type: number
+      example: 1023
+    ResponseStatusDescription:
+      type: string
+      example: The wallet plan does not exist within the system
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+        statusCode:
+          $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatusCode'
+        statusDescription:
+          $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatusDescription'
     WalletPlan:
       type: object
       properties:
