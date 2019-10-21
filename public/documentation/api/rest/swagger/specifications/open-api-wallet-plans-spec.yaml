@@ -41,4 +41,18 @@ post:
       content:
         application/json:
           schema:
-            $ref: 'open-api-spec.yaml#/components/schemas/WalletPlan'
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletPlan:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletPlan'
+    '400':
+      description: Invalid Input
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/ErrorResponse'

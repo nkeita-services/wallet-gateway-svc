@@ -5,26 +5,37 @@ info:
   description: |
     The Wallet Gateway API is a REST HTTP API for Creating digital wallets. There are different components involved in digital wallet operations
 
-    # Wallet Plans
+    # Wallet API components
+
+    ## Wallet Plans
     A wallet plan is used to group common characteristics of a set of wallet accounts. For example, the default currency to use or the balance threshold allowed
     for the associed accounts
 
-    # Wallet Organizations
+    ## Wallet Organizations
     Each legal authority that uses our wallet gateway needs to be linked with a wallet organization. It could be a company or any type of organizations. That is where
     KYB or legal documents operations take place
 
-    # Wallet Accounts
+    ## Wallet Accounts
     An account is what represents user interactions with our gateway
 
-    # Wallet Account Users
+    ## Wallet Account Users
     User personal information are handled separately from their acconuts. So we can apply specific security constraints
 
-    # Wallet Fees
+    ## Wallet Fees
     Operations on wallet components generate fees that are applied to organization master accounts
 
-    # Wallet Remittance
+    ## Wallet Remittance
     This component give access to wallet networks for value transfer. It encapsulates all the inter-wallet operations
 
+    # Security
+
+    ## Authentication
+
+    # Responses
+
+    # Changelog
+
+    # Useful links
 
   termsOfService: 'http://swagger.io/terms/'
   x-logo:
