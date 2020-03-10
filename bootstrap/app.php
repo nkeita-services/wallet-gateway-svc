@@ -1,11 +1,15 @@
 <?php
 
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
 ))->bootstrap();
 
+use App\Providers\Infrastructure\Api\Rest\Client\Account\AccountApiClientProvider;
+use App\Providers\Domain\Wallet\Account\Service\AccountServiceProvider;
+use App\Providers\Domain\Wallet\Account\Respository\AccountRepositoryProvider;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -76,9 +80,9 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+ $app->register(AccountApiClientProvider::class);
+ $app->register(AccountServiceProvider::class);
+ $app->register(AccountRepositoryProvider::class);
 
 /*
 |--------------------------------------------------------------------------

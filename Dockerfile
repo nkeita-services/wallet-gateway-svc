@@ -21,7 +21,7 @@ RUN composer install
 # Use the official PHP 7.3 image.
 # https://hub.docker.com/_/php
 FROM php:7.3-apache
-
+RUN a2enmod rewrite
 
 # Copy local code to the container image.
 COPY . /var/www/html/
@@ -33,6 +33,7 @@ RUN sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/a
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!AllowOverride None!AllowOverride All!g' /etc/apache2/apache2.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 # Configure PHP for development.

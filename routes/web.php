@@ -12,5 +12,9 @@
 */
 
 $router->get('/', function () use ($router) {
-    return redirect('/documentation/api/rest/swagger/index.html');
+    return redirect('/documentation/api/rest/swagger/redoc/index.html');
 });
+
+$router->post('v1/wallets/accounts', [
+    'uses' => 'Wallet\Account\CreateAccountController@create'
+]);

@@ -39,9 +39,9 @@ info:
 
   termsOfService: 'http://swagger.io/terms/'
   x-logo:
-    url: 'https://redocly.github.io/redoc/petstore-logo.png'
+    url: '/img/NBK_logo.jpeg'
     backgroundColor: '#FFFFFF'
-    altText: Petstore logo
+    altText: NBK Logo
 servers:
   - url: 'https://wallet-gateway-svc-fjhmnd5asa-ew.a.run.app'
     description: Testing Server
@@ -184,6 +184,12 @@ components:
         walletPlanId:
           type: string
           description: The Wallet Platform identifier for the wallet plan this accountrefers to
+        walletOrganizations:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 3288603f-adf8-453e-b4e9-cbad4805f86c
         accountType:
           type: string
           description: A master account that's linked to an organization or a regular account used by organization customers
@@ -196,35 +202,60 @@ components:
         name:
           type: string
           description: A name that identifies this account
-        address:
-          $ref: '#/components/schemas/Address'
+        walletAccountOwner:
+          type: object
+          properties:
+            userId:
+              type: string
+              description: The user identifier
+              format: uuid
+              example: 45466ea6-512d-42c7-b57f-d11c53890456
     WalletAccounts:
       type: array
       items:
         $ref: '#/components/schemas/WalletAccount'
+    WalletAccountUserWithId:
+      allOf:
+        - $ref: '#/components/schemas/WalletAccountUser'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              description: The user identifier
+              format: uuid
+              example: 45466ea6-512d-42c7-b57f-d11c53890456
     WalletAccountUser:
       type: object
       properties:
-        id:
-          type: string
-          description: An identifier that represents the user in the Wallet Platform
-          example: 5e4203f3-c949-4e66-a732-9eaa803a3a66
         lastName:
           type: string
           description: User last name
+          example: John
         firstName:
           type: string
           description: User first name
+          example: Doe
         address:
           $ref: '#/components/schemas/Address'
-          description: User address
         email:
           type: string
           description: user email address
+          format: email
+          example: my-email@gmail.com
         phoneNumber:
           type: string
           description: User phone number
-          example: '+33613047943'
+          example: 00447307568957
+        mobileNumber:
+          type: string
+          description: User mobile number
+          example: 00447307568957
+        language:
+          type: string
+          description: User language
+          example: en
     WalletAccountUsers:
       type: array
       items:
