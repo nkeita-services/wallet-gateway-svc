@@ -8,6 +8,10 @@ interface AccountEntityInterface
 {
 
     /**
+     * @return array
+     */
+    public function toArray():array;
+    /**
      * @return string
      */
     public function getAccountType(): string;

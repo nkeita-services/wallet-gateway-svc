@@ -18,3 +18,11 @@ $router->get('/', function () use ($router) {
 $router->post('v1/wallets/accounts', [
     'uses' => 'Wallet\Account\CreateAccountController@create'
 ]);
+
+$router->post('v1/wallets/users', [
+    'uses' => 'Wallet\User\CreateUserController@create'
+]);
+
+$router->get('v1/wallets/users/{userId}', [
+    'uses' => 'Wallet\User\FetchUserDataController@fetch'
+]);

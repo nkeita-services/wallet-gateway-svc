@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Infrastructure\Api\Rest\Client\Account\AccountApiClientInterface;
 use GuzzleHttp\Client;
 use Infrastructure\Api\Rest\Client\Account\AccountApiGuzzleHttpClient;
+use Infrastructure\Api\Rest\Client\Account\Mapper\AccountMapper;
 
 class AccountApiClientProvider extends ServiceProvider
 {
@@ -16,7 +17,8 @@ class AccountApiClientProvider extends ServiceProvider
             return new AccountApiGuzzleHttpClient(
                 new Client([
                     'base_uri' => 'https://wallet-account-svc-py-fjhmnd5asa-ew.a.run.app'
-                ])
+                ]),
+                new AccountMapper()
             );
         });
     }

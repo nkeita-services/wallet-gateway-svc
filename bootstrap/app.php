@@ -10,6 +10,9 @@ require_once __DIR__.'/../vendor/autoload.php';
 use App\Providers\Infrastructure\Api\Rest\Client\Account\AccountApiClientProvider;
 use App\Providers\Domain\Wallet\Account\Service\AccountServiceProvider;
 use App\Providers\Domain\Wallet\Account\Respository\AccountRepositoryProvider;
+use App\Providers\Infrastructure\Api\Rest\Client\User\UserApiClientProvider;
+use App\Providers\Domain\Wallet\User\Repository\UserRepositoryProvider;
+use App\Providers\Domain\Wallet\User\Service\UserServiceProvider;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -83,6 +86,10 @@ $app->singleton(
  $app->register(AccountApiClientProvider::class);
  $app->register(AccountServiceProvider::class);
  $app->register(AccountRepositoryProvider::class);
+
+ $app->register(UserApiClientProvider::class);
+ $app->register(UserRepositoryProvider::class);
+ $app->register(UserServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

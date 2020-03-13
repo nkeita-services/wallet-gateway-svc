@@ -24,7 +24,7 @@ class AccountService implements AccountServiceInterface
     }
 
 
-    public function create(AccountEntityInterface $accountEntity)
+    public function create(AccountEntityInterface $accountEntity): AccountEntityInterface
     {
         return $this->accountRepository->create($accountEntity);
     }

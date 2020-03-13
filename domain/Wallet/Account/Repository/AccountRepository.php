@@ -20,9 +20,9 @@ class AccountRepository implements AccountRepositoryInterface
         $this->accountApiClient = $accountApiClient;
     }
 
-    public function create(AccountEntityInterface $accountEntity)
+    public function create(AccountEntityInterface $accountEntity): AccountEntityInterface
     {
-        $this->accountApiClient->create(
+        return $this->accountApiClient->create(
             [
                 'accountType' => $accountEntity->getAccountType(),
                 'balance'=>$accountEntity->getBalance(),

@@ -34,15 +34,12 @@ class CreateAccountController extends Controller
 
     public function create(Request $request)
     {
-        $account = $this->accountService->create(
-            $this->accountMapper::createAccountFromHttpRequest(
-                $request
-            )
+        return response()->json(
+            $this->accountService->create(
+                $this->accountMapper::createAccountFromHttpRequest(
+                    $request
+                )
+            )->toArray()
         );
-
-        dd($account);
-        return response()->json([
-            'yep' => 'yep'
-        ]);
     }
 }
