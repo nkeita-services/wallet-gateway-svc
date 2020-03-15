@@ -39,7 +39,11 @@ class FetchUserDataController extends Controller
         }
 
         return response()->json(
-            $this->userService->fetch($userId)->toArray()
+            [
+                'status'=>'success',
+                'data'=> $this->userService->fetch($userId)->toArray()
+            ]
+
         );
     }
 }

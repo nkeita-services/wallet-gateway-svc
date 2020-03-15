@@ -8,7 +8,15 @@ get:
       content:
         application/json:
           schema:
-            $ref: 'open-api-spec.yaml#/components/schemas/WalletAccounts'
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletAccounts:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountsWithId'
 post:
   summary: Create a wallet account
   tags:
@@ -26,4 +34,12 @@ post:
       content:
         application/json:
           schema:
-            $ref: 'open-api-spec.yaml#/components/schemas/WalletAccount'
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletAccount:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountWithId'

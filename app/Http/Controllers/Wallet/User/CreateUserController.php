@@ -11,7 +11,7 @@ use Wallet\Wallet\User\Service\UserService;
 use Wallet\Wallet\User\Service\UserServiceInterface;
 use Illuminate\Http\Request;
 
-class CreateUserController  extends Controller
+class CreateUserController extends Controller
 {
 
     /**
@@ -32,7 +32,8 @@ class CreateUserController  extends Controller
     public function __construct(
         UserMapper $userMapper,
         UserService $userService
-    ){
+    )
+    {
         $this->userMapper = $userMapper;
         $this->userService = $userService;
     }
@@ -40,7 +41,7 @@ class CreateUserController  extends Controller
 
     public function create(Request $request)
     {
-        if(!$request->get('ApiConsumer')->hasScope('wallet-gateway/CreateUsers')){
+        if (!$request->get('ApiConsumer')->hasScope('wallet-gateway/CreateUsers')) {
             return response()->json(
                 [
                     'status' => 'failure',
@@ -52,11 +53,15 @@ class CreateUserController  extends Controller
         }
 
         return response()->json(
-            $this->userService->create(
-                $this->userMapper::createUserFromHttpRequest(
-                    $request
-                )
-            )->toArray()
+            [
+                'status' => 'success',
+                'data' => $this->userService->create(
+                    $this->userMapper::createUserFromHttpRequest(
+                        $request
+                    )
+                )->toArray()
+            ]
+
         );
     }
 }

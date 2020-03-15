@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\Wallet\User\Mapper;
 
 
-use Laravel\Lumen\Http\Request;
+use Illuminate\Http\Request;
 use Wallet\User\Entity\UserEntity;
 use Wallet\User\Entity\UserEntityInterface;
 

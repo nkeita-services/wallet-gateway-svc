@@ -251,10 +251,26 @@ components:
               description: The user identifier
               format: uuid
               example: 45466ea6-512d-42c7-b57f-d11c53890456
+    WalletAccountWithId:
+      allOf:
+        - $ref: '#/components/schemas/WalletAccount'
+        - type: object
+          required:
+            - id
+          properties:
+            accountId:
+              type: string
+              description: Account identifier
+              format: uuid
+              example: 45466ea6-512d-42c7-b57f-d11c53890456
     WalletAccounts:
       type: array
       items:
         $ref: '#/components/schemas/WalletAccount'
+    WalletAccountsWithId:
+      type: array
+      items:
+        $ref: '#/components/schemas/WalletAccountWithId'
     WalletAccountUserWithId:
       allOf:
         - $ref: '#/components/schemas/WalletAccountUser'
