@@ -32,7 +32,7 @@ class CreateAccountController extends Controller
         $this->accountMapper = $accountMapper;
     }
 
-    public function create(Request $request)
+    public function create($userId, Request $request)
     {
         if(!$request->get('ApiConsumer')->hasScope('wallet-gateway/CreateAccounts')){
             return response()->json(
@@ -49,7 +49,9 @@ class CreateAccountController extends Controller
             $this->accountService->create(
                 $this->accountMapper::createAccountFromHttpRequest(
                     $request
-                )
+                ),
+                $userId,
+                $request->get('ApiConsumer')->getOrganizations()
             )->toArray()
         );
     }

@@ -18,4 +18,9 @@ interface ClientInterface
      * @return bool
      */
     public function hasScope(string $scope):bool;
+
+    /**
+     * @return array
+     */
+    public function getOrganizations(): array;
 }

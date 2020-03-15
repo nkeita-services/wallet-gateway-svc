@@ -19,13 +19,22 @@ class AccountService implements AccountServiceInterface
      */
     public function __construct(
         AccountRepositoryInterface $accountRepository
-    ){
+    )
+    {
         $this->accountRepository = $accountRepository;
     }
 
 
-    public function create(AccountEntityInterface $accountEntity): AccountEntityInterface
+    public function create(
+        AccountEntityInterface $accountEntity,
+        string $userId,
+        array $organizations
+    ): AccountEntityInterface
     {
-        return $this->accountRepository->create($accountEntity);
+        return $this->accountRepository->create(
+            $accountEntity,
+            $userId,
+            $organizations
+        );
     }
 }

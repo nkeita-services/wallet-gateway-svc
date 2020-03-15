@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\Wallet\Account\Mapper;
 
 
-use Laravel\Lumen\Http\Request;
+use Illuminate\Http\Request;
 use Wallet\Account\Entity\AccountEntity;
 use Wallet\Account\Entity\AccountEntityInterface;
 
@@ -19,7 +19,8 @@ class AccountMapper implements AccountMapperInterface
            [
                'accountType' => $payload['accountType'],
                'balance' => $payload['balance'],
-               'userId' => $payload['walletAccountOwner']['userId']
+               'userId' => $payload['walletAccountOwner']['userId'],
+               'walletPlanId'=> $payload['walletPlanId']
            ]
         );
     }

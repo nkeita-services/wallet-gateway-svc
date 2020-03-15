@@ -47,5 +47,15 @@ class Client implements ClientInterface
         return in_array($scopeName, $this->scopes);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getOrganizations(): array
+    {
+        return [
+            '3288603f-adf8-453e-b4e9-cbad4805f86c'
+        ];
+    }
+
 
 }

@@ -35,6 +35,7 @@ class AccountApiGuzzleHttpClient implements AccountApiClientInterface
 
     public function create(array $accountPayload): AccountEntityInterface
     {
+        var_dump($accountPayload);exit;
         $response = $this->guzzleClient->post('/v1/accounts', [
             RequestOptions::JSON => $accountPayload
         ]);

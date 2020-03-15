@@ -24,4 +24,19 @@ interface AccountEntityInterface
      * @return string|null
      */
     public function getUserId(): ?string;
+
+    /**
+     * @return string
+     */
+    public function getWalletPlanId(): string;
+
+    /**
+     * @return array
+     */
+    public function getOrganizations(): array;
+
+    /**
+     * @return string
+     */
+    public function getAccountId(): string;
 }

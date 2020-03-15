@@ -24,6 +24,16 @@ class AccountEntity implements AccountEntityInterface
     /**
      * @var string
      */
+    private $walletPlanId;
+
+    /**
+     * @var array
+     */
+    private $organizations;
+
+    /**
+     * @var string
+     */
     private $accountId;
 
     /**
@@ -31,13 +41,23 @@ class AccountEntity implements AccountEntityInterface
      * @param string $accountType
      * @param float|null $balance
      * @param string|null $userId
+     * @param string $walletPlanId
      * @param string $accountId
+     * @param array $organizations
      */
-    public function __construct(string $accountType, ?float $balance, ?string $userId, ?string $accountId)
+    public function __construct(
+        string $accountType,
+        float $balance,
+        string $userId,
+        string $walletPlanId,
+        string $accountId = null,
+        array $organizations = null)
     {
         $this->accountType = $accountType;
         $this->balance = $balance;
         $this->userId = $userId;
+        $this->walletPlanId = $walletPlanId;
+        $this->organizations = $organizations;
         $this->accountId = $accountId;
     }
 
@@ -47,8 +67,8 @@ class AccountEntity implements AccountEntityInterface
         return new static(
             $data['accountType'] ?? 'regular',
             $data['balance'] ?? 0,
-            $data['userId'] ?? null,
-            $data['accountId'] ?? null
+            $data['userId'],
+            $data['walletPlanId']
         );
     }
 
@@ -61,10 +81,11 @@ class AccountEntity implements AccountEntityInterface
             'accountType' => $this->accountType,
             'userId' => $this->userId,
             'balance' => $this->balance,
-            'accountId' => $this->accountId
+            'accountId' => $this->accountId,
+            'walletPlanId'=>$this->walletPlanId,
+            'organizations'=>$this->organizations
         ];
     }
-
 
     /**
      * @return string
@@ -88,5 +109,29 @@ class AccountEntity implements AccountEntityInterface
     public function getUserId(): ?string
     {
         return $this->userId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWalletPlanId(): string
+    {
+        return $this->walletPlanId;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrganizations(): array
+    {
+        return $this->organizations;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccountId(): string
+    {
+        return $this->accountId;
     }
 }

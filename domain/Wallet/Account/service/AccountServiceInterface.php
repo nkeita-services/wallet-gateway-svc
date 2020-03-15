@@ -10,7 +10,13 @@ interface AccountServiceInterface
 {
     /**
      * @param AccountEntityInterface $accountEntity
+     * @param string $userId
+     * @param array $organizations
      * @return AccountEntityInterface
      */
-    public function create(AccountEntityInterface $accountEntity): AccountEntityInterface;
+    public function create(
+        AccountEntityInterface $accountEntity,
+        string $userId,
+        array $organizations
+    ): AccountEntityInterface;
 }

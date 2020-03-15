@@ -31,9 +31,50 @@ info:
 
     ## Authentication
 
+    Access to the API is controlled by Oauth2 Client Credentials Grant
+    The client needs to request an access token from [NBK Oauth2 Server link](https://nbk-wallet.auth.eu-west-1.amazoncognito.com/oauth2/token) by providing a client id and a client secret.
+    This access token must be added as a Bearer Token to all requests against the Wallet Gateway
+
     # Responses
 
+    ## HTTP Response Codes
+    | Status Code | Usage                                                       |
+    |-------------|-------------------------------------------------------------|
+    | 200         | The request completed successfully                          |
+    | 201         | A new resource has been created                             |
+    | 400         | Malformed request                                           |
+    | 401         | Missing access token                                        |
+    | 403         | The client does not have permission to access this resource |
+    | 404         | Resource not found                                          |
+    | 405         | Method not supported                                        |
+    | 500         | Internal server error                                       |
+    | 503         | Service unvailable                                          |
+
+    ## Errors
+    whenever an error occured within the platform, an error response that describes the problem will be returned
+
+    | Field Name        | Field Description     |
+    |-------------------|-----------------------|
+    | Status            | "fail" or "error"     |
+    | StatusCode        | A business error code |
+    | StatusDescription | Error description     |
+
+    ## Error codes
+
+    | Error Code | Error Description                                |
+    |------------|--------------------------------------------------|
+    | 4001       | Can't obtain the list of wallet account users    |
+    | 4010       | Can't create the wallet account user             |
+    | 4020       | Wallet account user not found                    |
+    | 4030       | Can't obtain wallet account user data            |
+    | 4040       | Unable to update wallet account user informatiom |
+    | 4000       | Invalid Request                                  |
+    | 4050       | System Error                                     |
+
     # Changelog
+
+    ## 2019-11-05
+    * Created .....
 
     # Useful links
 
