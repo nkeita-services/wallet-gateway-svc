@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Wallet\Account;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Wallet\Account\Mapper\AccountMapper;
 use App\Http\Controllers\Wallet\Account\Mapper\AccountMapperInterface;
-use Laravel\Lumen\Http\Request;
+use Illuminate\Http\Request;
 use Wallet\Account\Service\AccountService;
 use Wallet\Account\Service\AccountServiceInterface;
 
@@ -34,6 +34,17 @@ class CreateAccountController extends Controller
 
     public function create(Request $request)
     {
+        if(!$request->get('ApiConsumer')->hasScope('wallet-gateway/CreateAccounts')){
+            return response()->json(
+                [
+                    'status' => 'failure',
+                    'statusCode' => 0,
+                    'statusDescription' => "You don't seem to have enough permissions to perform this action"
+                ],
+                401
+            );
+        }
+
         return response()->json(
             $this->accountService->create(
                 $this->accountMapper::createAccountFromHttpRequest(

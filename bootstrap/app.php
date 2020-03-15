@@ -13,6 +13,7 @@ use App\Providers\Domain\Wallet\Account\Respository\AccountRepositoryProvider;
 use App\Providers\Infrastructure\Api\Rest\Client\User\UserApiClientProvider;
 use App\Providers\Domain\Wallet\User\Repository\UserRepositoryProvider;
 use App\Providers\Domain\Wallet\User\Service\UserServiceProvider;
+use App\Http\Middleware\OAuth2ClientCredentials;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -64,13 +65,9 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
-
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+ $app->routeMiddleware([
+     'auth' => OAuth2ClientCredentials::class,
+ ]);
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +87,8 @@ $app->singleton(
  $app->register(UserApiClientProvider::class);
  $app->register(UserRepositoryProvider::class);
  $app->register(UserServiceProvider::class);
+
+ //$app->register(\App\Providers\AuthServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

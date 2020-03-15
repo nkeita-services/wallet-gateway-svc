@@ -16,13 +16,16 @@ $router->get('/', function () use ($router) {
 });
 
 $router->post('v1/wallets/accounts', [
-    'uses' => 'Wallet\Account\CreateAccountController@create'
+    'uses' => 'Wallet\Account\CreateAccountController@create',
+    'middleware'=>'auth'
 ]);
 
 $router->post('v1/wallets/users', [
-    'uses' => 'Wallet\User\CreateUserController@create'
+    'uses' => 'Wallet\User\CreateUserController@create',
+    'middleware'=>'auth'
 ]);
 
 $router->get('v1/wallets/users/{userId}', [
-    'uses' => 'Wallet\User\FetchUserDataController@fetch'
+    'uses' => 'Wallet\User\FetchUserDataController@fetch',
+    'middleware'=>'auth'
 ]);
