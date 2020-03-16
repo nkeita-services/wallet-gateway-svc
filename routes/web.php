@@ -29,3 +29,8 @@ $router->post('v1/wallets/users/{userId}/accounts', [
     'uses' => 'Wallet\Account\CreateAccountController@create',
     'middleware'=>'auth'
 ]);
+
+$router->get('v1/wallets/users/{userId}/accounts', [
+    'uses' => 'Wallet\Account\FetchUserAccountsController@fetch',
+    'middleware'=>'auth'
+]);

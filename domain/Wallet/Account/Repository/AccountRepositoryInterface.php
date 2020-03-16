@@ -19,4 +19,9 @@ interface AccountRepositoryInterface
         string $userId,
         array $organizations
     ): AccountEntityInterface;
+
+
+    public function fetchAll(
+        string $userId
+    );
 }
