@@ -1,5 +1,8 @@
 get:
   summary: Obtain user data
+  security:
+    - oAuth2:
+      - GetUser
   tags:
     - Wallet Account Users
   parameters:
@@ -24,7 +27,10 @@ get:
                   walletAccountUser:
                     $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountUserWithId'
 patch:
-  summary: Update wallet account
+  summary: Update User Data
+  security:
+    - oAuth2:
+      - UpdateUserData
   tags:
     - Wallet Account Users
   parameters:

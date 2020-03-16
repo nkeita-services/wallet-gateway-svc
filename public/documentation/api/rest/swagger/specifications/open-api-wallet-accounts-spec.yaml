@@ -1,5 +1,8 @@
 get:
   summary: Obtain a list of wallet accounts
+  security:
+    - oAuth2:
+      - ListUserAccounts
   tags:
     - Wallet Accounts
   parameters:
@@ -25,6 +28,9 @@ get:
                     $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountsWithId'
 post:
   summary: Create wallet account
+  security:
+    - oAuth2:
+      - CreateUserAccounts
   tags:
     - Wallet Accounts
   parameters:

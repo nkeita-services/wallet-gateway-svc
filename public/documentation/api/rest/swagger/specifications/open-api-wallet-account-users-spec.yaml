@@ -1,5 +1,8 @@
 get:
   summary: Obtain a list of wallet account users
+  security:
+    - oAuth2:
+      - UpdateUserData
   tags:
     - Wallet Account Users
   responses:
@@ -22,6 +25,9 @@ get:
 
 post:
   summary: Create a wallet account user
+  security:
+    - oAuth2:
+        - CreateUsers
   tags:
     - Wallet Account Users
   requestBody:

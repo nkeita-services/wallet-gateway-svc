@@ -8,32 +8,24 @@ info:
     # Wallet API components
 
     ## Wallet Plans
-    A wallet plan is used to group common characteristics of a set of wallet accounts. For example, the default currency to use or the balance threshold allowed
+    A wallet plan is used to group wallet accounts that share common charactersistics. For example, the default currency to use or the balance threshold allowed
     for the associed accounts
 
     ## Wallet Organizations
-    Each legal authority that uses our wallet gateway needs to be linked with a wallet organization. It could be a company or any type of organizations. That is where
+    Each legal authority that uses our wallet gateway is associated to a wallet organization. It could be a company or any type of organizations. That is where
     KYB or legal documents operations take place
 
     ## Wallet Accounts
     An account is what represents user interactions with our gateway
 
     ## Wallet Account Users
-    User personal information are handled separately from their acconuts. So we can apply specific security constraints
+    User personal information are handled separately from their accounts. So we can apply specific security constraints like KYC documents
 
     ## Wallet Fees
     Operations on wallet components generate fees that are applied to organization master accounts
 
     ## Wallet Remittance
     This component give access to wallet networks for value transfer. It encapsulates all the inter-wallet operations
-
-    # Security
-
-    ## Authentication
-
-    Access to the API is controlled by Oauth2 Client Credentials Grant
-    The client needs to request an access token from [NBK Oauth2 Server link](https://nbk-wallet.auth.eu-west-1.amazoncognito.com/oauth2/token) by providing a client id and a client secret.
-    This access token must be added as a Bearer Token to all requests against the Wallet Gateway
 
     # Responses
 
@@ -63,13 +55,10 @@ info:
 
     | Error Code | Error Description                                |
     |------------|--------------------------------------------------|
-    | 4001       | Can't obtain the list of wallet account users    |
-    | 4010       | Can't create the wallet account user             |
-    | 4020       | Wallet account user not found                    |
-    | 4030       | Can't obtain wallet account user data            |
-    | 4040       | Unable to update wallet account user informatiom |
-    | 4000       | Invalid Request                                  |
-    | 4050       | System Error                                     |
+    | 0001       | Can't obtain the list of wallet account users    |
+    | 0002       | Can't create the wallet account user             |
+    | 0003       | Wallet account user not found                    |
+    | 0004       | Can't obtain wallet account user data            |
 
     # Changelog
 
@@ -137,6 +126,20 @@ paths:
   /v1/wallets/remittances:
     $ref: 'open-api-wallet-remittances-spec.yaml'
 components:
+  securitySchemes:
+    oAuth2:
+      type: oauth2
+      description: This API uses OAuth 2 with the client credentials grant flow
+      flows:
+        clientCredentials:
+          tokenUrl: https://nbk-wallet.auth.eu-west-1.amazoncognito.com/oauth2/token
+          scopes:
+            CreateUsers: Create Users
+            GetUser: Get User data
+            ListUsers: List Users
+            UpdateUserData: Update user data
+            CreateUserAccounts: Create Accounts
+            ListUserAccounts: List Accounts
   schemas:
     ResponseStatus:
       type: string
