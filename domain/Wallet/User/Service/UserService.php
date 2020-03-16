@@ -26,10 +26,14 @@ class UserService implements UserServiceInterface
     /**
      * @inheritDoc
      */
-    public function create(UserEntityInterface $userEntity): UserEntityInterface
+    public function create(
+        UserEntityInterface $userEntity,
+        array $organizations
+    ): UserEntityInterface
     {
         return $this->userRepository->create(
-            $userEntity
+            $userEntity,
+            $organizations
         );
     }
 

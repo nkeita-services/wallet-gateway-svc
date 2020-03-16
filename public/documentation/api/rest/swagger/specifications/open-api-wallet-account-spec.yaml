@@ -5,6 +5,11 @@ get:
   parameters:
     - in: path
       required: true
+      name: userId
+      schema:
+        type: string
+    - in: path
+      required: true
       name: accountId
       schema:
         type: string
@@ -20,6 +25,11 @@ patch:
   tags:
     - Wallet Accounts
   parameters:
+    - in: path
+      required: true
+      name: userId
+      schema:
+        type: string
     - in: path
       required: true
       name: accountId

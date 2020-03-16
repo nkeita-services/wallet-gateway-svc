@@ -36,6 +36,7 @@ class UserApiGuzzleHttpClient implements UserApiClientInterface
 
     public function create(array $userPayload)
     {
+
         $response = $this->guzzleClient->post('/v1/users', [
             RequestOptions::JSON => $userPayload
         ]);
@@ -47,7 +48,10 @@ class UserApiGuzzleHttpClient implements UserApiClientInterface
 
     public function get(string $userId): UserEntityInterface
     {
-        $response = $this->guzzleClient->get(sprintf('/v1/users/%s', $userId));
+
+        $response = $this->guzzleClient->get(
+            sprintf('/v1/users/%s', $userId)
+        );
 
         return $this->userMapper->createUserFromApiResponse(
             $response

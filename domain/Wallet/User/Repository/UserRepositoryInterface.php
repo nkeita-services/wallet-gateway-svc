@@ -11,9 +11,13 @@ interface UserRepositoryInterface
 
     /**
      * @param UserEntityInterface $userEntity
+     * @param array $organizations
      * @return UserEntityInterface
      */
-    public function create(UserEntityInterface $userEntity):UserEntityInterface;
+    public function create(
+        UserEntityInterface $userEntity,
+        array $organizations
+    ):UserEntityInterface;
 
     /**
      * @param string $userId

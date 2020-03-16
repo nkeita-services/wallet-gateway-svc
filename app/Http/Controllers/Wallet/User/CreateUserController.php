@@ -58,7 +58,8 @@ class CreateUserController extends Controller
                 'data' => $this->userService->create(
                     $this->userMapper::createUserFromHttpRequest(
                         $request
-                    )
+                    ),
+                    $request->get('ApiConsumer')->getOrganizations()
                 )->toArray()
             ]
 

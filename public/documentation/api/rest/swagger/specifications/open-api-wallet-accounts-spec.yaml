@@ -2,6 +2,12 @@ get:
   summary: Obtain a list of wallet accounts
   tags:
     - Wallet Accounts
+  parameters:
+    - in: path
+      required: true
+      name: userId
+      schema:
+        type: string
   responses:
     '200':
       description: Successfully obtained the list of wallet accounts
@@ -18,11 +24,17 @@ get:
                   walletAccounts:
                     $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountsWithId'
 post:
-  summary: Create a wallet account
+  summary: Create wallet account
   tags:
     - Wallet Accounts
+  parameters:
+    - in: path
+      required: true
+      name: userId
+      schema:
+        type: string
   requestBody:
-    description: The wallet account info
+    description: wallet account data
     required: true
     content:
       application/json:

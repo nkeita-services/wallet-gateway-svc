@@ -116,6 +116,14 @@ tags:
     externalDocs:
       url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
 paths:
+  /v1/wallets/users:
+    $ref: 'open-api-wallet-account-users-spec.yaml'
+  /v1/wallets/users/{userId}:
+    $ref: 'open-api-wallet-account-user-spec.yaml'
+  /v1/wallets/users/{userId}/accounts:
+    $ref: 'open-api-wallet-accounts-spec.yaml'
+  /v1/wallets/users/{userId}/accounts/{accountId}:
+    $ref: 'open-api-wallet-account-spec.yaml'
   /v1/wallets/plans:
     $ref: 'open-api-wallet-plans-spec.yaml'
   /v1/wallets/plans/{planId}:
@@ -124,12 +132,6 @@ paths:
     $ref: 'open-api-wallet-organizations-spec.yaml'
   /v1/wallets/organizations/{organizationId}:
     $ref: 'open-api-wallet-organization-spec.yaml'
-  /v1/wallets/accounts:
-    $ref: 'open-api-wallet-accounts-spec.yaml'
-  /v1/wallets/accounts/{accountId}:
-    $ref: 'open-api-wallet-account-spec.yaml'
-  /v1/wallets/accounts/users:
-    $ref: 'open-api-wallet-account-users-spec.yaml'
   /v1/wallets/fees:
     $ref: 'open-api-wallet-fees-spec.yaml'
   /v1/wallets/remittances:
@@ -256,7 +258,7 @@ components:
         - $ref: '#/components/schemas/WalletAccount'
         - type: object
           required:
-            - id
+            - accountId
           properties:
             accountId:
               type: string
@@ -276,9 +278,9 @@ components:
         - $ref: '#/components/schemas/WalletAccountUser'
         - type: object
           required:
-            - id
+            - userId
           properties:
-            id:
+            userId:
               type: string
               description: The user identifier
               format: uuid
@@ -317,6 +319,10 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/WalletAccountUser'
+    WalletAccountUsersWithId:
+      type: array
+      items:
+        $ref: '#/components/schemas/WalletAccountUserWithId'
     WalletFee:
       type: object
       properties:

@@ -65,7 +65,7 @@ class UserEntity implements UserEntityInterface
      * @param array $walletOrganizations
      * @param string $userId
      */
-    public function __construct(string $lastName, string $firstName, array $address, string $email, string $phoneNumber, string $mobileNumber, string $language, array $walletOrganizations, string $userId = null)
+    public function __construct(string $lastName, string $firstName, array $address, string $email, string $phoneNumber, string $mobileNumber, string $language, array $walletOrganizations = null, string $userId = null)
     {
         $this->lastName = $lastName;
         $this->firstName = $firstName;

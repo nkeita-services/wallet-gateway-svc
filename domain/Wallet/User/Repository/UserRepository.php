@@ -26,7 +26,12 @@ class UserRepository implements UserRepositoryInterface
     }
 
 
-    public function create(UserEntityInterface $userEntity): UserEntityInterface
+    /**
+     * @param UserEntityInterface $userEntity
+     * @param array $organizations
+     * @return UserEntityInterface
+     */
+    public function create(UserEntityInterface $userEntity, array $organizations): UserEntityInterface
     {
         return $this->userApiClient->create([
             'lastName' => $userEntity->getLastName(),
@@ -36,7 +41,7 @@ class UserRepository implements UserRepositoryInterface
             'phoneNumber' => $userEntity->getPhoneNumber(),
             'mobileNumber' => $userEntity->getMobileNumber(),
             'language' => $userEntity->getMobileNumber(),
-            'walletOrganizations' => $userEntity->getWalletOrganizations()
+            'walletOrganizations' => $organizations
         ]);
     }
 

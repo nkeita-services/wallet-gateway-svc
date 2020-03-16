@@ -25,8 +25,7 @@ class UserMapper implements UserMapperInterface
             $payload['email'],
             $payload['phoneNumber'],
             $payload['mobileNumber'],
-            $payload['language'],
-            $payload['walletOrganizations']
+            $payload['language']
         );
     }
 }

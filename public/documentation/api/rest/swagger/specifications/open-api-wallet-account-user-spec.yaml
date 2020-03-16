@@ -1,10 +1,16 @@
 get:
-  summary: Obtain a list of wallet account users
+  summary: Obtain user data
   tags:
     - Wallet Account Users
+  parameters:
+    - in: path
+      required: true
+      name: userId
+      schema:
+        type: string
   responses:
     '200':
-      description: Successfully obtained the list of wallet account users
+      description: Successfully user data
       content:
         application/json:
           schema:
@@ -15,17 +21,20 @@ get:
               data:
                 type: object
                 properties:
-                  walletAccounts:
-                    $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountUsersWithId'
-    '404':
-      description: User not found in the Wallet Platform
-
-post:
-  summary: Create a wallet account user
+                  walletAccountUser:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountUserWithId'
+patch:
+  summary: Update wallet account
   tags:
     - Wallet Account Users
+  parameters:
+    - in: path
+      required: true
+      name: userId
+      schema:
+        type: string
   requestBody:
-    description: The wallet account user info
+    description: The wallet user data
     required: true
     content:
       application/json:
@@ -33,7 +42,7 @@ post:
           $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountUser'
   responses:
     '200':
-      description: Successfully create the wallet account user
+      description: Successfully patched wallet user
       content:
         application/json:
           schema:
@@ -44,5 +53,5 @@ post:
               data:
                 type: object
                 properties:
-                  walletAccount:
+                  walletAccountUser:
                     $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountUserWithId'
