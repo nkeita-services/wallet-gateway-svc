@@ -44,7 +44,7 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      */
     public function render($request, Exception $exception)
-    {   die($exception->getMessage());
+    {   var_dump($exception->getMessage());exit;
         return parent::render($request, $exception);
     }
 }
