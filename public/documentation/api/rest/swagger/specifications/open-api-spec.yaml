@@ -62,8 +62,12 @@ info:
 
     # Changelog
 
-    ## 2019-11-05
-    * Created .....
+    ## 2020-03-17
+
+    * OAUTH2 Client Credentials
+    * Create new User endpoint
+    * Get user information
+    * Create new Account endpoint
 
     # Useful links
 
