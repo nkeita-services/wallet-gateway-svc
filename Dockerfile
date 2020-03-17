@@ -15,7 +15,6 @@ RUN apt-get update -y && \
     docker-php-ext-install gmp
 
 COPY . /var/www/html/
-RUN chmod -R 777 /var/www/html/
 WORKDIR /var/www/html
 RUN composer install
 
@@ -26,6 +25,8 @@ RUN a2enmod rewrite
 
 # Copy local code to the container image.
 COPY . /var/www/html/
+RUN chown -R www-data:www-data /var/www/html
+RUN chmod -R 777 /var/www/html/storage
 COPY --from=0 /var/www/html/vendor /var/www/html/vendor
 
 # Use the PORT environment variable in Apache configuration files.
