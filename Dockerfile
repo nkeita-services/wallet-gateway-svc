@@ -15,6 +15,7 @@ RUN apt-get update -y && \
     docker-php-ext-install gmp
 
 COPY . /var/www/html/
+RUN chmod -R 777 /var/www/html/
 WORKDIR /var/www/html
 RUN composer install
 
