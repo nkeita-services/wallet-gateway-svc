@@ -1,5 +1,8 @@
 get:
-  summary: Obtain a wallet account info
+  summary: Obtain wallet account info
+  security:
+    - oAuth2:
+        - GetAccountInfo
   tags:
     - Wallet Accounts
   parameters:
@@ -19,9 +22,20 @@ get:
       content:
         application/json:
           schema:
-            $ref: 'open-api-spec.yaml#/components/schemas/WalletAccount'
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletAccount:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountWithId'
 patch:
-  summary: Update a wallet account
+  summary: Update wallet account
+  security:
+    - oAuth2:
+        - UpdateAccountInfo
   tags:
     - Wallet Accounts
   parameters:
@@ -48,4 +62,12 @@ patch:
       content:
         application/json:
           schema:
-            $ref: 'open-api-spec.yaml#/components/schemas/WalletAccount'
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletAccount:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountWithId'

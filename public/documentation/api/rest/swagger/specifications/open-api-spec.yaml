@@ -144,6 +144,8 @@ components:
             UpdateUserData: Update user data
             CreateUserAccounts: Create Accounts
             ListUserAccounts: List Accounts
+            GetAccountInfo: Get Account Infos
+            UpdateAccountInfo: Update Account Infos
   schemas:
     ResponseStatus:
       type: string

@@ -19,4 +19,11 @@ interface AccountApiClientInterface
      * @return AccountCollectionInterface
      */
     public function fetchAll(array $filter): AccountCollectionInterface;
+
+    /**
+     * @param string $userId
+     * @param array $data
+     * @return AccountEntityInterface
+     */
+    public function update(string $userId, array $data):AccountEntityInterface;
 }

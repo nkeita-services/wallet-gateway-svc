@@ -34,3 +34,8 @@ $router->get('v1/wallets/users/{userId}/accounts', [
     'uses' => 'Wallet\Account\FetchUserAccountsController@fetch',
     'middleware'=>'auth'
 ]);
+
+$router->patch('v1/wallets/users/{userId}/accounts/{accountId}', [
+    'uses' => 'Wallet\Account\UpdateAccountController@update',
+    'middleware'=>'auth'
+]);

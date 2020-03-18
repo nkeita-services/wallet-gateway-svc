@@ -31,4 +31,18 @@ interface AccountRepositoryInterface
         string $userId,
         array $organizations
     ): AccountCollectionInterface;
+
+    /**
+     * @param string $userId
+     * @param string $accountId
+     * @param array $organizations
+     * @param array $data
+     * @return AccountEntityInterface
+     */
+    public function updateWithUserAndAccountAndOrganizations(
+        string $userId,
+        string $accountId,
+        array $organizations,
+        array $data
+    ): AccountEntityInterface;
 }

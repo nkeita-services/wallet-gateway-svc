@@ -44,12 +44,30 @@ class AccountRepository implements AccountRepositoryInterface
     public function fetchAllWithUserAndOrganizations(
         string $userId,
         array $organizations
-    ): AccountCollectionInterface{
+    ): AccountCollectionInterface
+    {
         return $this
             ->accountApiClient
             ->fetchAll([
-                'userId'=>$userId
+                'userId' => $userId
             ]);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateWithUserAndAccountAndOrganizations(
+        string $userId,
+        string $accountId,
+        array $organizations,
+        array $data
+    ): AccountEntityInterface
+    {
+        return $this
+            ->accountApiClient
+            ->update(
+                $accountId,
+                $data);
     }
 
 

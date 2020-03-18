@@ -25,7 +25,9 @@ class AccountService implements AccountServiceInterface
         $this->accountRepository = $accountRepository;
     }
 
-
+    /**
+     * @inheritDoc
+     */
     public function create(
         AccountEntityInterface $accountEntity,
         string $userId,
@@ -45,7 +47,8 @@ class AccountService implements AccountServiceInterface
     public function fetchAllWithUserAndOrganizations(
         string $userId,
         array $organizations
-    ): AccountCollectionInterface{
+    ): AccountCollectionInterface
+    {
         return $this
             ->accountRepository
             ->fetchAllWithUserAndOrganizations(
@@ -53,4 +56,26 @@ class AccountService implements AccountServiceInterface
                 $organizations
             );
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateWithUserAndAccountAndOrganizations(
+        string $userId,
+        string $accountId,
+        array $organizations,
+        array $data
+    ): AccountEntityInterface
+    {
+        return $this
+            ->accountRepository
+            ->updateWithUserAndAccountAndOrganizations(
+                $userId,
+                $accountId,
+                $organizations,
+                $data
+            );
+    }
+
+
 }
