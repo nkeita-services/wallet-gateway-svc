@@ -48,13 +48,15 @@ class CreateAccountController extends Controller
         return response()->json(
             [
                 'status' => 'success',
-                'data' => $this->accountService->create(
-                    $this->accountMapper::createAccountFromHttpRequest(
-                        $request
-                    ),
-                    $userId,
-                    $request->get('ApiConsumer')->getOrganizations()
-                )->toArray()
+                'data' => [
+                    'walletAccount' => $this->accountService->create(
+                        $this->accountMapper::createAccountFromHttpRequest(
+                            $request
+                        ),
+                        $userId,
+                        $request->get('ApiConsumer')->getOrganizations()
+                    )->toArray()
+                ]
             ]
 
         );

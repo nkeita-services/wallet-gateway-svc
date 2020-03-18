@@ -55,12 +55,14 @@ class CreateUserController extends Controller
         return response()->json(
             [
                 'status' => 'success',
-                'data' => $this->userService->create(
-                    $this->userMapper::createUserFromHttpRequest(
-                        $request
-                    ),
-                    $request->get('ApiConsumer')->getOrganizations()
-                )->toArray()
+                'data' => [
+                    'walletAccountUser' => $this->userService->create(
+                        $this->userMapper::createUserFromHttpRequest(
+                            $request
+                        ),
+                        $request->get('ApiConsumer')->getOrganizations()
+                    )->toArray()
+                ]
             ]
 
         );

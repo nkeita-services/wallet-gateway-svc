@@ -27,7 +27,7 @@ class FetchUserDataController extends Controller
 
     public function fetch($userId, Request $request)
     {
-        if(!$request->get('ApiConsumer')->hasScope('wallet-gateway/GetUser')){
+        if (!$request->get('ApiConsumer')->hasScope('wallet-gateway/GetUser')) {
             return response()->json(
                 [
                     'status' => 'failure',
@@ -40,8 +40,10 @@ class FetchUserDataController extends Controller
 
         return response()->json(
             [
-                'status'=>'success',
-                'data'=> $this->userService->fetch($userId)->toArray()
+                'status' => 'success',
+                'data' => [
+                    'walletAccountUser' => $this->userService->fetch($userId)->toArray()
+                ]
             ]
 
         );
