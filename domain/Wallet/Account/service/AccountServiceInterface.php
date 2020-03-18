@@ -5,6 +5,7 @@ namespace Wallet\Account\Service;
 
 
 use Wallet\Account\Entity\AccountEntityInterface;
+use Wallet\Wallet\Account\Collection\AccountCollectionInterface;
 
 interface AccountServiceInterface
 {
@@ -19,4 +20,14 @@ interface AccountServiceInterface
         string $userId,
         array $organizations
     ): AccountEntityInterface;
+
+    /**
+     * @param string $userId
+     * @param array $organizations
+     * @return AccountCollectionInterface
+     */
+    public function fetchAllWithUserAndOrganizations(
+        string $userId,
+        array $organizations
+    ):AccountCollectionInterface;
 }

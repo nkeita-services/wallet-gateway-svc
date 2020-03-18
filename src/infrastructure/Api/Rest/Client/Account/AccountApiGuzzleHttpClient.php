@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Infrastructure\Api\Rest\Client\Account\Mapper\AccountMapperInterface;
 use Wallet\Account\Entity\AccountEntityInterface;
+use Wallet\Wallet\Account\Collection\AccountCollectionInterface;
 
 class AccountApiGuzzleHttpClient implements AccountApiClientInterface
 {
@@ -44,4 +45,22 @@ class AccountApiGuzzleHttpClient implements AccountApiClientInterface
             $response
         );
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetchAll(array $filter): AccountCollectionInterface
+    {
+        $response = $this->guzzleClient->get('/v1/accounts', [
+            RequestOptions::QUERY => $filter
+        ]);
+
+        return $this
+            ->accountMapper
+            ->createAccountCollectionFromApiResponse(
+                $response
+            );
+    }
+
+
 }

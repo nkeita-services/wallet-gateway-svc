@@ -19,7 +19,6 @@ class AccountMapper implements AccountMapperInterface
            [
                'accountType' => $payload['accountType'],
                'balance' => $payload['balance'],
-               'userId' => $payload['walletAccountOwner']['userId'],
                'walletPlanId'=> $payload['walletPlanId']
            ]
         );

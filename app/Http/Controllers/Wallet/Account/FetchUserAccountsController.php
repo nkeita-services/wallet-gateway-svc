@@ -23,9 +23,10 @@ class FetchUserAccountsController extends Controller
     {
         $this->accountService = $accountService;
     }
+
     public function fetch($userId, Request $request)
     {
-        if(!$request->get('ApiConsumer')->hasScope('wallet-gateway/ListUserAccounts')){
+        if (!$request->get('ApiConsumer')->hasScope('wallet-gateway/ListUserAccounts')) {
             return response()->json(
                 [
                     'status' => 'failure',
@@ -38,11 +39,15 @@ class FetchUserAccountsController extends Controller
 
         return response()->json(
             [
-                'status'=>'success',
-                'data'=> $this->accountService->fetch($userId)->toArray()
+                'status' => 'success',
+                'data' => [
+                    'walletAccounts' => $this->accountService->fetchAllWithUserAndOrganizations(
+                        $userId,
+                        $request->get('ApiConsumer')->getOrganizations()
+                    )->toArray()
+                ]
             ]
 
         );
     }
-
 }

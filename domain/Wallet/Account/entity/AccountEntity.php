@@ -46,10 +46,10 @@ class AccountEntity implements AccountEntityInterface
      * @param array $organizations
      */
     public function __construct(
-        string $accountType,
-        float $balance,
-        string $userId,
-        string $walletPlanId,
+        string $accountType = null,
+        float $balance = 0,
+        string $userId = null,
+        string $walletPlanId = null,
         string $accountId = null,
         array $organizations = null)
     {
@@ -67,8 +67,10 @@ class AccountEntity implements AccountEntityInterface
         return new static(
             $data['accountType'] ?? 'regular',
             $data['balance'] ?? 0,
-            $data['userId'],
-            $data['walletPlanId']
+            $data['userId'] ?? null,
+            $data['walletPlanId'] ?? null,
+            $data['accountId'] ?? null,
+            $data['organizations'] ?? null
         );
     }
 

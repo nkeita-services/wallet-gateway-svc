@@ -4,6 +4,7 @@
 namespace Wallet\Account\Service;
 
 use Wallet\Account\Entity\AccountEntityInterface;
+use Wallet\Wallet\Account\Collection\AccountCollectionInterface;
 use Wallet\Wallet\Account\Repository\AccountRepositoryInterface;
 
 class AccountService implements AccountServiceInterface
@@ -36,5 +37,20 @@ class AccountService implements AccountServiceInterface
             $userId,
             $organizations
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetchAllWithUserAndOrganizations(
+        string $userId,
+        array $organizations
+    ): AccountCollectionInterface{
+        return $this
+            ->accountRepository
+            ->fetchAllWithUserAndOrganizations(
+                $userId,
+                $organizations
+            );
     }
 }

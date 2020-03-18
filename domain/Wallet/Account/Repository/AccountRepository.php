@@ -6,6 +6,7 @@ namespace Wallet\Wallet\Account\Repository;
 
 use Infrastructure\Api\Rest\Client\Account\AccountApiClientInterface;
 use Wallet\Account\Entity\AccountEntityInterface;
+use Wallet\Wallet\Account\Collection\AccountCollectionInterface;
 
 class AccountRepository implements AccountRepositoryInterface
 {
@@ -36,4 +37,20 @@ class AccountRepository implements AccountRepositoryInterface
             ]
         );
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetchAllWithUserAndOrganizations(
+        string $userId,
+        array $organizations
+    ): AccountCollectionInterface{
+        return $this
+            ->accountApiClient
+            ->fetchAll([
+                'userId'=>$userId
+            ]);
+    }
+
+
 }
