@@ -45,4 +45,12 @@ interface AccountRepositoryInterface
         array $organizations,
         array $data
     ): AccountEntityInterface;
+
+    /**
+     * @param string $accountId
+     * @return mixed
+     */
+    public function fetchWithAccountId(
+        string $accountId
+    );
 }

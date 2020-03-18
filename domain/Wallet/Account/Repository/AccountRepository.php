@@ -70,5 +70,17 @@ class AccountRepository implements AccountRepositoryInterface
                 $data);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function fetchWithAccountId(string $accountId)
+    {
+        return $this
+            ->accountApiClient
+            ->fetch(
+                $accountId
+            );
+    }
+
 
 }

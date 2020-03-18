@@ -65,11 +65,25 @@ class AccountApiGuzzleHttpClient implements AccountApiClientInterface
     /**
      * @inheritDoc
      */
-    public function update(string $userId,array $data): AccountEntityInterface
+    public function update(string $accountId, array $data): AccountEntityInterface
     {
-        $response = $this->guzzleClient->patch(sprintf('/v1/accounts/%s',$userId), [
+        $response = $this->guzzleClient->patch(sprintf('/v1/accounts/%s', $accountId), [
             RequestOptions::JSON => $data
         ]);
+
+        return $this->accountMapper->createAccountFromApiResponse(
+            $response
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetch(string $accountId): AccountEntityInterface
+    {
+        $response = $this->guzzleClient->get(
+            sprintf('/v1/accounts/%s', $accountId)
+        );
 
         return $this->accountMapper->createAccountFromApiResponse(
             $response

@@ -77,5 +77,15 @@ class AccountService implements AccountServiceInterface
             );
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function fetchWithAccountId(string $accountId)
+    {
+        return $this
+            ->accountRepository
+            ->fetchWithAccountId($accountId);
+    }
+
 
 }
