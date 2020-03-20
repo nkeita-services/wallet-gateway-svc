@@ -43,7 +43,7 @@ interface AccountServiceInterface
         string $accountId,
         array $organizations,
         array $data
-    ):AccountEntityInterface;
+    ): AccountEntityInterface;
 
     /**
      * @param string $accountId
@@ -52,4 +52,32 @@ interface AccountServiceInterface
     public function fetchWithAccountId(
         string $accountId
     );
+
+    /**
+     * @param string $userId
+     * @param string $accountId
+     * @param array $organizations
+     * @param float $amount
+     * @return AccountEntityInterface
+     */
+    public function topUp(
+        string $userId,
+        string $accountId,
+        array $organizations,
+        float $amount
+    ): AccountEntityInterface;
+
+    /**
+     * @param string $userId
+     * @param string $accountId
+     * @param array $organizations
+     * @param float $amount
+     * @return AccountEntityInterface
+     */
+    public function debit(
+        string $userId,
+        string $accountId,
+        array $organizations,
+        float $amount
+    ): AccountEntityInterface;
 }

@@ -117,6 +117,10 @@ paths:
     $ref: 'open-api-wallet-accounts-spec.yaml'
   /v1/wallets/users/{userId}/accounts/{accountId}:
     $ref: 'open-api-wallet-account-spec.yaml'
+  /v1/wallets/users/{userId}/accounts/{accountId}/balance/topUp:
+    $ref: 'open-api-wallet-account-topup-spec.yaml'
+  /v1/wallets/users/{userId}/accounts/{accountId}/balance/debit:
+    $ref: 'open-api-wallet-account-debit-spec.yaml'
   /v1/wallets/plans:
     $ref: 'open-api-wallet-plans-spec.yaml'
   /v1/wallets/plans/{planId}:
@@ -146,6 +150,8 @@ components:
             ListUserAccounts: List Accounts
             GetAccountInfo: Get Account Infos
             UpdateAccountInfo: Update Account Infos
+            TopUpAccount: TopUp Account
+            DebitAccount: Debit Account
   schemas:
     ResponseStatus:
       type: string

@@ -87,5 +87,45 @@ class AccountService implements AccountServiceInterface
             ->fetchWithAccountId($accountId);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function topUp(
+        string $userId,
+        string $accountId,
+        array $organizations,
+        float $amount
+    ): AccountEntityInterface
+    {
+        return $this
+            ->accountRepository
+            ->topUp(
+                $userId,
+                $accountId,
+                $organizations,
+                $amount
+            );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function debit(
+        string $userId,
+        string $accountId,
+        array $organizations,
+        float $amount
+    ): AccountEntityInterface
+    {
+        return $this
+            ->accountRepository
+            ->debit(
+                $userId,
+                $accountId,
+                $organizations,
+                $amount
+            );
+    }
+
 
 }

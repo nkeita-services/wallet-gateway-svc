@@ -44,3 +44,13 @@ $router->get('v1/wallets/users/{userId}/accounts/{accountId}', [
     'uses' => 'Wallet\Account\FetchAccountDataController@fetch',
     'middleware'=>'auth'
 ]);
+
+$router->patch('v1/wallets/users/{userId}/accounts/{accountId}/balance/topUp', [
+    'uses' => 'Wallet\Account\UpdateAccountBalanceController@topUp',
+    'middleware'=>'auth'
+]);
+
+$router->patch('v1/wallets/users/{userId}/accounts/{accountId}/balance/debit', [
+    'uses' => 'Wallet\Account\UpdateAccountBalanceController@debit',
+    'middleware'=>'auth'
+]);

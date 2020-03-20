@@ -1,0 +1,45 @@
+patch:
+  summary: TopUp wallet account
+  security:
+    - oAuth2:
+        - TopUpAccount
+  tags:
+    - Wallet Accounts
+  parameters:
+    - in: path
+      required: true
+      name: userId
+      schema:
+        type: string
+    - in: path
+      required: true
+      name: accountId
+      schema:
+        type: string
+  requestBody:
+    description: Amount to top up
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            amount:
+              type: float
+              description: Amount to top up
+              example: 10.98
+  responses:
+    '200':
+      description: Successfully patched the wallet account
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletAccount:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountWithId'

@@ -82,5 +82,49 @@ class AccountRepository implements AccountRepositoryInterface
             );
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function topUp(
+        string $userId,
+        string $accountId,
+        array $organizations,
+        float $amount
+    ): AccountEntityInterface
+    {
+        $account = $this->fetchWithAccountId($accountId);
+
+        return $this->updateWithUserAndAccountAndOrganizations(
+            $userId,
+            $accountId,
+            $organizations,
+            [
+                'balance' => $account->getBalance() + $amount
+            ]
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function debit(
+        string $userId,
+        string $accountId,
+        array $organizations,
+        float $amount
+    ): AccountEntityInterface
+    {
+        $account = $this->fetchWithAccountId($accountId);
+
+        return $this->updateWithUserAndAccountAndOrganizations(
+            $userId,
+            $accountId,
+            $organizations,
+            [
+                'balance' => $account->getBalance() - $amount
+            ]
+        );
+    }
+
 
 }
