@@ -4,6 +4,7 @@
 namespace Wallet\Wallet\Account\Service;
 
 use DateTimeInterface;
+use Wallet\Wallet\Account\Entity\TransactionEntity;
 use Wallet\Wallet\Event\Entity\EventEntityInterface;
 
 interface AccountTransactionServiceInterface
@@ -22,18 +23,10 @@ interface AccountTransactionServiceInterface
     );
 
     /**
-     * @param string $userId
-     * @param string $accountId
-     * @param string $amount
-     * @param string $originator
-     * @param string $originatorId
+     * @param TransactionEntity $transactionEntity
      * @return EventEntityInterface
      */
     public function create(
-        string $userId,
-        string $accountId,
-        string $amount,
-        string $originator,
-        string $originatorId
+        TransactionEntity $transactionEntity
     ): EventEntityInterface;
 }

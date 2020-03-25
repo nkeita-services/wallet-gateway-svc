@@ -5,6 +5,7 @@ namespace Wallet\Wallet\Account\Service;
 
 
 use DateTimeInterface;
+use Wallet\Wallet\Account\Entity\TransactionEntity;
 use Wallet\Wallet\Event\Entity\EventEntity;
 use Wallet\Wallet\Event\Entity\EventEntityInterface;
 use Wallet\Wallet\Event\Service\EventServiceInterface;
@@ -62,23 +63,17 @@ class AccountTransactionService implements AccountTransactionServiceInterface
     /**
      * @inheritDoc
      */
-    public function create(
-        string $userId,
-        string $accountId,
-        string $amount,
-        string $originator,
-        string $originatorId
-    ): EventEntityInterface
+    public function create(TransactionEntity $transactionEntity): EventEntityInterface
     {
         return $this
             ->eventService
             ->create(
                 EventEntity::fromArray(
                     [
-                        'originator' => $originator,
-                        'originatorId' => $originatorId,
+                        'originator' => $transactionEntity->getOriginator(),
+                        'originatorId' => $transactionEntity->getOriginatorId(),
                         'entity' => 'WalletAccount',
-                        'entityId' => $accountId,
+                        'entityId' => $transactionEntity->getAccountId(),
                         'actions' => [
                             'AccountBalanceOperation',
                             'AccountOperation'
@@ -86,8 +81,8 @@ class AccountTransactionService implements AccountTransactionServiceInterface
                         'description' => 'Account TopUp',
                         'timestamp' => time(),
                         'data' => [
-                            'amount' => $amount,
-                            'user' => $userId
+                            'amount' => $transactionEntity->getAmount(),
+                            'user' => $transactionEntity->getUserId()
                         ]
                     ]
                 )

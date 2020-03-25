@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Wallet\Account\Service\AccountService;
 use Wallet\Account\Service\AccountServiceInterface;
+use Wallet\Wallet\Account\Entity\TransactionEntity;
 use Wallet\Wallet\Account\Service\AccountTransactionService;
 use Wallet\Wallet\Account\Service\AccountTransactionServiceInterface;
 use Wallet\Wallet\Event\Entity\EventEntity;
@@ -63,13 +64,17 @@ class UpdateAccountBalanceController  extends Controller
             $request->json()->get('amount')
         );
 
+
         $this->accountTransactionService
             ->create(
-                $userId,
-                $accountId,
-                $request->json()->get('amount'),
-                current($request->get('ApiConsumer')->getOrganizations()),
-                $request->get('ApiConsumer')->getClientId()
+                new TransactionEntity(
+                    $userId,
+                    $accountId,
+                    $request->json()->get('amount'),
+                    $request->json()->get('description'),
+                    current($request->get('ApiConsumer')->getOrganizations()),
+                    $request->get('ApiConsumer')->getClientId()
+                )
             );
 
         return response()->json(
@@ -107,11 +112,14 @@ class UpdateAccountBalanceController  extends Controller
 
         $this->accountTransactionService
             ->create(
-                $userId,
-                $accountId,
-                -$request->json()->get('amount'),
-                current($request->get('ApiConsumer')->getOrganizations()),
-                $request->get('ApiConsumer')->getClientId()
+                new TransactionEntity(
+                    $userId,
+                    $accountId,
+                    -$request->json()->get('amount'),
+                    $request->json()->get('description'),
+                    current($request->get('ApiConsumer')->getOrganizations()),
+                    $request->get('ApiConsumer')->getClientId()
+                )
             );
 
         return response()->json(
@@ -121,7 +129,6 @@ class UpdateAccountBalanceController  extends Controller
                     'walletAccount' => $accountEntity->toArray()
                 ]
             ]
-
         );
     }
 }

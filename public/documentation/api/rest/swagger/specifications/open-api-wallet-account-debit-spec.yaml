@@ -28,6 +28,10 @@ patch:
               type: float
               description: Amount to debit
               example: 11
+            description:
+              type: string
+              description: transaction description
+              example: Debit
   responses:
     '200':
       description: Successfully patched the wallet account

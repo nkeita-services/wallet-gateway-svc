@@ -28,6 +28,10 @@ patch:
               type: float
               description: Amount to top up
               example: 10.98
+            description:
+              type: string
+              description: transaction description
+              example: Top Up
   responses:
     '200':
       description: Successfully patched the wallet account
