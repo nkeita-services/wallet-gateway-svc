@@ -20,9 +20,6 @@ get:
                 properties:
                   walletAccounts:
                     $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountUsersWithId'
-    '404':
-      description: User not found in the Wallet Platform
-
 post:
   summary: Create a wallet account user
   security:

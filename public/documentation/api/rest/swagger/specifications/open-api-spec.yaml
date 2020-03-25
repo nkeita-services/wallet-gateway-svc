@@ -121,6 +121,8 @@ paths:
     $ref: 'open-api-wallet-account-topup-spec.yaml'
   /v1/wallets/users/{userId}/accounts/{accountId}/balance/debit:
     $ref: 'open-api-wallet-account-debit-spec.yaml'
+  /v1/wallets/users/{userId}/accounts/{accountId}/transactions:
+    $ref: 'open-api-wallet-account-transactions-spec.yaml'
   /v1/wallets/plans:
     $ref: 'open-api-wallet-plans-spec.yaml'
   /v1/wallets/plans/{planId}:
@@ -390,3 +392,33 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/WalletRemittance'
+    WalletAccountTransaction:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: amount
+          example: 20
+        description:
+          type: string
+          description: transaction description
+          example: Top Up
+        datetime:
+          type: string
+          description: Transaction time in UTC
+          example: 10/09/2020 12:20:09
+    WalletAccountTransactionWithId:
+      allOf:
+        - $ref: '#/components/schemas/WalletAccountTransaction'
+        - type: object
+          required:
+            - transactionId
+          properties:
+            transactionId:
+              type: string
+              description: transaction ID
+              example: 45466ea6-512d-42c7-b57f-d11c53890456
+    WalletAccountTransactionsWithId:
+      type: array
+      items:
+        $ref: '#/components/schemas/WalletAccountTransactionWithId'
