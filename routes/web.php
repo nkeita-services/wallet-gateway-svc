@@ -54,3 +54,8 @@ $router->patch('v1/wallets/users/{userId}/accounts/{accountId}/balance/debit', [
     'uses' => 'Wallet\Account\UpdateAccountBalanceController@debit',
     'middleware'=>'auth'
 ]);
+
+$router->get('v1/wallets/users/{userId}/accounts/{accountId}/transactions', [
+    'uses' => 'Wallet\Account\FetchAccountTransactionsController@fetchAll',
+    'middleware'=>'auth'
+]);

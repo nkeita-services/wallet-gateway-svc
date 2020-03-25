@@ -14,6 +14,10 @@ use App\Providers\Infrastructure\Api\Rest\Client\User\UserApiClientProvider;
 use App\Providers\Domain\Wallet\User\Repository\UserRepositoryProvider;
 use App\Providers\Domain\Wallet\User\Service\UserServiceProvider;
 use App\Http\Middleware\OAuth2ClientCredentials;
+use App\Providers\Infrastructure\Api\Rest\Client\Event\EventApiClientProvider;
+use App\Providers\Domain\Wallet\Event\Repository\EventRepositoryProvider;
+use App\Providers\Domain\Wallet\Event\Service\EventServiceProvider;
+use App\Providers\Domain\Wallet\Account\Service\AccountTransactionServiceProvider;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -87,6 +91,12 @@ $app->singleton(
  $app->register(UserApiClientProvider::class);
  $app->register(UserRepositoryProvider::class);
  $app->register(UserServiceProvider::class);
+
+ $app->register(EventApiClientProvider::class);
+ $app->register(EventRepositoryProvider::class);
+ $app->register(EventServiceProvider::class);
+
+ $app->register(AccountTransactionServiceProvider::class);
 
  //$app->register(\App\Providers\AuthServiceProvider::class);
 
