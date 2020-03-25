@@ -5,6 +5,7 @@ namespace Wallet\Wallet\Event\Service;
 
 
 use Wallet\Wallet\Event\Collection\EventCollectionInterface;
+use Wallet\Wallet\Event\Entity\EventEntityInterface;
 use Wallet\Wallet\Event\Repository\EventRepositoryInterface;
 
 class EventService implements EventServiceInterface
@@ -36,6 +37,19 @@ class EventService implements EventServiceInterface
             ->eventRepository
             ->fetchAllWithCriteria(
                 $criteria
+            );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function create(
+        EventEntityInterface $eventEntity
+    ): EventEntityInterface{
+        return $this
+            ->eventRepository
+            ->create(
+                $eventEntity
             );
     }
 

@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Wallet\Account\Service\AccountService;
 use Wallet\Account\Service\AccountServiceInterface;
+use Wallet\Wallet\Event\Entity\EventEntity;
+use Wallet\Wallet\Event\Service\EventService;
+use Wallet\Wallet\Event\Service\EventServiceInterface;
 
 class UpdateAccountBalanceController  extends Controller
 {
@@ -17,13 +20,23 @@ class UpdateAccountBalanceController  extends Controller
     private $accountService;
 
     /**
-     * FetchUserAccountsController constructor.
-     * @param AccountService $accountService
+     * @var EventServiceInterface
      */
-    public function __construct(AccountService $accountService)
-    {
+    private $eventService;
+
+    /**
+     * UpdateAccountBalanceController constructor.
+     * @param AccountServiceInterface $accountService
+     * @param EventServiceInterface $eventService
+     */
+    public function __construct(
+        AccountService $accountService,
+        EventService $eventService
+    ){
         $this->accountService = $accountService;
+        $this->eventService = $eventService;
     }
+
 
     public function topUp(
         $userId,
@@ -41,16 +54,38 @@ class UpdateAccountBalanceController  extends Controller
             );
         }
 
+        $accountEntity = $this->accountService->topUp(
+            $userId,
+            $accountId,
+            $request->get('ApiConsumer')->getOrganizations(),
+            $request->json()->get('amount')
+        );
+
+        $this
+            ->eventService
+            ->create(
+                EventEntity::fromArray(
+                    [
+                        'originator'=> $request->get('ApiConsumer')->getClientId(),
+                        'originatorId'=>$accountId,
+                        'actions'=>[
+                            'AccountBalanceOperation',
+                            'AccountOperation'
+                        ],
+                        'description'=>'Account TopUp',
+                        'timestamp'=>time(),
+                        'data'=>[
+                            'amount' => $request->json()->get('amount')
+                        ]
+                    ]
+                )
+            );
+
         return response()->json(
             [
                 'status' => 'success',
                 'data' => [
-                    'walletAccount' => $this->accountService->topUp(
-                        $userId,
-                        $accountId,
-                        $request->get('ApiConsumer')->getOrganizations(),
-                        $request->json()->get('amount')
-                    )->toArray()
+                    'walletAccount' => $accountEntity->toArray()
                 ]
             ]
 

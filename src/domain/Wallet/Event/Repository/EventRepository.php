@@ -6,6 +6,7 @@ namespace Wallet\Wallet\Event\Repository;
 
 use Infrastructure\Api\Rest\Client\Event\EventApiClientInterface;
 use Wallet\Wallet\Event\Collection\EventCollectionInterface;
+use Wallet\Wallet\Event\Entity\EventEntityInterface;
 
 class EventRepository implements EventRepositoryInterface
 {
@@ -37,4 +38,26 @@ class EventRepository implements EventRepositoryInterface
                 $criteria
             );
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function create(
+        EventEntityInterface $eventEntity
+    ): EventEntityInterface{
+        return $this
+            ->eventApiClient
+            ->create(
+                [
+                    'originator' => $eventEntity->getOriginator(),
+                    'originatorId'=> $eventEntity->getOriginatorId(),
+                    'actions'=>$eventEntity->getActions(),
+                    'description'=>$eventEntity->getDescription(),
+                    'timestamp'=>$eventEntity->getTimestamp(),
+                    'data'=>$eventEntity->getData()
+                ]
+            );
+    }
+
+
 }

@@ -57,5 +57,13 @@ class Client implements ClientInterface
         ];
     }
 
+    /**
+     * @return string
+     */
+    public function getClientId(): string
+    {
+        return $this->clientId;
+    }
+
 
 }

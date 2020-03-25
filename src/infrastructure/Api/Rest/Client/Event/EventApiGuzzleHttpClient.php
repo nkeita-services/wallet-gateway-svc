@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Infrastructure\Api\Rest\Client\Event\Mapper\EventMapperInterface;
 use Wallet\Wallet\Event\Collection\EventCollectionInterface;
+use Wallet\Wallet\Event\Entity\EventEntityInterface;
 
 class EventApiGuzzleHttpClient implements EventApiClientInterface
 {
@@ -48,4 +49,22 @@ class EventApiGuzzleHttpClient implements EventApiClientInterface
                 $response
             );
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function create(array $eventPayload): EventEntityInterface
+    {
+        $response = $this->guzzleClient->post('/v1/events', [
+            RequestOptions::JSON => $eventPayload
+        ]);
+
+        return $this
+            ->eventMapper
+            ->createEventFromApiResponse(
+                $response
+            );
+    }
+
+
 }

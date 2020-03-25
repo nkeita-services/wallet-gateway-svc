@@ -37,6 +37,11 @@ class EventEntity implements EventEntityInterface
     private $actions;
 
     /**
+     * @var string
+     */
+    private $description;
+
+    /**
      * EventEntity constructor.
      * @param string $eventId
      * @param string $originator
@@ -44,6 +49,7 @@ class EventEntity implements EventEntityInterface
      * @param string $timestamp
      * @param array $data
      * @param array $actions
+     * @param string $description
      */
     public function __construct(
         ?string $eventId = null,
@@ -51,7 +57,8 @@ class EventEntity implements EventEntityInterface
         ?string $originatorId = null,
         ?string $timestamp = null,
         ?array $data = null,
-        ?array $actions = null
+        ?array $actions = null,
+        ?string $description = null
     ){
         $this->eventId = $eventId;
         $this->originator = $originator;
@@ -59,6 +66,7 @@ class EventEntity implements EventEntityInterface
         $this->timestamp = $timestamp;
         $this->data = $data;
         $this->actions = $actions;
+        $this->description = $description;
     }
 
 
@@ -73,8 +81,25 @@ class EventEntity implements EventEntityInterface
             $data['originatorId'] ?? null,
             $data['timestamp'] ?? null,
             $data['data'] ?? null,
-            $data['actions'] ?? null
+            $data['actions'] ?? null,
+            $data['description'] ?? null
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toArray(): array
+    {
+        return [
+            'eventId' => $this->eventId,
+            'originator' => $this->originator,
+            'originatorId'=>$this->originatorId,
+            'timestamp'=>$this->timestamp,
+            'data'=>$this->data,
+            'actions'=>$this->actions,
+            'description'=>$this->description
+        ];
     }
 
 
@@ -126,6 +151,12 @@ class EventEntity implements EventEntityInterface
         return $this->actions;
     }
 
-
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
 
 }

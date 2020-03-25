@@ -5,6 +5,7 @@ namespace Wallet\Wallet\Event\Service;
 
 
 use Wallet\Wallet\Event\Collection\EventCollectionInterface;
+use Wallet\Wallet\Event\Entity\EventEntityInterface;
 
 interface EventServiceInterface
 {
@@ -22,4 +23,12 @@ interface EventServiceInterface
         ?int $toTimestamp = null,
         ?int $limit = null
     ): EventCollectionInterface;
+
+    /**
+     * @param EventEntityInterface $eventEntity
+     * @return EventEntityInterface
+     */
+    public function create(
+        EventEntityInterface $eventEntity
+    ): EventEntityInterface;
 }

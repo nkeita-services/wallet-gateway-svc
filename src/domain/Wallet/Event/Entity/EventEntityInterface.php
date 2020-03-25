@@ -11,12 +11,18 @@ interface EventEntityInterface
      * @param array $data
      * @return EventEntityInterface
      */
-    public static function fromArray(array $data):EventEntityInterface;
+    public static function fromArray(array $data): EventEntityInterface;
+
+    /**
+     * @return array
+     */
+    public function toArray(): array;
 
     /**
      * @return string
      */
     public function getEventId(): string;
+
     /**
      * @return string
      */
@@ -41,5 +47,11 @@ interface EventEntityInterface
      * @return array
      */
     public function getActions(): array;
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string;
+
 
 }
