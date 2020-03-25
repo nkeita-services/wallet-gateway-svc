@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Wallet\Account\Service\AccountService;
 use Wallet\Account\Service\AccountServiceInterface;
+use Wallet\Wallet\Account\Service\AccountTransactionService;
+use Wallet\Wallet\Account\Service\AccountTransactionServiceInterface;
 use Wallet\Wallet\Event\Entity\EventEntity;
 use Wallet\Wallet\Event\Service\EventService;
 use Wallet\Wallet\Event\Service\EventServiceInterface;
@@ -20,21 +22,21 @@ class UpdateAccountBalanceController  extends Controller
     private $accountService;
 
     /**
-     * @var EventServiceInterface
+     * @var AccountTransactionServiceInterface
      */
-    private $eventService;
+    private $accountTransactionService;
 
     /**
      * UpdateAccountBalanceController constructor.
      * @param AccountServiceInterface $accountService
-     * @param EventServiceInterface $eventService
+     * @param AccountTransactionServiceInterface $accountTransactionService
      */
     public function __construct(
         AccountService $accountService,
-        EventService $eventService
+        AccountTransactionService $accountTransactionService
     ){
         $this->accountService = $accountService;
-        $this->eventService = $eventService;
+        $this->accountTransactionService = $accountTransactionService;
     }
 
 
@@ -61,24 +63,13 @@ class UpdateAccountBalanceController  extends Controller
             $request->json()->get('amount')
         );
 
-        $this
-            ->eventService
+        $this->accountTransactionService
             ->create(
-                EventEntity::fromArray(
-                    [
-                        'originator'=> $request->get('ApiConsumer')->getClientId(),
-                        'originatorId'=>$accountId,
-                        'actions'=>[
-                            'AccountBalanceOperation',
-                            'AccountOperation'
-                        ],
-                        'description'=>'Account TopUp',
-                        'timestamp'=>time(),
-                        'data'=>[
-                            'amount' => $request->json()->get('amount')
-                        ]
-                    ]
-                )
+                $userId,
+                $accountId,
+                $request->json()->get('amount'),
+                current($request->get('ApiConsumer')->getOrganizations()),
+                $request->get('ApiConsumer')->getClientId()
             );
 
         return response()->json(
@@ -107,17 +98,27 @@ class UpdateAccountBalanceController  extends Controller
                 401
             );
         }
+        $accountEntity = $this->accountService->debit(
+            $userId,
+            $accountId,
+            $request->get('ApiConsumer')->getOrganizations(),
+            $request->json()->get('amount')
+        );
+
+        $this->accountTransactionService
+            ->create(
+                $userId,
+                $accountId,
+                -$request->json()->get('amount'),
+                current($request->get('ApiConsumer')->getOrganizations()),
+                $request->get('ApiConsumer')->getClientId()
+            );
 
         return response()->json(
             [
                 'status' => 'success',
                 'data' => [
-                    'walletAccount' => $this->accountService->debit(
-                        $userId,
-                        $accountId,
-                        $request->get('ApiConsumer')->getOrganizations(),
-                        $request->json()->get('amount')
-                    )->toArray()
+                    'walletAccount' => $accountEntity->toArray()
                 ]
             ]
 

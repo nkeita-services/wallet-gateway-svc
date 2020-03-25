@@ -5,6 +5,8 @@ namespace Wallet\Wallet\Account\Service;
 
 
 use DateTimeInterface;
+use Wallet\Wallet\Event\Entity\EventEntity;
+use Wallet\Wallet\Event\Entity\EventEntityInterface;
 use Wallet\Wallet\Event\Service\EventServiceInterface;
 
 class AccountTransactionService implements AccountTransactionServiceInterface
@@ -33,12 +35,13 @@ class AccountTransactionService implements AccountTransactionServiceInterface
         ?DateTimeInterface $toDate = null
     )
     {
-        $eventCollection =  $this
+        $eventCollection = $this
             ->eventService
             ->fetchWithCriteriaAndDateRange(
                 [
-                    'originatorId' => $accountId,
-                    'actions'=> [
+                    'entityId' => $accountId,
+                    'entity' => 'WalletAccount',
+                    'actions' => [
                         'AccountBalanceOperation'
                     ]
                 ],
@@ -46,7 +49,7 @@ class AccountTransactionService implements AccountTransactionServiceInterface
                 $toDate instanceof DateTimeInterface ? $toDate->getTimestamp() : null
             );
 
-        return array_map(function (array $event){
+        return array_map(function (array $event) {
             return [
                 'amount' => $event['data']['amount'] ?? null,
                 'description' => $event['description'] ?? null,
@@ -54,5 +57,40 @@ class AccountTransactionService implements AccountTransactionServiceInterface
                 'transactionId' => $event['eventId'] ?? null
             ];
         }, $eventCollection->toArray());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function create(
+        string $userId,
+        string $accountId,
+        string $amount,
+        string $originator,
+        string $originatorId
+    ): EventEntityInterface
+    {
+        return $this
+            ->eventService
+            ->create(
+                EventEntity::fromArray(
+                    [
+                        'originator' => $originator,
+                        'originatorId' => $originatorId,
+                        'entity' => 'WalletAccount',
+                        'entityId' => $accountId,
+                        'actions' => [
+                            'AccountBalanceOperation',
+                            'AccountOperation'
+                        ],
+                        'description' => 'Account TopUp',
+                        'timestamp' => time(),
+                        'data' => [
+                            'amount' => $amount,
+                            'user' => $userId
+                        ]
+                    ]
+                )
+            );
     }
 }

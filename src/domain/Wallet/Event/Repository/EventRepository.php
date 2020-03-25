@@ -45,6 +45,7 @@ class EventRepository implements EventRepositoryInterface
     public function create(
         EventEntityInterface $eventEntity
     ): EventEntityInterface{
+
         return $this
             ->eventApiClient
             ->create(
@@ -53,8 +54,10 @@ class EventRepository implements EventRepositoryInterface
                     'originatorId'=> $eventEntity->getOriginatorId(),
                     'actions'=>$eventEntity->getActions(),
                     'description'=>$eventEntity->getDescription(),
-                    'timestamp'=>$eventEntity->getTimestamp(),
-                    'data'=>$eventEntity->getData()
+                    'timestamp'=>(int)$eventEntity->getTimestamp(),
+                    'data'=>$eventEntity->getData(),
+                    'entity'=>$eventEntity->getEntity(),
+                    'entityId'=>$eventEntity->getEntityId()
                 ]
             );
     }

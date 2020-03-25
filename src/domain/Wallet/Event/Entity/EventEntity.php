@@ -22,7 +22,7 @@ class EventEntity implements EventEntityInterface
     private $originatorId;
 
     /**
-     * @var string
+     * @var int
      */
     private $timestamp;
 
@@ -42,23 +42,37 @@ class EventEntity implements EventEntityInterface
     private $description;
 
     /**
+     * @var string
+     */
+    private $entityId;
+
+    /**
+     * @var string
+     */
+    private $entity;
+
+    /**
      * EventEntity constructor.
      * @param string $eventId
      * @param string $originator
      * @param string $originatorId
-     * @param string $timestamp
+     * @param int $timestamp
      * @param array $data
      * @param array $actions
      * @param string $description
+     * @param string $entityId
+     * @param string $entity
      */
     public function __construct(
         ?string $eventId = null,
         ?string $originator = null,
         ?string $originatorId = null,
-        ?string $timestamp = null,
+        ?int $timestamp = null,
         ?array $data = null,
         ?array $actions = null,
-        ?string $description = null
+        ?string $description = null,
+        ?string $entityId = null,
+        ?string $entity = null
     ){
         $this->eventId = $eventId;
         $this->originator = $originator;
@@ -67,6 +81,8 @@ class EventEntity implements EventEntityInterface
         $this->data = $data;
         $this->actions = $actions;
         $this->description = $description;
+        $this->entityId = $entityId;
+        $this->entity = $entity;
     }
 
 
@@ -82,7 +98,10 @@ class EventEntity implements EventEntityInterface
             $data['timestamp'] ?? null,
             $data['data'] ?? null,
             $data['actions'] ?? null,
-            $data['description'] ?? null
+            $data['description'] ?? null,
+            $data['entityId'] ?? null,
+            $data['entity'] ?? null
+
         );
     }
 
@@ -95,6 +114,8 @@ class EventEntity implements EventEntityInterface
             'eventId' => $this->eventId,
             'originator' => $this->originator,
             'originatorId'=>$this->originatorId,
+            'entityId'=>$this->entityId,
+            'entity'=>$this->entity,
             'timestamp'=>$this->timestamp,
             'data'=>$this->data,
             'actions'=>$this->actions,
@@ -128,7 +149,7 @@ class EventEntity implements EventEntityInterface
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getTimestamp(): string
     {
@@ -159,4 +180,19 @@ class EventEntity implements EventEntityInterface
         return $this->description;
     }
 
+    /**
+     * @return string
+     */
+    public function getEntityId(): string
+    {
+        return $this->entityId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntity(): string
+    {
+        return $this->entity;
+    }
 }

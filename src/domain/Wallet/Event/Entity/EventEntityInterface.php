@@ -53,5 +53,15 @@ interface EventEntityInterface
      */
     public function getDescription(): string;
 
+    /**
+     * @return string
+     */
+    public function getEntityId(): string;
+
+    /**
+     * @return string
+     */
+    public function getEntity(): string;
+
 
 }
