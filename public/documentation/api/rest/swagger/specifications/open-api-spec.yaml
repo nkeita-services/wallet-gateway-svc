@@ -3,29 +3,37 @@ info:
   title: Wallet Gateway Service
   version: 0.0.1
   description: |
-    The Wallet Gateway API is a REST HTTP API for Creating digital wallets. There are different components involved in digital wallet operations
+    The Wallet Gateway API is a platform which handles the creation and management of virtual bank accounts.
+    Interactions with the platform are made using REST API endpoints.
+    There are several components involved in virtual account operations
 
     # Wallet API components
 
     ## Wallet Plans
-    A wallet plan is used to group wallet accounts that share common charactersistics. For example, the default currency to use or the balance threshold allowed
-    for the associed accounts
+    A wallet plan is used to group wallet accounts that share common charactersistics. Each wallet account has an associated wallet plan which defines:
+    * The default currency to use
+    * The balance threshold allowed
+    * Compliance requirements to meet
 
     ## Wallet Organizations
-    Each legal authority that uses our wallet gateway is associated to a wallet organization. It could be a company or any type of organizations. That is where
-    KYB or legal documents operations take place
+    Each legal authority or company using the Wallet Platform is seen as a Wallet Organization. It's a container that gathers information about companies
+    such as their legal representatives or legal documents. It could be also compliance and regulation requirements the company has to meet with regards
+    to where customer data are stored and which security policies to apply
 
     ## Wallet Accounts
-    An account is what represents user interactions with our gateway
+    Users or organizations can have mutliple accounts which their use for various means
 
     ## Wallet Account Users
-    User personal information are handled separately from their accounts. So we can apply specific security constraints like KYC documents
+    User personal information are handled separately from wallet accounts data
+    That's where we enforce data security policies and compliance requirements
 
     ## Wallet Fees
-    Operations on wallet components generate fees that are applied to organization master accounts
+    Each transaction or events within the wallet platform generate value or fees which are calculated based on the billing
+    models asscoiated with each organization
 
     ## Wallet Remittance
-    This component give access to wallet networks for value transfer. It encapsulates all the inter-wallet operations
+    The remittance component of the wallet gateway helps with value transfer within the wallet platform but also between the wallet plaform
+    and external bank accounts or wallet systems
 
     # Responses
 
@@ -62,12 +70,19 @@ info:
 
     # Changelog
 
+    ## 2020-03-26
+
+    * Add endpoint for getting user accounts
+    * Add Account Top Up endpoint
+    * Add Account debit endpoint
+    * Add endpoint for getting account transactions
+
     ## 2020-03-17
 
-    * OAUTH2 Client Credentials
-    * Create new User endpoint
-    * Get user information
-    * Create new Account endpoint
+    * Add OAUTH2 Client Credential Grant
+    * Add endpoint for creating new User
+    * Add endpoint for getting user information
+    * Add endpoint for creating new Account
 
     # Useful links
 
@@ -154,6 +169,7 @@ components:
             UpdateAccountInfo: Update Account Infos
             TopUpAccount: TopUp Account
             DebitAccount: Debit Account
+            GetAccountTransactions: List all the transactions on the account
   schemas:
     ResponseStatus:
       type: string
@@ -237,10 +253,6 @@ components:
     WalletAccount:
       type: object
       properties:
-        id:
-          type: string
-          description: A wallet account identifier provided during this account creation
-          example: 96808ac6-fa7e-4a88-be30-52c3533f4a47
         walletPlanId:
           type: string
           description: The Wallet Platform identifier for the wallet plan this accountrefers to
