@@ -78,7 +78,7 @@ class AccountTransactionService implements AccountTransactionServiceInterface
                             'AccountBalanceOperation',
                             'AccountOperation'
                         ],
-                        'description' => 'Account TopUp',
+                        'description' => $transactionEntity->getDescription(),
                         'timestamp' => time(),
                         'data' => [
                             'amount' => $transactionEntity->getAmount(),
