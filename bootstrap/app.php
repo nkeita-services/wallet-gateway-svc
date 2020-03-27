@@ -1,7 +1,7 @@
 <?php
 
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
@@ -18,6 +18,10 @@ use App\Providers\Infrastructure\Api\Rest\Client\Event\EventApiClientProvider;
 use App\Providers\Domain\Wallet\Event\Repository\EventRepositoryProvider;
 use App\Providers\Domain\Wallet\Event\Service\EventServiceProvider;
 use App\Providers\Domain\Wallet\Account\Service\AccountTransactionServiceProvider;
+use App\Providers\Infrastructure\Api\Rest\Client\Organization\OrganizationApiClientProvider;
+use App\Providers\Domain\Wallet\Organization\Repository\OrganizationRepositoryProvider;
+use App\Providers\Domain\Wallet\Organization\Service\OrganizationServiceProvider;
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -69,9 +73,9 @@ $app->singleton(
 |
 */
 
- $app->routeMiddleware([
-     'auth' => OAuth2ClientCredentials::class,
- ]);
+$app->routeMiddleware([
+    'auth' => OAuth2ClientCredentials::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -84,21 +88,26 @@ $app->singleton(
 |
 */
 
- $app->register(AccountApiClientProvider::class);
- $app->register(AccountServiceProvider::class);
- $app->register(AccountRepositoryProvider::class);
+$app->register(AccountApiClientProvider::class);
+$app->register(AccountServiceProvider::class);
+$app->register(AccountRepositoryProvider::class);
 
- $app->register(UserApiClientProvider::class);
- $app->register(UserRepositoryProvider::class);
- $app->register(UserServiceProvider::class);
+$app->register(UserApiClientProvider::class);
+$app->register(UserRepositoryProvider::class);
+$app->register(UserServiceProvider::class);
 
- $app->register(EventApiClientProvider::class);
- $app->register(EventRepositoryProvider::class);
- $app->register(EventServiceProvider::class);
+$app->register(EventApiClientProvider::class);
+$app->register(EventRepositoryProvider::class);
+$app->register(EventServiceProvider::class);
 
- $app->register(AccountTransactionServiceProvider::class);
+$app->register(AccountTransactionServiceProvider::class);
 
- //$app->register(\App\Providers\AuthServiceProvider::class);
+$app->register(OrganizationApiClientProvider::class);
+
+$app->register(OrganizationRepositoryProvider::class);
+$app->register(OrganizationServiceProvider::class);
+
+//$app->register(\App\Providers\AuthServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -114,7 +123,7 @@ $app->singleton(
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    require __DIR__.'/../routes/web.php';
+    require __DIR__ . '/../routes/web.php';
 });
 
 return $app;
