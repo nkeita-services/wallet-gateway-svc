@@ -23,7 +23,7 @@ class OrganizationMapper implements OrganizationMapperInterface
         );
 
         return OrganizationCollection::fromArray(
-            $data['data']['WalletOrganizations']
+            $data['data']['walletOrganizations']
         );
     }
 }

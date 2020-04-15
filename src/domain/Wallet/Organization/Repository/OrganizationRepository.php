@@ -34,6 +34,6 @@ class OrganizationRepository implements OrganizationRepositoryInterface
                 [
                     'clientId' => $clientId
                 ]
-            )->toArray());
+            )->getCollection());
     }
 }

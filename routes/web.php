@@ -17,45 +17,60 @@ $router->get('/', function () use ($router) {
 
 $router->post('v1/wallets/users', [
     'uses' => 'Wallet\User\CreateUserController@create',
-    'middleware'=>'auth'
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/CreateUsers'
 ]);
 
 $router->get('v1/wallets/users/{userId}', [
     'uses' => 'Wallet\User\FetchUserDataController@fetch',
-    'middleware'=>'auth'
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/GetUser'
 ]);
 
 $router->post('v1/wallets/users/{userId}/accounts', [
     'uses' => 'Wallet\Account\CreateAccountController@create',
-    'middleware'=>'auth'
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/CreateAccounts'
 ]);
 
 $router->get('v1/wallets/users/{userId}/accounts', [
     'uses' => 'Wallet\Account\FetchUserAccountsController@fetch',
-    'middleware'=>'auth'
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/ListUserAccounts"
 ]);
 
 $router->patch('v1/wallets/users/{userId}/accounts/{accountId}', [
     'uses' => 'Wallet\Account\UpdateAccountController@update',
-    'middleware'=>'auth'
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/UpdateAccountInfo"
 ]);
 
 $router->get('v1/wallets/users/{userId}/accounts/{accountId}', [
     'uses' => 'Wallet\Account\FetchAccountDataController@fetch',
-    'middleware'=>'auth'
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/GetAccountInfo"
 ]);
 
 $router->patch('v1/wallets/users/{userId}/accounts/{accountId}/balance/topUp', [
     'uses' => 'Wallet\Account\UpdateAccountBalanceController@topUp',
-    'middleware'=>'auth'
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/TopUpAccount"
 ]);
 
 $router->patch('v1/wallets/users/{userId}/accounts/{accountId}/balance/debit', [
     'uses' => 'Wallet\Account\UpdateAccountBalanceController@debit',
-    'middleware'=>'auth'
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/DebitAccount"
 ]);
 
 $router->get('v1/wallets/users/{userId}/accounts/{accountId}/transactions', [
     'uses' => 'Wallet\Account\FetchAccountTransactionsController@fetchAll',
-    'middleware'=>'auth'
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/GetAccountTransactions"
+]);
+
+$router->get('v1/wallets/plans/{planId}', [
+    'uses' => 'Wallet\Plan\FetchWalletPlanDataController@fetch',
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/GetWalletPlan"
 ]);

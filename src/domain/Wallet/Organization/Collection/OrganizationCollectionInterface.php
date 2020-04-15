@@ -17,4 +17,9 @@ interface OrganizationCollectionInterface
      * @return array
      */
     public function toArray(): array;
+
+    /**
+     * @return array
+     */
+    public function getCollection(): array;
 }

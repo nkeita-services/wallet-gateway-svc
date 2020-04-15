@@ -2,10 +2,13 @@
 
 
 namespace Infrastructure\Api\Consumer\Authorization\OpenID;
+
 use stdClass;
+use Wallet\Wallet\Organization\Service\OrganizationServiceInterface;
 
 class Client implements ClientInterface
 {
+
     /**
      * @var string
      */
@@ -53,7 +56,9 @@ class Client implements ClientInterface
     public function getOrganizations(): array
     {
         return [
-            '3288603f-adf8-453e-b4e9-cbad4805f86c'
+            app(OrganizationServiceInterface::class)
+                ->fromClientIdentifier($this->clientId)
+                ->getOrganizationId()
         ];
     }
 

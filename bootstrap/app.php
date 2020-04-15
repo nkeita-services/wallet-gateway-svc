@@ -21,7 +21,9 @@ use App\Providers\Domain\Wallet\Account\Service\AccountTransactionServiceProvide
 use App\Providers\Infrastructure\Api\Rest\Client\Organization\OrganizationApiClientProvider;
 use App\Providers\Domain\Wallet\Organization\Repository\OrganizationRepositoryProvider;
 use App\Providers\Domain\Wallet\Organization\Service\OrganizationServiceProvider;
-
+use App\Providers\Infrastructure\Api\Rest\Client\Wallet\WalletPlanApiClientProvider;
+use App\Providers\Domain\Wallet\Plan\Repository\WalletPlanRepositoryProvider;
+use App\Providers\Domain\Wallet\Plan\Service\WalletPlanServiceProvider;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -106,6 +108,10 @@ $app->register(OrganizationApiClientProvider::class);
 
 $app->register(OrganizationRepositoryProvider::class);
 $app->register(OrganizationServiceProvider::class);
+
+$app->register(WalletPlanApiClientProvider::class);
+$app->register(WalletPlanRepositoryProvider::class);
+$app->register(WalletPlanServiceProvider::class);
 
 //$app->register(\App\Providers\AuthServiceProvider::class);
 

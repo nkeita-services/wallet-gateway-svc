@@ -16,10 +16,13 @@ class OAuth2ClientCredentials
     /**
      * @param Request $request
      * @param Closure $next
-     * @return mixed|string
+     * @return \Illuminate\Http\JsonResponse|mixed
+     * @throws \CoderCat\JWKToPEM\Exception\Base64DecodeException
+     * @throws \CoderCat\JWKToPEM\Exception\JWKConverterException
      */
     public function handle(Request $request, Closure $next)
     {
+
         $authorizationHeader = $request->header('Authorization');
         if (Str::startsWith($authorizationHeader, 'Bearer ')) {
             $accessToken = Str::substr($authorizationHeader, 7);
@@ -38,13 +41,13 @@ class OAuth2ClientCredentials
                 $decodedJWKS['keys'][1]['kid'] => $jwkConverter->toPEM($decodedJWKS['keys'][1])
             ];
 
-            try{
+            try {
                 $decodedAccessToken = JWT::decode(
                     $accessToken,
                     $keySet,
                     ['RS256']
                 );
-            }catch ( \Exception $exception){
+            } catch (\Exception $exception) {
                 return response()->json(
                     [
                         'status' => 'failure',
@@ -55,11 +58,26 @@ class OAuth2ClientCredentials
                 );
             }
 
+            $client = Client::createFromAccessToken(
+                $decodedAccessToken
+            );
+
+            if (!$client->hasScope(
+                $request->route()[1]['as']
+            )) {
+                return response()->json(
+                    [
+                        'status' => 'failure',
+                        'statusCode' => 0,
+                        'statusDescription' => "You don't seem to have enough permissions to perform this action"
+                    ],
+                    401
+                );
+            }
+
             $request->merge(
                 [
-                    'ApiConsumer' => Client::createFromAccessToken(
-                        $decodedAccessToken
-                    )
+                    'ApiConsumer' => $client
                 ]
             );
 

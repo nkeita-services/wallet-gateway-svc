@@ -47,4 +47,12 @@ class OrganizationCollection implements OrganizationCollectionInterface
             return $organizationEntity->toArray();
         },$this->collection);
     }
+
+    /**
+     * @return array
+     */
+    public function getCollection(): array
+    {
+        return $this->collection;
+    }
 }
