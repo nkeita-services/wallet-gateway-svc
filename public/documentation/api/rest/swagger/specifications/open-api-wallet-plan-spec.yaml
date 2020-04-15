@@ -14,7 +14,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: 'open-api-spec.yaml#/components/schemas/WalletPlan'
+            $ref: 'open-api-spec.yaml#/components/schemas/WalletPlanWithId'
 put:
   summary: Replace a wallet plan
   tags:

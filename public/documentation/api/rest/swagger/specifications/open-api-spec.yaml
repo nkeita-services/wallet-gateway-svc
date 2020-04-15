@@ -195,10 +195,39 @@ components:
     WalletPlan:
       type: object
       properties:
+        name:
+          type: string
+          example: Tontine
         currency:
           $ref: '#/components/schemas/Currency'
         status:
           $ref: '#/components/schemas/WalletPlanStatus'
+        compliance:
+          type: object
+          properties:
+            kyc:
+              type: object
+              properties:
+                required:
+                  type: boolean
+                  example: true
+                level:
+                  type: number
+                  example: 1
+            documents:
+              $ref: '#/components/schemas/ComplianceDocuments'
+    WalletPlanWithId:
+      allOf:
+        - $ref: '#/components/schemas/WalletPlan'
+        - type: object
+          required:
+            - planId
+          properties:
+            planId:
+              type: string
+              description: Plan identifier
+              format: uuid
+              example: 45466ea6-512d-42c7-b57f-d11c53890456
     WalletPlans:
       items:
         $ref: '#/components/schemas/WalletPlan'
@@ -434,3 +463,22 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/WalletAccountTransactionWithId'
+    ComplianceDocument:
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+            - PASSPORT
+            - DRIVING_LICENSE
+            - CARD_ID
+            - NATIONAL_ID
+            - RESIDENT_PERMIT_ID
+            - PHOTO_CARD
+        level:
+          type: number
+          example: 1
+    ComplianceDocuments:
+      type: array
+      items:
+        $ref: '#/components/schemas/ComplianceDocument'
