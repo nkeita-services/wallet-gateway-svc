@@ -23,7 +23,7 @@ class WalletPlanEntity implements WalletPlanEntityInterface
     private $currency;
 
     /**
-     * @var string
+     * @var array
      */
     private $organizations;
 
@@ -42,7 +42,7 @@ class WalletPlanEntity implements WalletPlanEntityInterface
      * @param string $planId
      * @param string $name
      * @param string $currency
-     * @param string $organizations
+     * @param array $organizations
      * @param string $status
      * @param array $compliance
      */
@@ -50,7 +50,7 @@ class WalletPlanEntity implements WalletPlanEntityInterface
         ?string $planId,
         ?string $name,
         ?string $currency,
-        ?string $organizations,
+        ?array $organizations,
         ?string $status,
         ?array $compliance
     ){
