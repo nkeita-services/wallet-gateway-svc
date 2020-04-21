@@ -24,6 +24,11 @@ use App\Providers\Domain\Wallet\Organization\Service\OrganizationServiceProvider
 use App\Providers\Infrastructure\Api\Rest\Client\Wallet\WalletPlanApiClientProvider;
 use App\Providers\Domain\Wallet\Plan\Repository\WalletPlanRepositoryProvider;
 use App\Providers\Domain\Wallet\Plan\Service\WalletPlanServiceProvider;
+use App\Providers\Infrastructure\CloudRun\Metadata\CloudRunMetadataGuzzleClientProvider;
+use App\Providers\Infrastructure\CloudRun\Metadata\OAuth\IDToken\OAuthIDTokenServiceProvider;
+use App\Providers\Infrastructure\CloudRun\Metadata\ProjectID\CloudRunProjectIDServiceProvider;
+use App\Providers\Infrastructure\Secrets\SecretManagerServiceProvider;
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -112,6 +117,12 @@ $app->register(OrganizationServiceProvider::class);
 $app->register(WalletPlanApiClientProvider::class);
 $app->register(WalletPlanRepositoryProvider::class);
 $app->register(WalletPlanServiceProvider::class);
+
+$app->register(CloudRunProjectIDServiceProvider::class);
+$app->register(SecretManagerServiceProvider::class);
+
+$app->register(OAuthIDTokenServiceProvider::class);
+$app->register(CloudRunMetadataGuzzleClientProvider::class);
 
 //$app->register(\App\Providers\AuthServiceProvider::class);
 
