@@ -30,7 +30,9 @@ class UserMapper implements UserMapperInterface
             $userData['data']['walletAccountUser']['mobileNumber'],
             $userData['data']['walletAccountUser']['language'],
             $userData['data']['walletAccountUser']['walletOrganizations'],
-            $userData['data']['walletAccountUser']['userId']
+            $userData['data']['walletAccountUser']['userId'],
+            $userData['data']['walletAccountUser']['createdAt'],
+            $userData['data']['walletAccountUser']['status']
         );
     }
 }

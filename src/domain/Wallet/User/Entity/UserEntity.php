@@ -54,6 +54,16 @@ class UserEntity implements UserEntityInterface
     private $userId;
 
     /**
+     * @var int
+     */
+    private $createdAt;
+
+    /**
+     * @var string
+     */
+    private $status;
+
+    /**
      * UserEntity constructor.
      * @param string $lastName
      * @param string $firstName
@@ -64,9 +74,22 @@ class UserEntity implements UserEntityInterface
      * @param string $language
      * @param array $walletOrganizations
      * @param string $userId
+     * @param int $createdAt
+     * @param string $status
      */
-    public function __construct(string $lastName, string $firstName, array $address, string $email, string $phoneNumber, string $mobileNumber, string $language, array $walletOrganizations = null, string $userId = null)
-    {
+    public function __construct(
+        string $lastName,
+        string $firstName,
+        array $address,
+        string $email,
+        string $phoneNumber,
+        string $mobileNumber,
+        string $language,
+        ?array $walletOrganizations = null,
+        ?string $userId = null,
+        ?int $createdAt = null,
+        ?string $status= null
+    ){
         $this->lastName = $lastName;
         $this->firstName = $firstName;
         $this->address = $address;
@@ -76,6 +99,8 @@ class UserEntity implements UserEntityInterface
         $this->language = $language;
         $this->walletOrganizations = $walletOrganizations;
         $this->userId = $userId;
+        $this->createdAt = $createdAt;
+        $this->status = $status;
     }
 
 
@@ -93,7 +118,9 @@ class UserEntity implements UserEntityInterface
             'mobileNumber' => $this->mobileNumber,
             'language' => $this->language,
             'walletOrganizations' => $this->walletOrganizations,
-            'userId'=>$this->userId
+            'userId'=>$this->userId,
+            'createdAt'=> $this->createdAt,
+            'status'=>$this->status
         ];
     }
 

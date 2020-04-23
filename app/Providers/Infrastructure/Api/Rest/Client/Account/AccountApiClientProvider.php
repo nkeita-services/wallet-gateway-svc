@@ -16,7 +16,7 @@ class AccountApiClientProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(AccountApiClientInterface::class, function ($app) {
-            $accountServiceUri = $app->make(SecretManagerInterface::class)->get('WALLET_BACKEND_ORGANIZATIONS_URI');
+            $accountServiceUri = $app->make(SecretManagerInterface::class)->get('WALLET_BACKEND_ACCOUNTS_URI');
             return new AccountApiGuzzleHttpClient(
                 new Client([
                     'base_uri' => $accountServiceUri,

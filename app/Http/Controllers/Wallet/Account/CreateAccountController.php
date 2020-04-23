@@ -34,17 +34,6 @@ class CreateAccountController extends Controller
 
     public function create($userId, Request $request)
     {
-        if (!$request->get('ApiConsumer')->hasScope('wallet-gateway/CreateAccounts')) {
-            return response()->json(
-                [
-                    'status' => 'failure',
-                    'statusCode' => 0,
-                    'statusDescription' => "You don't seem to have enough permissions to perform this action"
-                ],
-                401
-            );
-        }
-
         return response()->json(
             [
                 'status' => 'success',

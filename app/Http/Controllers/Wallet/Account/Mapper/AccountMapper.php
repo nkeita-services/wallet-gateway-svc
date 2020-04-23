@@ -18,7 +18,6 @@ class AccountMapper implements AccountMapperInterface
         return AccountEntity::fromArray(
            [
                'accountType' => $payload['accountType'],
-               'balance' => $payload['balance'],
                'walletPlanId'=> $payload['walletPlanId']
            ]
         );

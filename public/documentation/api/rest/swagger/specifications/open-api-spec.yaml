@@ -94,10 +94,8 @@ info:
 servers:
   - url: 'https://wallet-gateway-svc-fjhmnd5asa-ew.a.run.app'
     description: Testing Server
-  - url: 'https://wallet-gateway-svc-4q5ec4yf6q-ew.a.run.app'
-    description: Sandbox Server
-  - url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
-    description: Production Server
+  - url: 'http://localhost:8083/'
+    description: Local Server
 tags:
   - name: Wallet Plans
     description: Wallet Plans are used to group wallet accounts that have common characteristics
@@ -258,71 +256,85 @@ components:
       properties:
         streetName:
           type: string
-          description: The street name
-          example: voie de seine
+          description: Street name
+          example: Wicksteed House
         streetNumber:
           type: string
-          description: The street number
-          example: 3
+          description: Street number
+          example: 35
         city:
           type: string
           description: The city name
-          example: paris
-        zipCode:
+          example: Elephant And Castle
+        postCode:
           type: string
           description: The zip code
-          example: 75017
+          example: SE16RQ
         state:
           type: string
           description: The state name
-          example: France
+          example: London
         country:
           type: string
           description: The country name
+          example: United Kingdom
     WalletAccount:
       type: object
       properties:
         walletPlanId:
           type: string
           description: The Wallet Platform identifier for the wallet plan this accountrefers to
-        walletOrganizations:
-          type: array
-          items:
-            type: string
-            format: uuid
-            example: 3288603f-adf8-453e-b4e9-cbad4805f86c
+          example: 5ea066c96aae701018afdb7b
         accountType:
           type: string
           description: A master account that's linked to an organization or a regular account used by organization customers
           enum:
-            - master
-            - regular
-        balance:
-          type: number
-          description: The actual balance of this account
+            - personal
+            - business
         name:
           type: string
           description: A name that identifies this account
-        walletAccountOwner:
-          type: object
-          properties:
-            userId:
-              type: string
-              description: The user identifier
-              format: uuid
-              example: 45466ea6-512d-42c7-b57f-d11c53890456
     WalletAccountWithId:
       allOf:
         - $ref: '#/components/schemas/WalletAccount'
         - type: object
           required:
             - accountId
+            - walletAccountOwner
+            - walletOrganizations
           properties:
             accountId:
               type: string
               description: Account identifier
-              format: uuid
-              example: 45466ea6-512d-42c7-b57f-d11c53890456
+              example: 5ea066c96aae701018afdb7b
+            walletAccountOwner:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  description: The user identifier
+                  example: 5e7e2423b7628f5bc41f6bea
+            balance:
+              type: number
+              description: The actual balance of this account
+              example: 200.23
+            walletOrganizations:
+              type: array
+              items:
+                type: string
+                example: 5e7e2423b7628f5bc41f6bea
+            createdAt:
+              type: number
+              example: 1587577927
+            modifiedAt:
+              type: number
+              example: 1587577927
+            status:
+              type: string
+              enum:
+                - active
+                - disabled
+                - deleted
     WalletAccounts:
       type: array
       items:
@@ -342,7 +354,19 @@ components:
               type: string
               description: The user identifier
               format: uuid
-              example: 45466ea6-512d-42c7-b57f-d11c53890456
+              example: 5e7e2423b7628f5bc41f6bea
+            createdAt:
+              type: number
+              example: 1587577927
+            modifiedAt:
+              type: number
+              example: 1587577927
+            status:
+              type: string
+              enum:
+                - active
+                - disabled
+                - deleted
     WalletAccountUser:
       type: object
       properties:
