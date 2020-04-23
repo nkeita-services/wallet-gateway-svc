@@ -37,6 +37,21 @@ class AccountEntity implements AccountEntityInterface
     private $accountId;
 
     /**
+     * @var int
+     */
+    private $createdAt;
+
+    /**
+     * @var int
+     */
+    private $modifiedAt;
+
+    /**
+     * @var string
+     */
+    private $status;
+
+    /**
      * AccountEntity constructor.
      * @param string $accountType
      * @param float|null $balance
@@ -44,6 +59,9 @@ class AccountEntity implements AccountEntityInterface
      * @param string $walletPlanId
      * @param string $accountId
      * @param array $organizations
+     * @param int $createdAt
+     * @param int $modifiedAt
+     * @param string $status
      */
     public function __construct(
         string $accountType = null,
@@ -51,14 +69,20 @@ class AccountEntity implements AccountEntityInterface
         string $userId = null,
         string $walletPlanId = null,
         string $accountId = null,
-        array $organizations = null)
-    {
+        array $organizations = null,
+        int $createdAt = null,
+        int $modifiedAt = null,
+        string $status = null
+    ){
         $this->accountType = $accountType;
         $this->balance = $balance;
         $this->userId = $userId;
         $this->walletPlanId = $walletPlanId;
         $this->organizations = $organizations;
         $this->accountId = $accountId;
+        $this->createdAt = $createdAt;
+        $this->modifiedAt = $modifiedAt;
+        $this->status;
     }
 
 
@@ -70,7 +94,10 @@ class AccountEntity implements AccountEntityInterface
             $data['userId'] ?? null,
             $data['walletPlanId'] ?? null,
             $data['accountId'] ?? null,
-            $data['organizations'] ?? null
+            $data['organizations'] ?? null,
+            $data['createdAt'] ?? null,
+            $data['modifiedAt'] ?? null,
+            $data['status'] ?? null
         );
     }
 
@@ -85,7 +112,10 @@ class AccountEntity implements AccountEntityInterface
             'balance' => $this->balance,
             'accountId' => $this->accountId,
             'walletPlanId'=>$this->walletPlanId,
-            'organizations'=>$this->organizations
+            'organizations'=>$this->organizations,
+            'createdAt'=>$this->createdAt,
+            'modifiedAt'=>$this->modifiedAt,
+            'status'=>$this->status
         ];
     }
 
