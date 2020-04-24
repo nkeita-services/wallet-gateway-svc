@@ -28,6 +28,7 @@ use App\Providers\Infrastructure\CloudRun\Metadata\CloudRunMetadataGuzzleClientP
 use App\Providers\Infrastructure\CloudRun\Metadata\OAuth\IDToken\OAuthIDTokenServiceProvider;
 use App\Providers\Infrastructure\CloudRun\Metadata\ProjectID\CloudRunProjectIDServiceProvider;
 use App\Providers\Infrastructure\Secrets\SecretManagerServiceProvider;
+use App\Providers\Validation\Rules\Wallet\WalletPlanIdRuleServiceProvider;
 
 /*
 |--------------------------------------------------------------------------
@@ -123,6 +124,8 @@ $app->register(SecretManagerServiceProvider::class);
 
 $app->register(OAuthIDTokenServiceProvider::class);
 $app->register(CloudRunMetadataGuzzleClientProvider::class);
+
+$app->register(WalletPlanIdRuleServiceProvider::class);
 
 //$app->register(\App\Providers\AuthServiceProvider::class);
 

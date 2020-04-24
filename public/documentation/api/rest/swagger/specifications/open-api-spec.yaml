@@ -283,7 +283,7 @@ components:
       properties:
         walletPlanId:
           type: string
-          description: The Wallet Platform identifier for the wallet plan this accountrefers to
+          description: The Wallet Platform identifier for the wallet plan this account refers to
           example: 5ea066c96aae701018afdb7b
         accountType:
           type: string
@@ -294,6 +294,7 @@ components:
         name:
           type: string
           description: A name that identifies this account
+          example: Main account
     WalletAccountWithId:
       allOf:
         - $ref: '#/components/schemas/WalletAccount'

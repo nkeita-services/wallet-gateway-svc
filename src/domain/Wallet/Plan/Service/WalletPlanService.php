@@ -6,6 +6,8 @@ namespace Wallet\Wallet\Plan\Service;
 
 use Wallet\Wallet\Plan\Entity\WalletPlanEntityInterface;
 use Wallet\Wallet\Plan\Repository\WalletPlanRepositoryInterface;
+use Wallet\Wallet\Plan\Repository\Exception\WalletPlanNotFoundException as RepositoryWalletPlanNotFoundException;
+use Wallet\Wallet\Plan\Service\Exception\WalletPlanNotFoundException;
 
 class WalletPlanService implements WalletPlanServiceInterface
 {
@@ -33,8 +35,14 @@ class WalletPlanService implements WalletPlanServiceInterface
         string $walletPlanId
     ): WalletPlanEntityInterface
     {
-        return $this->walletPlanRepository->fetchWithPlanId(
-            $walletPlanId
-        );
+        try {
+            return $this->walletPlanRepository->fetchWithPlanId(
+                $walletPlanId
+            );
+        } catch (RepositoryWalletPlanNotFoundException $e) {
+            throw new WalletPlanNotFoundException(
+                $e->getMessage()
+            );
+        }
     }
 }

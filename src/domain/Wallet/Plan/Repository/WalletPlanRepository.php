@@ -4,8 +4,10 @@
 namespace Wallet\Wallet\Plan\Repository;
 
 
+use Infrastructure\Api\Rest\Client\Plan\Exception\WalletPlanNotFoundException as ApiWalletPlanNotFoundException;
 use Infrastructure\Api\Rest\Client\Plan\WalletPlanApiClientInterface;
 use Wallet\Wallet\Plan\Entity\WalletPlanEntityInterface;
+use Wallet\Wallet\Plan\Repository\Exception\WalletPlanNotFoundException;
 
 class WalletPlanRepository implements WalletPlanRepositoryInterface
 {
@@ -32,10 +34,16 @@ class WalletPlanRepository implements WalletPlanRepositoryInterface
     public function fetchWithPlanId(
         string $planId
     ): WalletPlanEntityInterface{
-        return $this
-            ->walletPlanApiClient
-            ->get(
-                $planId
+        try {
+            return $this
+                ->walletPlanApiClient
+                ->get(
+                    $planId
+                );
+        } catch (ApiWalletPlanNotFoundException $e) {
+            throw new WalletPlanNotFoundException(
+                $e->getMessage()
             );
+        }
     }
 }
