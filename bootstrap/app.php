@@ -29,6 +29,7 @@ use App\Providers\Infrastructure\CloudRun\Metadata\OAuth\IDToken\OAuthIDTokenSer
 use App\Providers\Infrastructure\CloudRun\Metadata\ProjectID\CloudRunProjectIDServiceProvider;
 use App\Providers\Infrastructure\Secrets\SecretManagerServiceProvider;
 use App\Providers\Validation\Rules\Wallet\WalletPlanIdRuleServiceProvider;
+use App\Providers\Validation\Rules\Wallet\WalletUserIdRuleServiceProvider;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,7 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+ $app->withFacades();
 
 // $app->withEloquent();
 
@@ -126,6 +127,7 @@ $app->register(OAuthIDTokenServiceProvider::class);
 $app->register(CloudRunMetadataGuzzleClientProvider::class);
 
 $app->register(WalletPlanIdRuleServiceProvider::class);
+$app->register(WalletUserIdRuleServiceProvider::class);
 
 //$app->register(\App\Providers\AuthServiceProvider::class);
 

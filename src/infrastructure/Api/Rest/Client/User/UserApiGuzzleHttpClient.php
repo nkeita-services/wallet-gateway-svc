@@ -4,7 +4,9 @@
 namespace Infrastructure\Api\Rest\Client\User;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\RequestOptions;
+use Infrastructure\Api\Rest\Client\User\Exception\UserNotFoundException;
 use Infrastructure\Api\Rest\Client\User\Mapper\UserMapperInterface;
 use Wallet\User\Entity\UserEntity;
 use Wallet\User\Entity\UserEntityInterface;
@@ -49,9 +51,19 @@ class UserApiGuzzleHttpClient implements UserApiClientInterface
     public function get(string $userId): UserEntityInterface
     {
 
-        $response = $this->guzzleClient->get(
-            sprintf('/v1/users/%s', $userId)
-        );
+        try {
+            $response = $this->guzzleClient->get(
+                sprintf('/v1/users/%s', $userId)
+            );
+        } catch (ClientException $e) {
+            if($e->getResponse()->getStatusCode() == 404){
+                throw new UserNotFoundException(
+                    sprintf('User %s not found', $userId)
+                );
+
+                throw $e;
+            }
+        }
 
         return $this->userMapper->createUserFromApiResponse(
             $response

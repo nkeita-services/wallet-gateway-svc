@@ -6,6 +6,8 @@ namespace Wallet\Wallet\User\Service;
 
 use Wallet\User\Entity\UserEntityInterface;
 use Wallet\Wallet\User\Repository\UserRepositoryInterface;
+use Wallet\Wallet\User\Repository\UserNotFoundException as RepositoryUserNotFoundException;
+use Wallet\Wallet\User\Service\Exception\UserNotFoundException;
 
 class UserService implements UserServiceInterface
 {
@@ -42,9 +44,15 @@ class UserService implements UserServiceInterface
      */
     public function fetch(string $userId): UserEntityInterface
     {
-        return $this->userRepository->fetch(
-            $userId
-        );
+        try {
+            return $this->userRepository->fetch(
+                $userId
+            );
+        } catch (RepositoryUserNotFoundException $e) {
+            throw new UserNotFoundException(
+                $e->getMessage()
+            );
+        }
     }
 
 

@@ -4,9 +4,10 @@
 namespace Wallet\Wallet\User\Repository;
 
 
-use Infrastructure\Api\Rest\Client\Account\AccountApiClientInterface;
 use Infrastructure\Api\Rest\Client\User\UserApiClientInterface;
 use Wallet\User\Entity\UserEntityInterface;
+use Infrastructure\Api\Rest\Client\User\Exception\UserNotFoundException as ApiClientUserNotFoundException;
+use Wallet\Wallet\User\Repository\Exception\UserNotFoundException;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -50,9 +51,15 @@ class UserRepository implements UserRepositoryInterface
      */
     public function fetch(string $userId): UserEntityInterface
     {
-        return $this->userApiClient->get(
-            $userId
-        );
+        try {
+            return $this->userApiClient->get(
+                $userId
+            );
+        } catch (ApiClientUserNotFoundException $e) {
+            throw new UserNotFoundException(
+                $e->getMessage()
+            );
+        }
     }
 
 

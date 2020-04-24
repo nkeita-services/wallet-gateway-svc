@@ -22,6 +22,7 @@ interface UserRepositoryInterface
     /**
      * @param string $userId
      * @return UserEntityInterface
+     * @throws UserNotFoundException
      */
     public function fetch(string $userId):UserEntityInterface;
 }

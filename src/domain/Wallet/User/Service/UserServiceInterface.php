@@ -4,6 +4,7 @@ namespace Wallet\Wallet\User\Service;
 
 
 use Wallet\User\Entity\UserEntityInterface;
+use Wallet\Wallet\User\Service\Exception\UserNotFoundException;
 
 interface UserServiceInterface
 {
@@ -21,6 +22,7 @@ interface UserServiceInterface
     /**
      * @param string $userId
      * @return UserEntityInterface
+     * @throws UserNotFoundException
      */
     public function fetch(string $userId): UserEntityInterface;
 
