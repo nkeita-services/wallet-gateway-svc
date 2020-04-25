@@ -16,7 +16,7 @@ class EventApiClientProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(EventApiClientInterface::class, function ($app) {
-            $eventStoreServiceUri = $app->make(SecretManagerInterface::class)->get('WALLET_BACKEND_ORGANIZATIONS_URI');
+            $eventStoreServiceUri = $app->make(SecretManagerInterface::class)->get('WALLET_BACKEND_EVENTS_URI');
             return new EventApiGuzzleHttpClient(
                 new Client([
                     'base_uri' => $eventStoreServiceUri,

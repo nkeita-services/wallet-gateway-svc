@@ -29,7 +29,10 @@ class AccountMapper implements AccountMapperInterface
             $accountData['data']['walletAccount']['userId'],
             $accountData['data']['walletAccount']['walletPlanId'],
             $accountData['data']['walletAccount']['accountId'],
-            $accountData['data']['walletAccount']['organizations']
+            $accountData['data']['walletAccount']['organizations'],
+            $accountData['data']['walletAccount']['createdAt'],
+            $accountData['data']['walletAccount']['modifiedAt'],
+            $accountData['data']['walletAccount']['status']
         );
     }
 

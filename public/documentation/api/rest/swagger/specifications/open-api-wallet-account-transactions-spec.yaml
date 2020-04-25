@@ -5,6 +5,17 @@ get:
         - GetAccountTransactions
   tags:
     - Wallet Accounts
+  parameters:
+    - in: path
+      required: true
+      name: userId
+      schema:
+        type: string
+    - in: path
+      required: true
+      name: accountId
+      schema:
+        type: string
   responses:
     '200':
       description: Successfully obtained wallet transactions

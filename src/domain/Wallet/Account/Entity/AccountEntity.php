@@ -82,14 +82,14 @@ class AccountEntity implements AccountEntityInterface
         $this->accountId = $accountId;
         $this->createdAt = $createdAt;
         $this->modifiedAt = $modifiedAt;
-        $this->status;
+        $this->status = $status;
     }
 
 
     public static function fromArray(array $data): AccountEntityInterface
     {
         return new static(
-            $data['accountType'] ?? 'regular',
+            $data['accountType'] ?? 'personal',
             $data['balance'] ?? 0,
             $data['userId'] ?? null,
             $data['walletPlanId'] ?? null,
