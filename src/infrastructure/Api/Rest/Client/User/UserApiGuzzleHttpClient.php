@@ -5,11 +5,12 @@ namespace Infrastructure\Api\Rest\Client\User;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\RequestOptions;
 use Infrastructure\Api\Rest\Client\User\Exception\UserNotFoundException;
 use Infrastructure\Api\Rest\Client\User\Mapper\UserMapperInterface;
-use Wallet\User\Entity\UserEntity;
 use Wallet\User\Entity\UserEntityInterface;
+use DomainException;
 
 class UserApiGuzzleHttpClient implements UserApiClientInterface
 {
@@ -60,9 +61,17 @@ class UserApiGuzzleHttpClient implements UserApiClientInterface
                 throw new UserNotFoundException(
                     sprintf('User %s not found', $userId)
                 );
-
-                throw $e;
             }
+
+            throw $e;
+        }catch (ServerException $e){
+            $decodedPayload = json_decode(
+                $e->getResponse()->getBody()->getContents(), true
+            );
+
+            throw new DomainException(
+                $decodedPayload['StatusDescription']
+            );
         }
 
         return $this->userMapper->createUserFromApiResponse(
