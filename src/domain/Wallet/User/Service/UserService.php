@@ -6,7 +6,7 @@ namespace Wallet\Wallet\User\Service;
 
 use Wallet\User\Entity\UserEntityInterface;
 use Wallet\Wallet\User\Repository\UserRepositoryInterface;
-use Wallet\Wallet\User\Repository\UserNotFoundException as RepositoryUserNotFoundException;
+use Wallet\Wallet\User\Repository\Exception\UserNotFoundException as RepositoryUserNotFoundException;
 use Wallet\Wallet\User\Service\Exception\UserNotFoundException;
 
 class UserService implements UserServiceInterface

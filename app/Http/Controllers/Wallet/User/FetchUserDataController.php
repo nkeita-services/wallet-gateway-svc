@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Wallet\User;
 
 use App\Http\Controllers\Controller;
+use Wallet\Wallet\User\Service\Exception\UserNotFoundException;
 use Wallet\Wallet\User\Service\UserService;
 use Wallet\Wallet\User\Service\UserServiceInterface;
 use Illuminate\Http\Request;
@@ -27,25 +28,25 @@ class FetchUserDataController extends Controller
 
     public function fetch($userId, Request $request)
     {
-        if (!$request->get('ApiConsumer')->hasScope('wallet-gateway/GetUser')) {
+
+        try {
             return response()->json(
                 [
-                    'status' => 'failure',
-                    'statusCode' => 0,
-                    'statusDescription' => "You don't seem to have enough permissions to perform this action"
-                ],
-                401
+                    'status' => 'success',
+                    'data' => [
+                        'walletAccountUser' => $this->userService->fetch($userId)->toArray()
+                    ]
+                ]
+
+            );
+        } catch (UserNotFoundException $e) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => 0,
+                    'StatusDescription' => $e->getMessage()
+                ], 404
             );
         }
-
-        return response()->json(
-            [
-                'status' => 'success',
-                'data' => [
-                    'walletAccountUser' => $this->userService->fetch($userId)->toArray()
-                ]
-            ]
-
-        );
     }
 }
