@@ -14,6 +14,10 @@ RUN apt-get update -y && \
     docker-php-ext-configure gmp && \
     docker-php-ext-install gmp
 
+# install mongodb ext
+RUN pecl install mongodb \
+    && docker-php-ext-enable mongodb
+
 COPY . /var/www/html/
 WORKDIR /var/www/html
 RUN composer install
@@ -23,6 +27,25 @@ RUN composer install
 FROM php:7.3-apache
 RUN a2enmod rewrite
 RUN a2enmod headers
+
+# Install pdo
+RUN docker-php-ext-install pdo pdo_mysql
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+
+# install mongodb ext
+RUN apt-get update
+RUN apt-get install -y openssl libssl-dev libcurl4-openssl-dev
+RUN pecl install mongodb \
+    && docker-php-ext-enable mongodb
+
+#Install GD and iconv
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+    && docker-php-ext-install -j$(nproc) iconv \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd
 
 # Copy local code to the container image.
 COPY . /var/www/html/
