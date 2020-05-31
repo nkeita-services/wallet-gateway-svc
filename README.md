@@ -17,5 +17,11 @@ gcloud builds submit --tag gcr.io/wallet-254709/card-payment-svc:0.0.1
 ```
 gcloud beta run deploy --image gcr.io/wallet-254709/card-payment-svc:0.0.1 --platform managed
 ```
+
+### Generate google identity token
+```
+gcloud auth print-identity-token
+```
+
 ## Resources
 https://lobster1234.github.io/2018/05/31/server-to-server-auth-with-amazon-cognito/

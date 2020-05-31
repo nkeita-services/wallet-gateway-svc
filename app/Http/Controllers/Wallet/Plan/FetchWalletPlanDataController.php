@@ -33,7 +33,10 @@ class FetchWalletPlanDataController
             [
                 'status' => 'success',
                 'data' => [
-                    'walletPlan' => $this->walletPlanService->fromWalletPlanId($planId)->toArray()
+                    'walletPlan' => $this
+                        ->walletPlanService
+                        ->fromWalletPlanId($planId)
+                        ->toArray()
                 ]
             ]
         );

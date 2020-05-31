@@ -18,59 +18,109 @@ $router->get('/', function () use ($router) {
 $router->post('v1/wallets/users', [
     'uses' => 'Wallet\User\CreateUserController@create',
     'middleware'=>'auth',
-    'as'=>'wallet-gateway/CreateUsers'
+    'as'=>'wallet-gateway/CreateUsers',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
 ]);
 
 $router->get('v1/wallets/users/{userId}', [
     'uses' => 'Wallet\User\FetchUserDataController@fetch',
     'middleware'=>'auth',
-    'as'=>'wallet-gateway/GetUser'
+    'as'=>'wallet-gateway/GetUser',
+    'groups'=> [
+        'root',
+        'admin',
+        //'user'
+    ]
 ]);
 
 $router->post('v1/wallets/users/{userId}/accounts', [
     'uses' => 'Wallet\Account\CreateAccountController@create',
     'middleware'=>'auth',
-    'as'=>'wallet-gateway/CreateAccounts'
+    'as'=>'wallet-gateway/CreateAccounts',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
 ]);
 
 $router->get('v1/wallets/users/{userId}/accounts', [
     'uses' => 'Wallet\Account\FetchUserAccountsController@fetch',
     'middleware'=>'auth',
-    'as'=>"wallet-gateway/ListUserAccounts"
+    'as'=>"wallet-gateway/ListUserAccounts",
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
 ]);
 
 $router->patch('v1/wallets/users/{userId}/accounts/{accountId}', [
     'uses' => 'Wallet\Account\UpdateAccountController@update',
     'middleware'=>'auth',
-    'as'=>"wallet-gateway/UpdateAccountInfo"
+    'as'=>"wallet-gateway/UpdateAccountInfo",
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
 ]);
 
 $router->get('v1/wallets/users/{userId}/accounts/{accountId}', [
     'uses' => 'Wallet\Account\FetchAccountDataController@fetch',
     'middleware'=>'auth',
-    'as'=>"wallet-gateway/GetAccountInfo"
+    'as'=>"wallet-gateway/GetAccountInfo",
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
 ]);
 
 $router->patch('v1/wallets/users/{userId}/accounts/{accountId}/balance/topUp', [
     'uses' => 'Wallet\Account\UpdateAccountBalanceController@topUp',
     'middleware'=>'auth',
-    'as'=>"wallet-gateway/TopUpAccount"
+    'as'=>"wallet-gateway/TopUpAccount",
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
 ]);
 
 $router->patch('v1/wallets/users/{userId}/accounts/{accountId}/balance/debit', [
     'uses' => 'Wallet\Account\UpdateAccountBalanceController@debit',
     'middleware'=>'auth',
-    'as'=>"wallet-gateway/DebitAccount"
+    'as'=>"wallet-gateway/DebitAccount",
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
 ]);
 
 $router->get('v1/wallets/users/{userId}/accounts/{accountId}/transactions', [
     'uses' => 'Wallet\Account\FetchAccountTransactionsController@fetchAll',
     'middleware'=>'auth',
-    'as'=>"wallet-gateway/GetAccountTransactions"
+    'as'=>"wallet-gateway/GetAccountTransactions",
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
 ]);
 
 $router->get('v1/wallets/plans/{planId}', [
     'uses' => 'Wallet\Plan\FetchWalletPlanDataController@fetch',
     'middleware'=>'auth',
-    'as'=>"wallet-gateway/GetWalletPlan"
+    'as'=>"wallet-gateway/GetWalletPlan",
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
 ]);

@@ -20,14 +20,27 @@ class Client implements ClientInterface
     private $scopes;
 
     /**
+     * @var array
+     */
+    private $token;
+
+
+
+    /**
      * Client constructor.
      * @param string $clientId
      * @param array $scope
+     * @param stdClass $token
      */
-    private function __construct(string $clientId, array $scope)
+    private function __construct(
+        string $clientId,
+        array $scope,
+        stdClass $token
+    )
     {
         $this->clientId = $clientId;
         $this->scopes = $scope;
+        $this->token = $token;
     }
 
 
@@ -38,7 +51,8 @@ class Client implements ClientInterface
     {
         return new static(
             $accessToken->client_id,
-            explode(' ', $accessToken->scope)
+            explode(' ', $accessToken->scope),
+            $accessToken
         );
     }
 
@@ -68,6 +82,36 @@ class Client implements ClientInterface
     public function getClientId(): string
     {
         return $this->clientId;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function groups(): array
+    {
+        if(array_key_exists('cognito:groups', $this->token)){
+            return array_map(
+                function ($groupName){
+                    return strtolower($groupName);
+                },
+                $this->token->{'cognito:groups'}
+            );
+        }
+
+        return ['user'];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function memberOf(array $groups): bool
+    {
+        $matches = array_intersect(
+            $this->groups(),
+            $groups
+        );
+
+        return count($matches) > 0 ? true : false;
     }
 
 

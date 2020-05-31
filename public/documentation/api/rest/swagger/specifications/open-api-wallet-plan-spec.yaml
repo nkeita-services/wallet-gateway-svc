@@ -1,5 +1,8 @@
 get:
   summary: Obtain a wallet plan info
+  security:
+    - oAuth2:
+        - GetAccountInfo
   tags:
     - Wallet Plans
   parameters:
