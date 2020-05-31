@@ -22,6 +22,7 @@ RUN composer install
 # https://hub.docker.com/_/php
 FROM php:7.3-apache
 RUN a2enmod rewrite
+RUN a2enmod headers
 
 # Copy local code to the container image.
 COPY . /var/www/html/
