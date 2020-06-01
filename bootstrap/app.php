@@ -30,6 +30,8 @@ use App\Providers\Infrastructure\CloudRun\Metadata\ProjectID\CloudRunProjectIDSe
 use App\Providers\Infrastructure\Secrets\SecretManagerServiceProvider;
 use App\Providers\Validation\Rules\Wallet\WalletPlanIdRuleServiceProvider;
 use App\Providers\Validation\Rules\Wallet\WalletUserIdRuleServiceProvider;
+use Nord\Lumen\Cors\CorsServiceProvider;
+use Nord\Lumen\Cors\CorsMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +88,9 @@ $app->routeMiddleware([
     'auth' => OAuth2ClientCredentials::class,
 ]);
 
+$app->middleware([
+    CorsMiddleware::class
+]);
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
@@ -96,7 +101,7 @@ $app->routeMiddleware([
 | totally optional, so you are not required to uncomment this line.
 |
 */
-
+$app->register(CorsServiceProvider::class);
 $app->register(AccountApiClientProvider::class);
 $app->register(AccountServiceProvider::class);
 $app->register(AccountRepositoryProvider::class);
