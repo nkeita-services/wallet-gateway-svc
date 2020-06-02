@@ -1,5 +1,8 @@
 get:
   summary: Obtain a list of wallet plans
+  security:
+    - oAuth2:
+      - FetchAllWalletPlans
   tags:
     - Wallet Plans
   responses:

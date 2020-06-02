@@ -169,6 +169,7 @@ components:
             DebitAccount: Debit Account
             GetAccountTransactions: List all the transactions on the account
             GetWalletPlan: Get Wallet Plan
+            FetchAllWalletPlans: Get Wallet Plans
   schemas:
     ResponseStatus:
       type: string

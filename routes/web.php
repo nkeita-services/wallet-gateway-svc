@@ -124,3 +124,13 @@ $router->get('v1/wallets/plans/{planId}', [
         'user'
     ]
 ]);
+
+$router->get('v1/wallets/plans', [
+    'uses' => 'Wallet\Plan\FetchAllWalletPlansController@fetchAll',
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/FetchAllWalletPlans",
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);
