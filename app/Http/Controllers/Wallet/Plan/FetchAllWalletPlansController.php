@@ -30,9 +30,9 @@ class FetchAllWalletPlansController extends Controller
                 'status' => 'success',
                 'data' => [
                     'walletPlans' => [
-                        "name" => "Tontine",
-                        "currency" => "EUR",
-                        "status" => "active"
+                        ["name" => "Tontine",
+                            "currency" => "EUR",
+                            "status" => "active"]
                     ]
                 ]
             ]
