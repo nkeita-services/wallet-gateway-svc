@@ -5,6 +5,8 @@ namespace Infrastructure\Api\Rest\Client\Plan;
 
 
 use Infrastructure\Api\Rest\Client\Plan\Exception\WalletPlanNotFoundException;
+use Wallet\Wallet\Account\Collection\AccountCollectionInterface;
+use Wallet\Wallet\Plan\Collection\PlanCollectionInterface;
 use Wallet\Wallet\Plan\Entity\WalletPlanEntityInterface;
 
 interface WalletPlanApiClientInterface
@@ -17,4 +19,10 @@ interface WalletPlanApiClientInterface
     public function get(
         string $planId
     ): WalletPlanEntityInterface;
+
+    /**
+     * @param array $filter
+     * @return PlanCollectionInterface
+     */
+    public function fetchAll(array $filter): PlanCollectionInterface;
 }

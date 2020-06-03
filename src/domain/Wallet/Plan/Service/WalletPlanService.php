@@ -4,6 +4,7 @@
 namespace Wallet\Wallet\Plan\Service;
 
 
+use Wallet\Wallet\Plan\Collection\PlanCollectionInterface;
 use Wallet\Wallet\Plan\Entity\WalletPlanEntityInterface;
 use Wallet\Wallet\Plan\Repository\WalletPlanRepositoryInterface;
 use Wallet\Wallet\Plan\Repository\Exception\WalletPlanNotFoundException as RepositoryWalletPlanNotFoundException;
@@ -45,4 +46,17 @@ class WalletPlanService implements WalletPlanServiceInterface
             );
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetchAll(
+        array $filter
+    ): PlanCollectionInterface{
+        return $this
+            ->walletPlanRepository
+            ->fetchAll($filter);
+    }
+
+
 }

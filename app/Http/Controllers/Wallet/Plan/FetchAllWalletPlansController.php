@@ -29,15 +29,12 @@ class FetchAllWalletPlansController extends Controller
             [
                 'status' => 'success',
                 'data' => [
-                    'walletPlans' => [
-                        ["name" => "Tontine",
-                            "currency" => "EUR",
-                            "status" => "active"]
-                    ]
+                    'walletPlans' => $this
+                        ->walletPlanService
+                        ->fetchAll([])
+                        ->toArray()
                 ]
             ]
         );
     }
-
-
 }

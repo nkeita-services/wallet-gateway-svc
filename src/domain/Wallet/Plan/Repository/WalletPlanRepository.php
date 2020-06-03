@@ -6,6 +6,7 @@ namespace Wallet\Wallet\Plan\Repository;
 
 use Infrastructure\Api\Rest\Client\Plan\Exception\WalletPlanNotFoundException as ApiWalletPlanNotFoundException;
 use Infrastructure\Api\Rest\Client\Plan\WalletPlanApiClientInterface;
+use Wallet\Wallet\Plan\Collection\PlanCollectionInterface;
 use Wallet\Wallet\Plan\Entity\WalletPlanEntityInterface;
 use Wallet\Wallet\Plan\Repository\Exception\WalletPlanNotFoundException;
 
@@ -46,4 +47,18 @@ class WalletPlanRepository implements WalletPlanRepositoryInterface
             );
         }
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetchAll(
+        array $filter
+    ): PlanCollectionInterface
+    {
+        return $this
+            ->walletPlanApiClient
+            ->fetchAll($filter);
+    }
+
+
 }
