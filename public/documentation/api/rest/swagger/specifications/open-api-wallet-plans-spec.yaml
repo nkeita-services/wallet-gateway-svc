@@ -29,6 +29,9 @@ get:
 
 post:
   summary: Create a wallet plan
+  security:
+    - oAuth2:
+      - CreateWalletPlan
   tags:
     - Wallet Plans
   requestBody:

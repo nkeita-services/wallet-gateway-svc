@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Wallet\Plan;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Wallet\Wallet\Plan\Service\WalletPlanServiceInterface;
 
 class FetchAllWalletPlansController extends Controller
@@ -23,7 +24,7 @@ class FetchAllWalletPlansController extends Controller
         $this->walletPlanService = $walletPlanService;
     }
 
-    public function fetchAll()
+    public function fetchAll(Request $request)
     {
         return response()->json(
             [

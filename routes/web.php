@@ -134,3 +134,13 @@ $router->get('v1/wallets/plans', [
         'admin'
     ]
 ]);
+
+$router->post('v1/wallets/plans', [
+    'uses' => 'Wallet\Plan\CreateWalletPlanController@create',
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/CreateWalletPlan",
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);

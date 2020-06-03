@@ -88,7 +88,8 @@ class WalletPlanEntity implements WalletPlanEntityInterface
             "name"=> $this->name,
             "currency"=>$this->currency,
             "status"=>$this->status,
-            "compliance"=>$this->compliance
+            "compliance"=>$this->compliance,
+            'organizations'=>$this->organizations
         ];
     }
 

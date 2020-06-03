@@ -24,5 +24,15 @@ interface WalletPlanServiceInterface
      * @param array $filter
      * @return PlanCollectionInterface
      */
-    public function fetchAll(array $filter): PlanCollectionInterface;
+    public function fetchAll(
+        array $filter
+    ): PlanCollectionInterface;
+
+    /**
+     * @param WalletPlanEntityInterface $walletPlanEntity
+     * @return WalletPlanEntityInterface
+     */
+    public function create(
+        WalletPlanEntityInterface $walletPlanEntity
+    ): WalletPlanEntityInterface;
 }

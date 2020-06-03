@@ -6,6 +6,7 @@ namespace Infrastructure\Api\Rest\Client\Plan;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\RequestOptions;
 use Infrastructure\Api\Rest\Client\Plan\Exception\WalletPlanNotFoundException;
 use Infrastructure\Api\Rest\Client\Plan\Mapper\WalletPlanMapperInterface;
 use Wallet\Wallet\Plan\Collection\PlanCollectionInterface;
@@ -78,6 +79,23 @@ class WalletPlanApiGuzzleHttpClient implements WalletPlanApiClientInterface
         return $this->walletPlanMapper->createWalletPlanCollectionFromApiResponse(
             $response
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function create(
+        array $walletPlanPayload
+    ): WalletPlanEntityInterface{
+        $response = $this->guzzleClient->post('/v1/plans', [
+            RequestOptions::JSON => $walletPlanPayload
+        ]);
+
+        return $this
+            ->walletPlanMapper
+            ->createWalletPlanFromApiResponse(
+                $response
+            );
     }
 
 

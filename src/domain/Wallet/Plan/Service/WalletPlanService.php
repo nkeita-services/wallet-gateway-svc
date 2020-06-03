@@ -58,5 +58,19 @@ class WalletPlanService implements WalletPlanServiceInterface
             ->fetchAll($filter);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function create(
+        WalletPlanEntityInterface $walletPlanEntity
+    ): WalletPlanEntityInterface
+    {
+        return $this
+            ->walletPlanRepository
+            ->create(
+                $walletPlanEntity
+            );
+    }
+
 
 }

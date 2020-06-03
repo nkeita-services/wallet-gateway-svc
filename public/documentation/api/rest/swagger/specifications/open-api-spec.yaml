@@ -170,6 +170,7 @@ components:
             GetAccountTransactions: List all the transactions on the account
             GetWalletPlan: Get Wallet Plan
             FetchAllWalletPlans: Get Wallet Plans
+            CreateWalletPlan: Create Wallet Plans
   schemas:
     ResponseStatus:
       type: string
