@@ -248,8 +248,29 @@ components:
       properties:
         name:
           type: string
+          example: Hakili-corp
+        email:
+          type: string
+          example: admin@hakili-corp.io
+        phoneNumber:
+          type: string
+          example: 00447307568957
+        mobileNumber:
+          type: string
+          example: 00447307568957
         address:
           $ref: '#/components/schemas/Address'
+    WalletOrganizationWithId:
+      allOf:
+        - $ref: '#/components/schemas/WalletOrganization'
+        - type: object
+          required:
+            - organizationId
+          properties:
+            organizationId:
+              type: string
+              description: Organization identifier
+              example: 5e7e2423b7628f5bc41f6bea
     WalletOrganizations:
       type: array
       items:

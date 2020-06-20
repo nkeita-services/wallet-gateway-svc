@@ -144,3 +144,13 @@ $router->post('v1/wallets/plans', [
         'admin'
     ]
 ]);
+
+$router->get('v1/wallets/organizations', [
+    'uses' => 'Wallet\Organization\FetchOrganizationDataController@fetchData',
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/FetchOrganizationData",
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);

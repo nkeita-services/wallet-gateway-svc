@@ -1,5 +1,8 @@
 get:
   summary: Obtain a list of wallet organizations
+  security:
+    - oAuth2:
+        - FetchOrganizationData
   tags:
     - Wallet Organizations
   responses:
@@ -8,7 +11,15 @@ get:
       content:
         application/json:
           schema:
-            $ref: 'open-api-spec.yaml#/components/schemas/WalletOrganizations'
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletOrganization:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletOrganizationWithId'
 post:
   summary: Create a wallet organization
   tags:
