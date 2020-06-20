@@ -7,6 +7,8 @@ namespace Wallet\Wallet\User\Repository;
 use Infrastructure\Api\Rest\Client\User\UserApiClientInterface;
 use Wallet\User\Entity\UserEntityInterface;
 use Infrastructure\Api\Rest\Client\User\Exception\UserNotFoundException as ApiClientUserNotFoundException;
+use Wallet\Wallet\User\Collection\UserCollection;
+use Wallet\Wallet\User\Collection\UserCollectionInterface;
 use Wallet\Wallet\User\Repository\Exception\UserNotFoundException;
 
 class UserRepository implements UserRepositoryInterface
@@ -60,6 +62,16 @@ class UserRepository implements UserRepositoryInterface
                 $e->getMessage()
             );
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetchAll(array $filter): UserCollectionInterface
+    {
+       return $this->userApiClient->fetchAll(
+           $filter
+       );
     }
 
 

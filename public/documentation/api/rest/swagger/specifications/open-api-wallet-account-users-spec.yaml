@@ -2,7 +2,7 @@ get:
   summary: Obtain a list of wallet account users
   security:
     - oAuth2:
-      - UpdateUserData
+      - ListUsers
   tags:
     - Wallet Account Users
   responses:
@@ -18,7 +18,7 @@ get:
               data:
                 type: object
                 properties:
-                  walletAccounts:
+                  walletAccountUsers:
                     $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountUsersWithId'
 post:
   summary: Create a wallet account user

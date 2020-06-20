@@ -45,10 +45,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        var_dump($exception);exit;
         return response()->json(
             [
                 'status' => 'error',
-                'StatusCode' => 0,
+                'StatusCode' => $exception->getCode(),
                 'StatusDescription' => $exception->getMessage()
             ], 500
         );

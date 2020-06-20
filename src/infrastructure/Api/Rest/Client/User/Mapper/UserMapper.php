@@ -7,6 +7,9 @@ namespace Infrastructure\Api\Rest\Client\User\Mapper;
 use Psr\Http\Message\ResponseInterface;
 use Wallet\User\Entity\UserEntity;
 use Wallet\User\Entity\UserEntityInterface;
+use Wallet\Wallet\Plan\Collection\PlanCollection;
+use Wallet\Wallet\User\Collection\UserCollection;
+use Wallet\Wallet\User\Collection\UserCollectionInterface;
 
 class UserMapper implements UserMapperInterface
 {
@@ -35,4 +38,21 @@ class UserMapper implements UserMapperInterface
             $userData['data']['walletAccountUser']['status']
         );
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function createUserCollectionFromApiResponse(ResponseInterface $response): UserCollectionInterface
+    {
+        $data = json_decode(
+            $response->getBody()->getContents(),
+            true
+        );
+
+        return UserCollection::fromArray(
+            $data['data']['walletAccounts']
+        );
+    }
+
+
 }

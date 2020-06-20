@@ -15,6 +15,16 @@ $router->get('/', function () use ($router) {
     return redirect('/documentation/api/rest/swagger/redoc/index.html');
 });
 
+$router->get('v1/wallets/users', [
+    'uses' => 'Wallet\User\FetchAllUsersController@fetchAll',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/ListUsers',
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);
+
 $router->post('v1/wallets/users', [
     'uses' => 'Wallet\User\CreateUserController@create',
     'middleware'=>'auth',

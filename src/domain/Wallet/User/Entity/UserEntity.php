@@ -103,7 +103,26 @@ class UserEntity implements UserEntityInterface
         $this->status = $status;
     }
 
-
+    /**
+     * @inheritDoc
+     */
+    public static function fromArray(
+        array $data
+    ): UserEntityInterface{
+        return new static(
+            $data['lastName'] ?? null,
+            $data['firstName'] ?? null,
+            $data['address'] ?? null,
+            $data['email'] ?? null,
+            $data['phoneNumber'] ?? null,
+            $data['mobileNumber'] ?? null,
+            $data['language'] ?? null,
+            $data['walletOrganizations'] ?? null,
+            $data['userId'] ?? null,
+            $data['createdAt'] ?? null,
+            $data['status'] ?? null,
+        );
+    }
     /**
      * @inheritDoc
      */

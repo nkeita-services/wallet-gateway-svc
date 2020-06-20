@@ -11,6 +11,7 @@ use Infrastructure\Api\Rest\Client\User\Exception\UserNotFoundException;
 use Infrastructure\Api\Rest\Client\User\Mapper\UserMapperInterface;
 use Wallet\User\Entity\UserEntityInterface;
 use DomainException;
+use Wallet\Wallet\User\Collection\UserCollectionInterface;
 
 class UserApiGuzzleHttpClient implements UserApiClientInterface
 {
@@ -78,4 +79,24 @@ class UserApiGuzzleHttpClient implements UserApiClientInterface
             $response
         );
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetchAll($filter): UserCollectionInterface
+    {
+        try {
+            $response = $this->guzzleClient->get(
+                sprintf('/v1/users')
+            );
+
+            return $this->userMapper->createUserCollectionFromApiResponse(
+                $response
+            );
+        } catch (ClientException $e) {
+            throw $e;
+        }
+    }
+
+
 }

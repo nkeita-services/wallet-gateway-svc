@@ -4,6 +4,8 @@
 namespace Wallet\User\Entity;
 
 
+use Wallet\Wallet\Plan\Entity\WalletPlanEntityInterface;
+
 interface UserEntityInterface
 {
 
@@ -11,6 +13,14 @@ interface UserEntityInterface
      * @return array
      */
     public function toArray(): array ;
+
+    /**
+     * @param array $data
+     * @return UserEntityInterface
+     */
+    public static function fromArray(
+        array $data
+    ):UserEntityInterface;
 
     /**
      * @return string
