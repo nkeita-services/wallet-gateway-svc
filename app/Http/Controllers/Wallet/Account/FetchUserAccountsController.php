@@ -26,17 +26,6 @@ class FetchUserAccountsController extends Controller
 
     public function fetch($userId, Request $request)
     {
-        if (!$request->get('ApiConsumer')->hasScope('wallet-gateway/ListUserAccounts')) {
-            return response()->json(
-                [
-                    'status' => 'failure',
-                    'statusCode' => 0,
-                    'statusDescription' => "You don't seem to have enough permissions to perform this action"
-                ],
-                401
-            );
-        }
-
         return response()->json(
             [
                 'status' => 'success',
