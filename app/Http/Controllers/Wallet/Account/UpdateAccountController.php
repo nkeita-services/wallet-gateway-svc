@@ -29,16 +29,6 @@ class UpdateAccountController extends Controller
         $userId,
         $accountId,
         Request $request){
-        if (!$request->get('ApiConsumer')->hasScope('wallet-gateway/UpdateAccountInfo')) {
-            return response()->json(
-                [
-                    'status' => 'failure',
-                    'statusCode' => 0,
-                    'statusDescription' => "You don't seem to have enough permissions to perform this action"
-                ],
-                401
-            );
-        }
 
         return response()->json(
             [

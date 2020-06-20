@@ -46,17 +46,6 @@ class UpdateAccountBalanceController  extends Controller
         $accountId,
         Request $request)
     {
-        if (!$request->get('ApiConsumer')->hasScope('wallet-gateway/TopUpAccount')) {
-            return response()->json(
-                [
-                    'status' => 'failure',
-                    'statusCode' => 0,
-                    'statusDescription' => "You don't seem to have enough permissions to perform this action"
-                ],
-                401
-            );
-        }
-
         $accountEntity = $this->accountService->topUp(
             $userId,
             $accountId,
