@@ -44,7 +44,7 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      */
     public function render($request, Exception $exception)
-    {
+    {var_dump($exception);exit;
         return response()->json(
             [
                 'status' => 'error',

@@ -24,6 +24,7 @@ class AccountMapper implements AccountMapperInterface
         );
 
         return new AccountEntity(
+            $accountData['data']['walletAccount']['name'] ?? null,
             $accountData['data']['walletAccount']['accountType'],
             $accountData['data']['walletAccount']['balance'],
             $accountData['data']['walletAccount']['userId'],
