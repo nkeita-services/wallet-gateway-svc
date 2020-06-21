@@ -9,6 +9,11 @@ class AccountEntity implements AccountEntityInterface
     /**
      * @var string
      */
+    private $name;
+
+    /**
+     * @var string
+     */
     private $accountType;
 
     /**
@@ -51,8 +56,11 @@ class AccountEntity implements AccountEntityInterface
      */
     private $status;
 
+
+
     /**
      * AccountEntity constructor.
+     * @param string $name
      * @param string $accountType
      * @param float|null $balance
      * @param string|null $userId
@@ -64,6 +72,7 @@ class AccountEntity implements AccountEntityInterface
      * @param string $status
      */
     public function __construct(
+        string $name = null,
         string $accountType = null,
         float $balance = 0,
         string $userId = null,
@@ -74,6 +83,7 @@ class AccountEntity implements AccountEntityInterface
         int $modifiedAt = null,
         string $status = null
     ){
+        $this->name = $name;
         $this->accountType = $accountType;
         $this->balance = $balance;
         $this->userId = $userId;
@@ -89,6 +99,7 @@ class AccountEntity implements AccountEntityInterface
     public static function fromArray(array $data): AccountEntityInterface
     {
         return new static(
+            $data['name'] ?? null,
             $data['accountType'] ?? 'personal',
             $data['balance'] ?? 0,
             $data['userId'] ?? null,
@@ -107,6 +118,7 @@ class AccountEntity implements AccountEntityInterface
     public function toArray(): array
     {
         return [
+            'name' => $this->name,
             'accountType' => $this->accountType,
             'userId' => $this->userId,
             'balance' => $this->balance,
@@ -117,6 +129,14 @@ class AccountEntity implements AccountEntityInterface
             'modifiedAt'=>$this->modifiedAt,
             'status'=>$this->status
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**

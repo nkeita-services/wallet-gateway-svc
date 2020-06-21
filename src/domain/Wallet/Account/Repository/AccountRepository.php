@@ -33,7 +33,8 @@ class AccountRepository implements AccountRepositoryInterface
                 'balance' => $accountEntity->getBalance(),
                 'walletPlanId' => $accountEntity->getWalletPlanId(),
                 'userId' => $userId,
-                'organizations' => $organizations
+                'organizations' => $organizations,
+                'name'=>$accountEntity->getName()
             ]
         );
     }
