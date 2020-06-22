@@ -188,3 +188,14 @@ $router->get('/v1/wallets/users/{userId}/beneficiaries', [
         'user'
     ]
 ]);
+
+$router->post('/v1/wallets/users/{userId}/beneficiaries', [
+    'uses' => 'Wallet\User\Beneficiary\CreateBeneficiaryController@create',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/CreateUserBeneficiary',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);

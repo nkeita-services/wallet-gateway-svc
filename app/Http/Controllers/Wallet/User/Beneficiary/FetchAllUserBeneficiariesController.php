@@ -4,10 +4,6 @@
 namespace App\Http\Controllers\Wallet\User\Beneficiary;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Wallet\User\Mapper\UserMapper;
-use App\Http\Controllers\Wallet\User\Mapper\UserMapperInterface;
-use Wallet\Wallet\User\Service\UserService;
-use Wallet\Wallet\User\Service\UserServiceInterface;
 use Illuminate\Http\Request;
 
 class FetchAllUserBeneficiariesController extends Controller
