@@ -136,6 +136,8 @@ paths:
     $ref: 'open-api-wallet-account-debit-spec.yaml'
   /v1/wallets/users/{userId}/accounts/{accountId}/transactions:
     $ref: 'open-api-wallet-account-transactions-spec.yaml'
+  /v1/wallets/users/{userId}/beneficiaries:
+    $ref: 'open-api-wallet-account-users-beneficiaries-spec.yaml'
   /v1/wallets/plans:
     $ref: 'open-api-wallet-plans-spec.yaml'
   /v1/wallets/plans/{planId}:
@@ -171,6 +173,10 @@ components:
             GetWalletPlan: Get Wallet Plan
             FetchAllWalletPlans: Get Wallet Plans
             CreateWalletPlan: Create Wallet Plans
+            CreateTransfer: Create a transfer
+            ListTransfers: List transfers
+            ListUserBeneficiaries: List user beneficiaries
+            CreateUserBeneficiary: Create new beneficiary
   schemas:
     ResponseStatus:
       type: string
@@ -454,25 +460,33 @@ components:
     WalletRemittance:
       type: object
       properties:
-        id:
-          type: string
-          description: An identifier that represents the wallet remittance request
-          example: 5e4203f3-c949-4e66-a732-9eaa803a3a66
         sender:
           $ref: '#/components/schemas/WalletRemittanceSender'
-        beneficiary:
-          $ref: '#/components/schemas/WalletRemittanceBeneficiary'
+        receiver:
+          $ref: '#/components/schemas/WalletRemittanceReceiver'
         amount:
           type: number
           description: amount to send
           example: 10
+    WalletRemittanceWithId:
+      allOf:
+        - $ref: '#/components/schemas/WalletRemittance'
+        - type: object
+          required:
+            - transferId
+          properties:
+            transferId:
+              type: string
+              description: Transfer identifier
+              example: 5e7e2423b7628f5bc41f6bea
+
     WalletRemittanceSender:
       type: object
       properties:
         accountId:
           type: string
           description: Sender account id
-    WalletRemittanceBeneficiary:
+    WalletRemittanceReceiver:
       type: object
       properties:
         accountId:
@@ -531,3 +545,113 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/ComplianceDocument'
+    WalletAccountBeneficiariesWithId:
+      type: array
+      items:
+        $ref: '#/components/schemas/WalletAccountBeneficiaryWithId'
+    WalletAccountBeneficiaries:
+      type: array
+      items:
+        $ref: '#/components/schemas/WalletAccountBeneficiary'
+    WalletAccountBeneficiaryWithId:
+      allOf:
+        - $ref: '#/components/schemas/WalletAccountBeneficiary'
+        - type: object
+          required:
+            - beneficiaryId
+          properties:
+            beneficiaryId:
+              type: string
+              description: Beneficiary Identifier
+              example: 5e7e2423b7628f5bc41f6bea
+            userId:
+              type: string
+              description: user Identifier
+              example: 5e7e2423b7628f5bc41f6bea
+            organizationId:
+              type: string
+              description: Organization identifier
+              example: 5e7e2423b7628f5bc41f6bea
+            createdAt:
+              type: number
+              example: 1587577927
+            modifiedAt:
+              type: number
+              example: 1587577927
+            deletedAt:
+              type: number
+              example: 1587577927
+            status:
+              type: string
+              enum:
+                - active
+                - disabled
+                - deleted
+    WalletAccountBeneficiary:
+      type: object
+      properties:
+        beneficiaryType:
+          type: string
+          enum:
+            - individual
+            - company
+        beneficiaryDetails:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Beneficiary name
+              example: New Beneficiary Name
+            email:
+              type: string
+              description: Beneficiary email address
+              example: mkeita@hakili.io
+            phoneNumber:
+              type: string
+              description: Beneficiary phone number
+              example: 0033613045943
+            address:
+              $ref: '#/components/schemas/Address'
+        beneficiaryAccountDetails:
+          type: object
+          properties:
+            accountType:
+              type: string
+              enum:
+                - Wallet Account
+                - Bank Account
+                - Debit Card
+            accountIdentifiers:
+              type: array
+              items:
+                $ref: '#/components/schemas/BeneficiaryAccountIdentifier'
+        transferNotification:
+          type: object
+          properties:
+            beneficiary:
+              type: object
+              properties:
+                notify:
+                  type: boolean
+                  example: true
+            sender:
+              type: object
+              properties:
+                notify:
+                  type: boolean
+                  example: true
+    BeneficiaryAccountIdentifier:
+      type: object
+      properties:
+        AccountIdentifierName:
+          type: string
+          description: Account identifier name
+          enum:
+            - WALLET_ACCOUNT_ID
+            - IBAN
+            - SWIFT_CODE
+            - BANK_CARD_NUMER
+        AccountIdentifierValue:
+          type: string
+          description: Account identifier value
+          example: 5e7e2423b7628f5bc41f6bea

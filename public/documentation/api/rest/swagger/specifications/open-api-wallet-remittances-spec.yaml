@@ -1,5 +1,8 @@
 get:
   summary: Obtain a list of remittance requests
+  security:
+    - oAuth2:
+      - ListTransfers
   tags:
     - Wallet Remittance
   responses:
@@ -14,6 +17,9 @@ get:
 
 post:
   summary: Create a remittance request
+  security:
+    - oAuth2:
+      - CreateTransfer
   tags:
     - Wallet Remittance
   requestBody:
@@ -29,4 +35,12 @@ post:
       content:
         application/json:
           schema:
-            $ref: 'open-api-spec.yaml#/components/schemas/WalletRemittance'
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletAccounts:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletRemittanceWithId'

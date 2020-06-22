@@ -80,7 +80,7 @@ class AccountService implements AccountServiceInterface
     /**
      * @inheritDoc
      */
-    public function fetchWithAccountId(string $accountId)
+    public function fetchWithAccountId(string $accountId): AccountEntityInterface
     {
         return $this
             ->accountRepository

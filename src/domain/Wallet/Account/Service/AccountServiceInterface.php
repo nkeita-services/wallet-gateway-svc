@@ -51,7 +51,7 @@ interface AccountServiceInterface
      */
     public function fetchWithAccountId(
         string $accountId
-    );
+    ): AccountEntityInterface;
 
     /**
      * @param string $userId

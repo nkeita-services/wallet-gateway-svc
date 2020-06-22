@@ -164,3 +164,27 @@ $router->get('v1/wallets/organizations', [
         'admin'
     ]
 ]);
+
+
+$router->post('v1/wallets/remittances', [
+    'uses' => 'Wallet\Remittances\CreateTransferController@create',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/CreateUsers',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
+
+$router->get('/v1/wallets/users/{userId}/beneficiaries', [
+    'uses' => 'Wallet\User\Beneficiary\FetchAllUserBeneficiariesController@fetchAll',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/ListUserBeneficiaries',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
