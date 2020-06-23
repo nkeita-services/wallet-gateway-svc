@@ -82,4 +82,9 @@ interface BeneficiaryEntityInterface
         string $accountType,
         string $accountIdentifierName
     ): string;
+
+    /**
+     * @return string
+     */
+    public function getBeneficiaryName(): string;
 }

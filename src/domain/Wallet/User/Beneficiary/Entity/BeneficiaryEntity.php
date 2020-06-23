@@ -230,8 +230,8 @@ class BeneficiaryEntity implements BeneficiaryEntityInterface
     {
         if ($this->beneficiaryAccountDetails['accountType'] == $accountType) {
             foreach ($this->beneficiaryAccountDetails['accountIdentifiers'] as $accountIdentifier){
-                if($accountIdentifier['AccountIdentifierName'] == $accountIdentifierName){
-                    return  $accountIdentifier['AccountIdentifierValue'];
+                if($accountIdentifier['accountIdentifierName'] == $accountIdentifierName){
+                    return  $accountIdentifier['accountIdentifierValue'];
                 }
             }
         } else {
@@ -244,6 +244,14 @@ class BeneficiaryEntity implements BeneficiaryEntityInterface
         );
 
 
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBeneficiaryName(): string
+    {
+        return $this->beneficiaryDetails['name'];
     }
 
 
