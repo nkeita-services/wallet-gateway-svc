@@ -4,63 +4,64 @@
 namespace App\Http\Controllers\Wallet\User\Beneficiary;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Wallet\User\Beneficiary\Mapper\UserBeneficiaryHttpMapper;
+use App\Http\Controllers\Wallet\User\Beneficiary\Mapper\UserBeneficiaryHttpMapperInterface;
 use Illuminate\Http\Request;
+use Wallet\Wallet\User\Beneficiary\Service\UserBeneficiaryService;
+use Wallet\Wallet\User\Beneficiary\Service\UserBeneficiaryServiceInterface;
 
 class CreateBeneficiaryController extends Controller
 {
 
     /**
+     * @var UserBeneficiaryServiceInterface
+     */
+    private $userBeneficiaryService;
+
+    /**
+     * @var UserBeneficiaryHttpMapperInterface
+     */
+    private $userBeneficiaryHttpMapper;
+
+    /**
+     * CreateBeneficiaryController constructor.
+     * @param UserBeneficiaryServiceInterface $userBeneficiaryService
+     * @param UserBeneficiaryHttpMapperInterface $userBeneficiaryHttpMapper
+     */
+    public function __construct(
+        UserBeneficiaryService $userBeneficiaryService,
+        UserBeneficiaryHttpMapper $userBeneficiaryHttpMapper)
+    {
+        $this->userBeneficiaryService = $userBeneficiaryService;
+        $this->userBeneficiaryHttpMapper = $userBeneficiaryHttpMapper;
+    }
+
+
+    /**
+     * @param string $userId
      * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function create(
+        string $userId,
         Request $request
     ){
-        return
 
-            $jayParsedAry = [
-                "status" => "success",
-                "data" => [
-                    "UserBeneficiary" => [
-                        "beneficiaryType" => "individual",
-                        "beneficiaryDetails" => [
-                            "name" => "New Beneficiary Name",
-                            "email" => "mkeita@hakili.io",
-                            "phoneNumber" => "0033613045943",
-                            "address" => [
-                                "streetName" => "Wicksteed House",
-                                "streetNumber" => 35,
-                                "city" => "Elephant And Castle",
-                                "postCode" => "SE16RQ",
-                                "state" => "London",
-                                "country" => "United Kingdom"
-                            ]
-                        ],
-                        "beneficiaryAccountDetails" => [
-                            "accountType" => "Wallet Account",
-                            "accountIdentifiers" => [
-                                [
-                                    "AccountIdentifierName" => "WALLET_ACCOUNT_ID",
-                                    "AccountIdentifierValue" => "5e7e2423b7628f5bc41f6bea"
-                                ]
-                            ]
-                        ],
-                        "transferNotification" => [
-                            "beneficiary" => [
-                                "notify" => true
-                            ],
-                            "sender" => [
-                                "notify" => true
-                            ]
-                        ],
-                        "beneficiaryId" => "5e7e2423b7628f5bc41f6bea",
-                        "userId" => "5e7e2423b7628f5bc41f6bea",
-                        "organizationId" => "5e7e2423b7628f5bc41f6bea",
-                        "createdAt" => 1587577927,
-                        "modifiedAt" => 1587577927,
-                        "deletedAt" => 1587577927,
-                        "status" => "active"
-                    ]
+        return response()->json(
+            [
+                'status' => 'success',
+                'data' => [
+                    'UserBeneficiary' => $this->userBeneficiaryService->create(
+                        $this->userBeneficiaryHttpMapper::createUserBeneficiaryFromHttpRequest(
+                            $request
+                        ),
+                        $userId
+                    )->toArray()
                 ]
-            ];
+            ]
+
+        );
+
+
     }
 }

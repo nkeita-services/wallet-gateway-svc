@@ -593,8 +593,8 @@ components:
         beneficiaryType:
           type: string
           enum:
-            - individual
-            - company
+            - INDIVIDUAL
+            - COMPANY
         beneficiaryDetails:
           type: object
           properties:
@@ -618,9 +618,9 @@ components:
             accountType:
               type: string
               enum:
-                - Wallet Account
-                - Bank Account
-                - Debit Card
+                - WALLET_ACCOUNT
+                - BANK_ACCOUNT
+                - DEBIT_CARD
             accountIdentifiers:
               type: array
               items:
@@ -643,7 +643,7 @@ components:
     BeneficiaryAccountIdentifier:
       type: object
       properties:
-        AccountIdentifierName:
+        accountIdentifierName:
           type: string
           description: Account identifier name
           enum:
@@ -651,7 +651,7 @@ components:
             - IBAN
             - SWIFT_CODE
             - BANK_CARD_NUMER
-        AccountIdentifierValue:
+        accountIdentifierValue:
           type: string
           description: Account identifier value
           example: 5e7e2423b7628f5bc41f6bea

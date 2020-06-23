@@ -32,7 +32,9 @@ use App\Providers\Validation\Rules\Wallet\WalletPlanIdRuleServiceProvider;
 use App\Providers\Validation\Rules\Wallet\WalletUserIdRuleServiceProvider;
 use Nord\Lumen\Cors\CorsServiceProvider;
 use Nord\Lumen\Cors\CorsMiddleware;
-
+use App\Providers\Infrastructure\Api\Rest\Client\User\Beneficiary\UserBeneficiaryApiClientProvider;
+use App\Providers\Domain\Wallet\User\Beneficiary\UserBeneficiaryRepositoryProvider;
+use App\Providers\Domain\Wallet\User\Beneficiary\UserBeneficiaryServiceProvider;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -133,6 +135,10 @@ $app->register(CloudRunMetadataGuzzleClientProvider::class);
 
 $app->register(WalletPlanIdRuleServiceProvider::class);
 $app->register(WalletUserIdRuleServiceProvider::class);
+
+$app->register(UserBeneficiaryApiClientProvider::class);
+$app->register(UserBeneficiaryRepositoryProvider::class);
+$app->register(UserBeneficiaryServiceProvider::class);
 
 //$app->register(\App\Providers\AuthServiceProvider::class);
 
