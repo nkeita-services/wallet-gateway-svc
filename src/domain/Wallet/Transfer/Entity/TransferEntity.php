@@ -113,6 +113,14 @@ class TransferEntity implements TransferEntityInterface
     /**
      * @inheritDoc
      */
+    public function getBeneficiaryId(): string
+    {
+        return $this->receiver['beneficiaryId'];
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function receiverAccountId(): string
     {
         return $this->receiver['accountId'];

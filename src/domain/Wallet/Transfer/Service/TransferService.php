@@ -6,6 +6,7 @@ namespace Wallet\Wallet\Transfer\Service;
 
 use Wallet\Account\Service\AccountServiceInterface;
 use Wallet\Wallet\Transfer\Entity\TransferEntityInterface;
+use Wallet\Wallet\User\Beneficiary\Service\UserBeneficiaryService;
 
 class TransferService implements TransferServiceInterface
 {
@@ -15,12 +16,21 @@ class TransferService implements TransferServiceInterface
     private $accountService;
 
     /**
+     * @var UserBeneficiaryService
+     */
+    private $userBeneficiaryService;
+
+    /**
      * TransferService constructor.
      * @param AccountServiceInterface $accountService
+     * @param UserBeneficiaryService $userBeneficiaryService
      */
-    public function __construct(AccountServiceInterface $accountService)
-    {
+    public function __construct(
+        AccountServiceInterface $accountService,
+        UserBeneficiaryService $userBeneficiaryService
+    ){
         $this->accountService = $accountService;
+        $this->userBeneficiaryService = $userBeneficiaryService;
     }
 
 
@@ -46,9 +56,18 @@ class TransferService implements TransferServiceInterface
             );
 
         // TopUp Receiver Account
-        $receiverAccount = $this->accountService->fetchWithAccountId(
-            $transferEntity->receiverAccountId()
+        $userBeneficiary = $this->userBeneficiaryService->fetch(
+            $transferEntity->getBeneficiaryId(),
+            $senderAccount->getUserId()
         );
+
+        $receiverAccount = $this->accountService->fetchWithAccountId(
+            $userBeneficiary->getBeneficiaryAccountIdentifierValueFor(
+                'WALLET_ACCOUNT',
+                'WALLET_ACCOUNT_ID'
+            )
+        );
+
        $this
            ->accountService
            ->topUp(

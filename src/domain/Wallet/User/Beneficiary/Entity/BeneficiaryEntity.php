@@ -80,7 +80,8 @@ class BeneficiaryEntity implements BeneficiaryEntityInterface
         ?string $modifiedAt,
         ?string $status,
         ?array $organizations
-    ){
+    )
+    {
         $this->beneficiaryId = $beneficiaryId;
         $this->userId = $userId;
         $this->beneficiaryType = $beneficiaryType;
@@ -131,4 +132,119 @@ class BeneficiaryEntity implements BeneficiaryEntityInterface
             $data['organizations'] ?? null
         );
     }
+
+    /**
+     * @return string
+     */
+    public function getBeneficiaryId(): string
+    {
+        return $this->beneficiaryId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserId(): string
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBeneficiaryType(): string
+    {
+        return $this->beneficiaryType;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBeneficiaryDetails(): array
+    {
+        return $this->beneficiaryDetails;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTransferNotification(): array
+    {
+        return $this->transferNotification;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBeneficiaryAccountDetails(): array
+    {
+        return $this->beneficiaryAccountDetails;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getModifiedAt(): string
+    {
+        return $this->modifiedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrganizations(): array
+    {
+        return $this->organizations;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBeneficiaryAccountIdentifiers(): array
+    {
+        return $this->beneficiaryAccountDetails['accountIdentifiers'];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBeneficiaryAccountIdentifierValueFor(
+        string $accountType,
+        string $accountIdentifierName): string
+    {
+        if ($this->beneficiaryAccountDetails['accountType'] == $accountType) {
+            foreach ($this->beneficiaryAccountDetails['accountIdentifiers'] as $accountIdentifier){
+                if($accountIdentifier['AccountIdentifierName'] == $accountIdentifierName){
+                    return  $accountIdentifier['AccountIdentifierValue'];
+                }
+            }
+        } else {
+            throw new \DomainException(
+                sprintf('Account type is not %s' . $accountType)
+            );
+        }
+        throw new \DomainException(
+            sprintf('No value found for account type %s' . $accountType)
+        );
+
+
+    }
+
+
 }

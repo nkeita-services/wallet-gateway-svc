@@ -486,12 +486,14 @@ components:
         accountId:
           type: string
           description: Sender account id
+          example: 5eef7c7d6008d476e833bfcc
     WalletRemittanceReceiver:
       type: object
       properties:
-        accountId:
+        beneficiaryId:
           type: string
           description: Beneficiary account id
+          example: 5ef1fdaccda47b3979e84e3b
     WalletRemittances:
       type: array
       items:

@@ -22,6 +22,11 @@ interface TransferEntityInterface
     public function getReceiver(): array;
 
     /**
+     * @return string
+     */
+    public function getBeneficiaryId(): string;
+
+    /**
      * @param array $data
      * @return TransferEntityInterface
      */
