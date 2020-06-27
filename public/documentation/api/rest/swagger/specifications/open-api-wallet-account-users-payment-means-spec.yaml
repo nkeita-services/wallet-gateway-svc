@@ -1,0 +1,63 @@
+get:
+  summary: Obtain the list of payment meanss
+  security:
+    - oAuth2:
+      - ListPaymentMeans
+  tags:
+    - Wallet Account Users
+  parameters:
+    - in: path
+      required: true
+      name: userId
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successfully obtained the list of payment meanss
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  userPaymentMeans:
+                    $ref: 'open-api-spec.yaml#/components/schemas/UserPaymentMeanWithId'
+post:
+  summary: Create a new payment mean
+  security:
+    - oAuth2:
+      - CreatePaymentMeans
+  tags:
+    - Wallet Account Users
+  parameters:
+    - in: path
+      required: true
+      name: userId
+      schema:
+        type: string
+  requestBody:
+    description: Payment mean payload
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/UserPaymentMean'
+  responses:
+    '200':
+      description: Successfully create payment mean
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  userPaymentMean:
+                    $ref: 'open-api-spec.yaml#/components/schemas/UserPaymentMeanWithId'

@@ -28,7 +28,7 @@ class PaymentMeanCollection implements PaymentMeanCollectionInterface
     {
         return new static(
             array_map(function (array $paymentMean){
-                return BeneficiaryEntity::fromArray($paymentMean);
+                return PaymentMeanEntity::fromArray($paymentMean);
             },$paymentMeans)
         );
     }

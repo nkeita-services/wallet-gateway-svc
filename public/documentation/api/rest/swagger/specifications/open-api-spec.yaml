@@ -138,6 +138,8 @@ paths:
     $ref: 'open-api-wallet-account-transactions-spec.yaml'
   /v1/wallets/users/{userId}/beneficiaries:
     $ref: 'open-api-wallet-account-users-beneficiaries-spec.yaml'
+  /v1/wallets/users/{userId}/payment-means:
+    $ref: 'open-api-wallet-account-users-payment-means-spec.yaml'
   /v1/wallets/plans:
     $ref: 'open-api-wallet-plans-spec.yaml'
   /v1/wallets/plans/{planId}:
@@ -177,6 +179,8 @@ components:
             ListTransfers: List transfers
             ListUserBeneficiaries: List user beneficiaries
             CreateUserBeneficiary: Create new beneficiary
+            ListPaymentMeans: List Payment Means
+            CreatePaymentMeans: Create Payment Mean
   schemas:
     ResponseStatus:
       type: string
@@ -657,3 +661,88 @@ components:
           type: string
           description: Account identifier value
           example: 5e7e2423b7628f5bc41f6bea
+    UserPaymentMeansWithId:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserPaymentMeans'
+    UserPaymentMeans:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserPaymentMean'
+    UserPaymentMeanWithId:
+      allOf:
+        - $ref: '#/components/schemas/UserPaymentMean'
+        - type: object
+          required:
+            - PaymentMeanId
+          properties:
+            PaymentMeanId:
+              type: string
+              description: Payment Mean Identifier
+              example: 5e7e2423b7628f5bc41f6bea
+            userId:
+              type: string
+              description: user Identifier
+              example: 5e7e2423b7628f5bc41f6bea
+            organizationId:
+              type: string
+              description: Organization identifier
+              example: 5e7e2423b7628f5bc41f6bea
+            createdAt:
+              type: number
+              example: 1587577927
+            modifiedAt:
+              type: number
+              example: 1587577927
+            deletedAt:
+              type: number
+              example: 1587577927
+            status:
+              type: string
+              enum:
+                - active
+                - disabled
+                - deleted
+    UserPaymentMean:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Payment mean name
+          example: BNP
+        type:
+          type: string
+          description: payment mean type
+          enum:
+            - BANK_ACCOUNT
+            - DEBIT_CARD
+        debitCardDetails:
+          type: object
+          properties:
+            cardName:
+              type: string
+              description: Card name
+              example: BNP Payment Card
+            cardNumber:
+              type: string
+              description: Card number
+              example: XXX XXXX XXXX
+        bankAccountDetails:
+          type: object
+          properties:
+            bankName:
+              type: string
+              description: Bank name
+              example: BNP PARIBAS
+            bic:
+              type: string
+              description: BIC
+              example: BNPA FR PP XXX
+            iban:
+              type: string
+              description: IBAN
+              example: FR76 3000 4022 8000 0005 3292 671
+
+
+
+

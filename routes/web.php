@@ -199,3 +199,27 @@ $router->post('/v1/wallets/users/{userId}/beneficiaries', [
         'user'
     ]
 ]);
+
+$router->get('/v1/wallets/users/{userId}/payment-means', [
+    'uses' => 'Wallet\User\PaymentMean\FetchAllPaymentMeansController@fetchAll',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/ListPaymentMeans',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
+
+$router->post('/v1/wallets/users/{userId}/payment-means', [
+    'uses' => 'Wallet\User\PaymentMean\CreatePaymentMeanController@create',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/CreatePaymentMeans',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+

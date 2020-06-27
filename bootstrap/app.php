@@ -36,6 +36,8 @@ use App\Providers\Infrastructure\Api\Rest\Client\User\Beneficiary\UserBeneficiar
 use App\Providers\Domain\Wallet\User\Beneficiary\UserBeneficiaryRepositoryProvider;
 use App\Providers\Domain\Wallet\User\Beneficiary\UserBeneficiaryServiceProvider;
 use App\Providers\Infrastructure\Api\Rest\Client\User\PaymentMean\UserPaymentMeanApiProvider;
+use App\Providers\Domain\Wallet\User\PaymentMean\UserPaymentMeanRepositoryProvider;
+use App\Providers\Domain\Wallet\User\PaymentMean\UserPaymentMeanServiceProvider;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -142,6 +144,8 @@ $app->register(UserBeneficiaryRepositoryProvider::class);
 $app->register(UserBeneficiaryServiceProvider::class);
 
 $app->register(UserPaymentMeanApiProvider::class);
+$app->register(UserPaymentMeanRepositoryProvider::class);
+$app->register(UserPaymentMeanServiceProvider::class);
 
 //$app->register(\App\Providers\AuthServiceProvider::class);
 

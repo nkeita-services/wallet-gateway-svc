@@ -13,6 +13,11 @@ class PaymentMeanEntity implements PaymentMeanEntityInterface
     private $paymentMeanId;
 
     /**
+     * @var
+     */
+    private $name;
+
+    /**
      * @var string
      */
     private $type;
@@ -55,6 +60,7 @@ class PaymentMeanEntity implements PaymentMeanEntityInterface
     /**
      * PaymentMeanEntity constructor.
      * @param string $paymentMeanId
+     * @param string $name
      * @param string $type
      * @param string $status
      * @param array $debitCardDetails
@@ -66,6 +72,7 @@ class PaymentMeanEntity implements PaymentMeanEntityInterface
      */
     public function __construct(
         ?string $paymentMeanId,
+        ?string $name,
         ?string $type,
         ?string $status,
         ?array $debitCardDetails,
@@ -76,6 +83,7 @@ class PaymentMeanEntity implements PaymentMeanEntityInterface
         ?array $organizations
     ){
         $this->paymentMeanId = $paymentMeanId;
+        $this->name = $name;
         $this->type = $type;
         $this->status = $status;
         $this->debitCardDetails = $debitCardDetails;
@@ -94,6 +102,7 @@ class PaymentMeanEntity implements PaymentMeanEntityInterface
     {
         return [
             'paymentMeanId' => $this->paymentMeanId,
+            'name' => $this->name,
             'userId' => $this->userId,
             'type' => $this->type,
             'debitCardDetails' => $this->debitCardDetails,
@@ -112,6 +121,7 @@ class PaymentMeanEntity implements PaymentMeanEntityInterface
     {
         return new static(
             $data['paymentMeanId'] ?? null,
+            $data['name'] ?? null,
             $data['type'] ?? null,
             $data['status'] ?? null,
             $data['debitCardDetails'] ?? null,
