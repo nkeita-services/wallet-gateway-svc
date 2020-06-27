@@ -35,6 +35,7 @@ use Nord\Lumen\Cors\CorsMiddleware;
 use App\Providers\Infrastructure\Api\Rest\Client\User\Beneficiary\UserBeneficiaryApiClientProvider;
 use App\Providers\Domain\Wallet\User\Beneficiary\UserBeneficiaryRepositoryProvider;
 use App\Providers\Domain\Wallet\User\Beneficiary\UserBeneficiaryServiceProvider;
+use App\Providers\Infrastructure\Api\Rest\Client\User\PaymentMean\UserPaymentMeanApiProvider;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -139,6 +140,8 @@ $app->register(WalletUserIdRuleServiceProvider::class);
 $app->register(UserBeneficiaryApiClientProvider::class);
 $app->register(UserBeneficiaryRepositoryProvider::class);
 $app->register(UserBeneficiaryServiceProvider::class);
+
+$app->register(UserPaymentMeanApiProvider::class);
 
 //$app->register(\App\Providers\AuthServiceProvider::class);
 
