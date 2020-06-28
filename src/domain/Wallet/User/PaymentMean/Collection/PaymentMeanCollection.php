@@ -4,7 +4,6 @@
 namespace Wallet\Wallet\User\PaymentMean\Collection;
 
 
-use Wallet\Wallet\User\Beneficiary\Entity\BeneficiaryEntity;
 use Wallet\Wallet\User\PaymentMean\Entity\PaymentMeanEntity;
 
 class PaymentMeanCollection implements PaymentMeanCollectionInterface

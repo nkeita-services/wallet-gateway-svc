@@ -140,6 +140,8 @@ paths:
     $ref: 'open-api-wallet-account-users-beneficiaries-spec.yaml'
   /v1/wallets/users/{userId}/payment-means:
     $ref: 'open-api-wallet-account-users-payment-means-spec.yaml'
+  /v1/wallets/users/{userId}/payment-means/{paymentMeanId}:
+    $ref: 'open-api-wallet-account-users-payment-mean-spec.yaml'
   /v1/wallets/plans:
     $ref: 'open-api-wallet-plans-spec.yaml'
   /v1/wallets/plans/{planId}:
@@ -181,6 +183,7 @@ components:
             CreateUserBeneficiary: Create new beneficiary
             ListPaymentMeans: List Payment Means
             CreatePaymentMeans: Create Payment Mean
+            GetPaymentMean: Get Payment Mean Data
   schemas:
     ResponseStatus:
       type: string

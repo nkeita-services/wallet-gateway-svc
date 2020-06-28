@@ -211,6 +211,16 @@ $router->get('/v1/wallets/users/{userId}/payment-means', [
     ]
 ]);
 
+$router->get('/v1/wallets/users/{userId}/payment-means/{paymentMeanId}', [
+    'uses' => 'Wallet\User\PaymentMean\FetchPaymentMeanDataController@fetchAll',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/GetPaymentMean',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
 
 $router->post('/v1/wallets/users/{userId}/payment-means', [
     'uses' => 'Wallet\User\PaymentMean\CreatePaymentMeanController@create',

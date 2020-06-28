@@ -1,0 +1,33 @@
+get:
+  summary: Obtain user payment mean data
+  security:
+    - oAuth2:
+      - GetPaymentMean
+  tags:
+    - Wallet Account Users
+  parameters:
+    - in: path
+      required: true
+      name: userId
+      schema:
+        type: string
+    - in: path
+      required: true
+      name: paymentMeanId
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successfully created payment mean
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  userPaymentMean:
+                    $ref: 'open-api-spec.yaml#/components/schemas/UserPaymentMeanWithId'
