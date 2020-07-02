@@ -127,5 +127,34 @@ class AccountRepository implements AccountRepositoryInterface
         );
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function createOrganizationAccount(
+        AccountEntityInterface $accountEntity,
+        array $organizations
+    ): AccountEntityInterface{
+        return $this->accountApiClient->create(
+            [
+                'accountType' => $accountEntity->getAccountType(),
+                'balance' => $accountEntity->getBalance(),
+                'walletPlanId' => $accountEntity->getWalletPlanId(),
+                'organizations' => $organizations,
+                'name'=>$accountEntity->getName()
+            ]
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetchAll(
+        array $filter
+    ): AccountCollectionInterface{
+        return $this->accountApiClient->fetchAll(
+            $filter
+        );
+    }
+
 
 }

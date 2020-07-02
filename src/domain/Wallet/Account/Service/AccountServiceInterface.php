@@ -80,4 +80,22 @@ interface AccountServiceInterface
         array $organizations,
         float $amount
     ): AccountEntityInterface;
+
+    /**
+     * @param AccountEntityInterface $accountEntity
+     * @param array $organizations
+     * @return AccountEntityInterface
+     */
+    public function createOrganizationAccount(
+        AccountEntityInterface $accountEntity,
+        array $organizations
+    ): AccountEntityInterface;
+
+    /**
+     * @param array $filter
+     * @return AccountCollectionInterface
+     */
+    public function fetchAll(
+        array $filter
+    ): AccountCollectionInterface;
 }

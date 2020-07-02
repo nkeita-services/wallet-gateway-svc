@@ -75,6 +75,7 @@ class SecretManager implements SecretManagerInterface
             ->gCloudSecretManagerServiceClient
             ->accessSecretVersion($secretVersionName);
 
+
         $data =  json_decode(
             $response->getPayload()->getData(), true
         );

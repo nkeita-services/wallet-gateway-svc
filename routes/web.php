@@ -165,6 +165,26 @@ $router->get('v1/wallets/organizations', [
     ]
 ]);
 
+$router->post('v1/wallets/organizations/accounts', [
+    'uses' => 'Wallet\Organization\Account\CreateAccountController@create',
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/CreateOrganizationAccount",
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);
+
+$router->get('v1/wallets/organizations/accounts', [
+    'uses' => 'Wallet\Organization\Account\FetchAccountsController@fetchAll',
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/ListOrganizationAccounts",
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);
+
 
 $router->post('v1/wallets/remittances', [
     'uses' => 'Wallet\Remittances\CreateTransferController@create',

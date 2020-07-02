@@ -127,5 +127,31 @@ class AccountService implements AccountServiceInterface
             );
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function createOrganizationAccount(
+        AccountEntityInterface $accountEntity,
+        array $organizations
+    ): AccountEntityInterface{
+        return $this
+            ->accountRepository
+            ->createOrganizationAccount(
+                $accountEntity,
+                 $organizations
+            );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetchAll(array $filter): AccountCollectionInterface
+    {
+        return $this->accountRepository
+            ->fetchAll(
+                $filter
+            );
+    }
+
 
 }

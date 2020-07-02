@@ -81,4 +81,22 @@ interface AccountRepositoryInterface
         array $organizations,
         float $amount
     ): AccountEntityInterface;
+
+    /**
+     * @param AccountEntityInterface $entity
+     * @param array $organizations
+     * @return AccountEntityInterface
+     */
+    public function createOrganizationAccount(
+        AccountEntityInterface $entity,
+        array $organizations
+    ): AccountEntityInterface;
+
+    /**
+     * @param array $filter
+     * @return AccountCollectionInterface
+     */
+    public function fetchAll(
+        array $filter
+    ): AccountCollectionInterface;
 }
