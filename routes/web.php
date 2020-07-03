@@ -185,6 +185,16 @@ $router->get('v1/wallets/organizations/accounts', [
     ]
 ]);
 
+$router->get('v1/wallets/organizations/accounts/{accountId}', [
+    'uses' => 'Wallet\Organization\Account\GetAccountDataController@fetch',
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/GetOrganizationAccount",
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);
+
 $router->get('v1/wallets/organizations/accounts/{accountId}/transactions', [
     'uses' => 'Wallet\Organization\Account\FetchAccountTransactionsController@fetchAll',
     'middleware'=>'auth',
