@@ -9,7 +9,7 @@ interface TransactionEntityInterface
     /**
      * @return string
      */
-    public function getUserId(): string;
+    public function getUserId(): ?string;
 
     /**
      * @return string

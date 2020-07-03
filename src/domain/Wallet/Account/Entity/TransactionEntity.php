@@ -46,7 +46,7 @@ class TransactionEntity implements TransactionEntityInterface
      * @param string $originatorId
      */
     public function __construct(
-        string $userId,
+        ?string $userId,
         string $accountId,
         string $amount,
         string $description,
@@ -63,7 +63,7 @@ class TransactionEntity implements TransactionEntityInterface
     /**
      * @return string
      */
-    public function getUserId(): string
+    public function getUserId(): ?string
     {
         return $this->userId;
     }
