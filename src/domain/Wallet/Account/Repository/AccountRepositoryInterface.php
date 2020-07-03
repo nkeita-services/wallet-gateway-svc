@@ -40,7 +40,7 @@ interface AccountRepositoryInterface
      * @return AccountEntityInterface
      */
     public function updateWithUserAndAccountAndOrganizations(
-        string $userId,
+        ?string $userId,
         string $accountId,
         array $organizations,
         array $data
@@ -62,7 +62,7 @@ interface AccountRepositoryInterface
      * @return AccountEntityInterface
      */
     public function topUp(
-        string $userId,
+        ?string $userId,
         string $accountId,
         array $organizations,
         float $amount

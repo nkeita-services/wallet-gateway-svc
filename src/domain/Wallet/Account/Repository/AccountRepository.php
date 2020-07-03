@@ -58,7 +58,7 @@ class AccountRepository implements AccountRepositoryInterface
      * @inheritDoc
      */
     public function updateWithUserAndAccountAndOrganizations(
-        string $userId,
+        ?string $userId,
         string $accountId,
         array $organizations,
         array $data
@@ -87,7 +87,7 @@ class AccountRepository implements AccountRepositoryInterface
      * @inheritDoc
      */
     public function topUp(
-        string $userId,
+        ?string $userId,
         string $accountId,
         array $organizations,
         float $amount

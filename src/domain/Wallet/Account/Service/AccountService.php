@@ -91,7 +91,7 @@ class AccountService implements AccountServiceInterface
      * @inheritDoc
      */
     public function topUp(
-        string $userId,
+        ?string $userId,
         string $accountId,
         array $organizations,
         float $amount
