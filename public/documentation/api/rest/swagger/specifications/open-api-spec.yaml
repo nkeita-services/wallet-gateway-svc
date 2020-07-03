@@ -154,6 +154,8 @@ paths:
     $ref: 'open-api-wallet-organization-accounts-spec.yaml'
   /v1/wallets/organizations/accounts/{accountId}:
     $ref: 'open-api-wallet-organization-account-spec.yaml'
+  /v1/wallets/organizations/accounts/{accountId}/transactions:
+    $ref: 'open-api-wallet-organization-account-transactions-spec.yaml'
   /v1/wallets/fees:
     $ref: 'open-api-wallet-fees-spec.yaml'
   /v1/wallets/remittances:
@@ -191,6 +193,7 @@ components:
             ListOrganizationAccounts: List Organization Accounts
             CreateOrganizationAccount: Create Organization Account
             GetOrganizationAccount: Get Organization Account
+            GetOrganizationAccountTransactions: Get Organization Account Transactions
   schemas:
     ResponseStatus:
       type: string

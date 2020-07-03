@@ -1,0 +1,28 @@
+get:
+  summary: Obtain list of organization account transactions
+  security:
+    - oAuth2:
+        - GetOrganizationAccountTransactions
+  tags:
+    - Wallet Organizations
+  parameters:
+    - in: path
+      required: true
+      name: accountId
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successfully obtained organization account transactions
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletAccountTransactions:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountTransactionsWithId'

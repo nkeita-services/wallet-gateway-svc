@@ -185,6 +185,15 @@ $router->get('v1/wallets/organizations/accounts', [
     ]
 ]);
 
+$router->get('v1/wallets/organizations/accounts/{accountId}/transactions', [
+    'uses' => 'Wallet\Organization\Account\FetchAccountTransactionsController@fetchAll',
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/GetOrganizationAccountTransactions",
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);
 
 $router->post('v1/wallets/remittances', [
     'uses' => 'Wallet\Remittances\CreateTransferController@create',
