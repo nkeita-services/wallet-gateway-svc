@@ -36,6 +36,7 @@ $router->post('v1/wallets/users', [
     ]
 ]);
 
+
 $router->get('v1/wallets/users/{userId}', [
     'uses' => 'Wallet\User\FetchUserDataController@fetch',
     'middleware'=>'auth',
@@ -271,4 +272,40 @@ $router->post('/v1/wallets/users/{userId}/payment-means', [
         'user'
     ]
 ]);
+
+
+$router->get('/v1/authentication/oauth2/token/{clientId}/{clientSecret}', [
+    'uses' => 'Wallet\Authentication\FetchAccessTokenController@fetch',
+]);
+
+$router->get('/v1/authentication/users/{userName}/{userPassword}', [
+    'uses' => 'Wallet\Authentication\AuthenticateWalletUserController@authenticate',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/AuthenticateUsers',
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);
+
+$router->post('/v1/registration/users', [
+    'uses' => 'Wallet\Registration\RegisterNewUserController@register',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/RegisterNewUsers',
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);
+
+$router->get('/v1/registration/users/confirmation/{userName}/{code}', [
+    'uses' => 'Wallet\Registration\ConfirmUserRegistrationController@confirm',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/ConfirmUserRegistration',
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);
+
 

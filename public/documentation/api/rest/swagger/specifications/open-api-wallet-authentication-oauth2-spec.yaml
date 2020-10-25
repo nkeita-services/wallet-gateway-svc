@@ -1,0 +1,45 @@
+get:
+  summary: Obtain wallet API access token
+  tags:
+    - Wallet Authentication
+  parameters:
+    - in: path
+      required: true
+      name: clientId
+      schema:
+        type: string
+    - in: path
+      required: true
+      name: clientSecret
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successfully generated access token
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    example: |
+                      xxxxxxxxxx
+                  expiresIn:
+                    type: string
+                    example: 3600
+                  tokenType:
+                    type: string
+                    enum:
+                      - Bearer
+    '401':
+      description: Invalid client id or secret
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/ErrorResponse'

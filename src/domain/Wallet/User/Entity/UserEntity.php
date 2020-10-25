@@ -78,13 +78,13 @@ class UserEntity implements UserEntityInterface
      * @param string $status
      */
     public function __construct(
-        string $lastName,
-        string $firstName,
-        array $address,
-        string $email,
-        string $phoneNumber,
-        string $mobileNumber,
-        string $language,
+        ?string $lastName,
+        ?string $firstName,
+        ?array $address,
+        ?string $email,
+        ?string $phoneNumber,
+        ?string $mobileNumber,
+        ?string $language,
         ?array $walletOrganizations = null,
         ?string $userId = null,
         ?int $createdAt = null,
@@ -128,7 +128,7 @@ class UserEntity implements UserEntityInterface
      */
     public function toArray(): array
     {
-        return [
+        $userData =  [
             'lastName' => $this->lastName,
             'firstName' => $this->firstName,
             'address' => $this->address,
@@ -141,6 +141,14 @@ class UserEntity implements UserEntityInterface
             'createdAt'=> $this->createdAt,
             'status'=>$this->status
         ];
+
+        return array_filter(
+            $userData,
+            function ($propertyValue, $propertyName){
+                return $propertyValue !== null;
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
     }
 
 

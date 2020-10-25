@@ -36,16 +36,9 @@ class UserRepository implements UserRepositoryInterface
      */
     public function create(UserEntityInterface $userEntity, array $organizations): UserEntityInterface
     {
-        return $this->userApiClient->create([
-            'lastName' => $userEntity->getLastName(),
-            'firstName' => $userEntity->getFirstName(),
-            'address' => $userEntity->getAddress(),
-            'email' => $userEntity->getEmail(),
-            'phoneNumber' => $userEntity->getPhoneNumber(),
-            'mobileNumber' => $userEntity->getMobileNumber(),
-            'language' => $userEntity->getMobileNumber(),
-            'walletOrganizations' => $organizations
-        ]);
+        return $this->userApiClient->create(
+            $userEntity->toArray()
+        );
     }
 
     /**

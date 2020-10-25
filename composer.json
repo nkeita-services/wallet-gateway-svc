@@ -6,11 +6,13 @@
     "type": "project",
     "require": {
         "php": "^7.2",
+        "aws/aws-sdk-php": "^3.158",
         "codercat/jwk-to-pem": "^0.0.3",
         "firebase/php-jwt": "^5.1",
         "google/cloud-secret-manager": "^1.0",
         "guzzlehttp/guzzle": "~6.0",
         "laravel/lumen-framework": "^6.0",
+        "league/oauth2-client": "^2.4",
         "nordsoftware/lumen-cors": "^3.3"
     },
     "require-dev": {

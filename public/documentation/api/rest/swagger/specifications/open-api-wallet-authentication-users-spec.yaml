@@ -1,0 +1,48 @@
+get:
+  summary: Obtain wallet API access token
+  security:
+    - oAuth2:
+        - AuthenticateUsers
+  tags:
+    - Wallet Authentication
+  parameters:
+    - in: path
+      required: true
+      name: userName
+      schema:
+        type: string
+    - in: path
+      required: true
+      name: userPassword
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successfully authenticated user
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    example: |
+                      xxxxxxxxxx
+                  expiresIn:
+                    type: string
+                    example: 3600
+                  tokenType:
+                    type: string
+                    enum:
+                      - Bearer
+    '401':
+      description: Invalid username or password
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/ErrorResponse'

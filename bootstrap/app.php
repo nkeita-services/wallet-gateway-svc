@@ -38,6 +38,9 @@ use App\Providers\Domain\Wallet\User\Beneficiary\UserBeneficiaryServiceProvider;
 use App\Providers\Infrastructure\Api\Rest\Client\User\PaymentMean\UserPaymentMeanApiProvider;
 use App\Providers\Domain\Wallet\User\PaymentMean\UserPaymentMeanRepositoryProvider;
 use App\Providers\Domain\Wallet\User\PaymentMean\UserPaymentMeanServiceProvider;
+use App\Providers\Infrastructure\Api\Auth\OAuth2\Oauth2ClientProvider;
+use App\Providers\Infrastructure\Aws\Cognito\IdentityProvider;
+use App\Providers\Domain\Wallet\User\Service\Authentification\AuthenticationServiceProvider;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -146,6 +149,10 @@ $app->register(UserBeneficiaryServiceProvider::class);
 $app->register(UserPaymentMeanApiProvider::class);
 $app->register(UserPaymentMeanRepositoryProvider::class);
 $app->register(UserPaymentMeanServiceProvider::class);
+
+$app->register(Oauth2ClientProvider::class);
+$app->register(IdentityProvider::class);
+$app->register(AuthenticationServiceProvider::class);
 
 //$app->register(\App\Providers\AuthServiceProvider::class);
 
