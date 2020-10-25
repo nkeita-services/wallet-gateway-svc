@@ -39,13 +39,16 @@ class ConfirmUserRegistrationController extends Controller
         $this
             ->userAuthenticationService
             ->confirmRegistration(
-                $userName,
+                urldecode($userName),
                 $code
             );
 
         return response()->json(
             [
-                'status' => 'success'
+                'status' => 'success',
+                'data'=> [
+                    'email'=>urldecode($userName)
+                ]
             ]
         );
     }

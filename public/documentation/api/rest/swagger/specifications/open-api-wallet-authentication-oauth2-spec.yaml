@@ -26,17 +26,21 @@ get:
               data:
                 type: object
                 properties:
-                  accessToken:
+                  AccessToken:
                     type: string
                     example: |
-                      xxxxxxxxxx
-                  expiresIn:
+                      eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ....
+                  ExpiresIn:
                     type: string
                     example: 3600
-                  tokenType:
+                  TokenType:
                     type: string
                     enum:
                       - Bearer
+                  RefreshToken:
+                    type: string
+                    example: |
+                      eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ....
     '401':
       description: Invalid client id or secret
       content:

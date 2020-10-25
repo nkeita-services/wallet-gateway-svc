@@ -51,7 +51,7 @@ class Client implements ClientInterface
     public function accessTokenFromClientIdAndSecret(
         string $clientId,
         string $clientSecret
-    ): string
+    ): array
     {
         $provider = new GenericProvider(
             [
@@ -61,6 +61,12 @@ class Client implements ClientInterface
                 'urlAuthorize' => $this->urlAuthorize,
                 'urlResourceOwnerDetails' => $this->urlResourceOwnerDetails
             ]);
-        return $provider->getAccessToken('client_credentials')->getToken();
+
+        return [
+            'AccessToken'=>$provider->getAccessToken('client_credentials')->getToken(),
+            'ExpiresIn'=>$provider->getAccessToken('client_credentials')->getExpires(),
+            'TokenType'=>'Bearer',
+            'RefreshToken'=>$provider->getAccessToken('client_credentials')->getRefreshToken()
+        ];
     }
 }

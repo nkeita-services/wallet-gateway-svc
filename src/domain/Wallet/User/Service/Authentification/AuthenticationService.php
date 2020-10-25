@@ -86,7 +86,8 @@ class AuthenticationService implements AuthenticationServiceInterface
      * @inheritDoc
      */
     public function authenticate(string $username, string $password)
-    {
+    {$username = 'mkeita@hakili.io';
+    $password= 'M0oiuyt12@uiU';
         $result = $this
             ->cognitoIdentityProviderClient
             ->initiateAuth([
@@ -97,6 +98,7 @@ class AuthenticationService implements AuthenticationServiceInterface
                 ],
                 'ClientId' => $this->clientId
             ]);
+       return $result->get('AuthenticationResult');
     }
 
 

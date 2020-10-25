@@ -10,10 +10,10 @@ interface ClientInterface
     /**
      * @param string $clientId
      * @param string $clientSecret
-     * @return string
+     * @return array
      */
     public function accessTokenFromClientIdAndSecret(
         string $clientId,
         string $clientSecret
-    ):string;
+    ):array ;
 }

@@ -42,14 +42,10 @@ class FetchAccessTokenController extends Controller
             return response()->json(
                 [
                     'status' => 'success',
-                    'data' => [
-                        'accessToken' => $this->oauth2Client->accessTokenFromClientIdAndSecret(
-                            $clientId,
-                            $clientSecret
-                        ),
-                        'expires_in' => 3600,
-                        'tokenType' => 'Bearer'
-                    ]
+                    'data' => $this->oauth2Client->accessTokenFromClientIdAndSecret(
+                        $clientId,
+                        $clientSecret
+                    )
                 ]
 
             );

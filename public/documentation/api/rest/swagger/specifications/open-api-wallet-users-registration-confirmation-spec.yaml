@@ -29,10 +29,9 @@ get:
               data:
                 type: object
                 properties:
-                  usernaùme:
+                  username:
                     type: string
-                    example: |
-                      bouba@nbk.com
+                    example: bouba@nbk.com
     '401':
       description: Invalid username or confirmation code
       content:

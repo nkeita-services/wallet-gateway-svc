@@ -36,18 +36,13 @@ class AuthenticateWalletUserController extends Controller
     )
     {
         try {
-
             return response()->json(
                 [
                     'status' => 'success',
-                    'data' => [
-                        'accessToken' => $this->userAuthenticationService->authenticate(
-                            $userName,
-                            $userPassword
-                        ),
-                        'expires_in' => 3600,
-                        'tokenType' => 'Bearer'
-                    ]
+                    'data' => $this->userAuthenticationService->authenticate(
+                        urldecode($userName),
+                        urldecode($userPassword)
+                    )
                 ]
 
             );
