@@ -26,24 +26,23 @@ class AuthenticateWalletUserController extends Controller
 
 
     /**
-     * @param string $username
+     * @param string $userName
      * @param string $userPassword
      * @return JsonResponse
      */
     public function authenticate(
-        string $username,
+        string $userName,
         string $userPassword
     )
     {
         try {
-
 
             return response()->json(
                 [
                     'status' => 'success',
                     'data' => [
                         'accessToken' => $this->userAuthenticationService->authenticate(
-                            $username,
+                            $userName,
                             $userPassword
                         ),
                         'expires_in' => 3600,
