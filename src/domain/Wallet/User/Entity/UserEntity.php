@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Wallet\User\Entity;
-
 
 class UserEntity implements UserEntityInterface
 {
@@ -120,7 +118,7 @@ class UserEntity implements UserEntityInterface
             $data['walletOrganizations'] ?? null,
             $data['userId'] ?? null,
             $data['createdAt'] ?? null,
-            $data['status'] ?? null,
+            $data['status'] ?? null
         );
     }
     /**
