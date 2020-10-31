@@ -45,7 +45,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        var_dump($exception->getTraceAsString());exit;
+        var_dump($exception->getTraceAsString());
         return response()->json(
             [
                 'status' => 'error',

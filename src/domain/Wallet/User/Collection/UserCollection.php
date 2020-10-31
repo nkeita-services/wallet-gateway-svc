@@ -28,12 +28,12 @@ class UserCollection implements UserCollectionInterface
     {
         return new static(
             array_map(function (array $user){
-                return UserEntity::fromArray($user);
+                return \Wallet\User\Entity\UserEntity::fromArray($user);
             },$users)
         );
     }
 
-    /**
+    /**UserCollection
      * @inheritDoc
      */
     public function toArray(): array
