@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Wallet\Wallet\Account\Service\AccountTransactionService;
 
-class FetchAccountTransactionsController
+class FetchAccountTransactionsController extends Controller
 {
     /**
      * @var AccountTransactionService

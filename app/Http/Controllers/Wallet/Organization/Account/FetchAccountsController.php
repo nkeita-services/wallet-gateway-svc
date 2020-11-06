@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Wallet\Organization\Account;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Wallet\Account\Service\AccountServiceInterface;
+use Wallet\Wallet\Account\Service\AccountServiceInterface;
 
 class FetchAccountsController extends Controller
 {

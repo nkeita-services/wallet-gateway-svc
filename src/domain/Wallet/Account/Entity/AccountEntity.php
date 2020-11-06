@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Wallet\Account\Entity;
+namespace Wallet\Wallet\Account\Entity;
 
 
 class AccountEntity implements AccountEntityInterface

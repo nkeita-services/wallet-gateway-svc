@@ -2,7 +2,7 @@
 
 namespace Infrastructure\Api\Rest\Client\Account;
 
-use Wallet\Account\Entity\AccountEntityInterface;
+use Wallet\Wallet\Account\Entity\AccountEntityInterface;
 use Wallet\Wallet\Account\Collection\AccountCollectionInterface;
 
 interface AccountApiClientInterface

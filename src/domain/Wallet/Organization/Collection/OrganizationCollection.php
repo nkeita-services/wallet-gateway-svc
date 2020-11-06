@@ -4,7 +4,6 @@
 namespace Wallet\Wallet\Organization\Collection;
 
 
-use Wallet\Account\Entity\AccountEntity;
 use Wallet\Wallet\Organization\Entity\OrganizationEntity;
 use Wallet\Wallet\Organization\Entity\OrganizationEntityInterface;
 

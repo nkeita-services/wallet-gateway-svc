@@ -10,9 +10,8 @@ use App\Http\Controllers\Wallet\Account\Mapper\AccountMapperInterface;
 use App\Rules\Wallet\WalletPlanIdRule;
 use App\Rules\Wallet\WalletUserIdRule;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
-use Wallet\Account\Service\AccountService;
-use Wallet\Account\Service\AccountServiceInterface;
+use Wallet\Wallet\Account\Service\AccountService;
+use Wallet\Wallet\Account\Service\AccountServiceInterface;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 

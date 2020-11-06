@@ -4,8 +4,8 @@
 namespace App\Providers\Domain\Wallet\Account\Service;
 
 use Illuminate\Support\ServiceProvider;
-use Wallet\Account\Service\AccountService;
-use Wallet\Account\Service\AccountServiceInterface;
+use Wallet\Wallet\Account\Service\AccountService;
+use Wallet\Wallet\Account\Service\AccountServiceInterface;
 use Wallet\Wallet\Account\Repository\AccountRepositoryInterface;
 
 class AccountServiceProvider extends ServiceProvider

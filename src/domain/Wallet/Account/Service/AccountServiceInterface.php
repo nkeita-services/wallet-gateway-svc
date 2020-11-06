@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Wallet\Account\Service;
+namespace Wallet\Wallet\Account\Service;
 
 
-use Wallet\Account\Entity\AccountEntityInterface;
+use Wallet\Wallet\Account\Entity\AccountEntityInterface;
 use Wallet\Wallet\Account\Collection\AccountCollectionInterface;
 
 interface AccountServiceInterface

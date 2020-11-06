@@ -4,7 +4,7 @@
 namespace Wallet\Wallet\Account\Repository;
 
 
-use Wallet\Account\Entity\AccountEntityInterface;
+use Wallet\Wallet\Account\Entity\AccountEntityInterface;
 use Wallet\Wallet\Account\Collection\AccountCollectionInterface;
 
 interface AccountRepositoryInterface

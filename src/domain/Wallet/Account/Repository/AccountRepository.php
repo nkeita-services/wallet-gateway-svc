@@ -5,7 +5,7 @@ namespace Wallet\Wallet\Account\Repository;
 
 
 use Infrastructure\Api\Rest\Client\Account\AccountApiClientInterface;
-use Wallet\Account\Entity\AccountEntityInterface;
+use Wallet\Wallet\Account\Entity\AccountEntityInterface;
 use Wallet\Wallet\Account\Collection\AccountCollectionInterface;
 
 class AccountRepository implements AccountRepositoryInterface

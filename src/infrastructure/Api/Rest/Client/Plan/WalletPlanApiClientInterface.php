@@ -5,8 +5,6 @@ namespace Infrastructure\Api\Rest\Client\Plan;
 
 
 use Infrastructure\Api\Rest\Client\Plan\Exception\WalletPlanNotFoundException;
-use Wallet\Account\Entity\AccountEntityInterface;
-use Wallet\Wallet\Account\Collection\AccountCollectionInterface;
 use Wallet\Wallet\Plan\Collection\PlanCollectionInterface;
 use Wallet\Wallet\Plan\Entity\WalletPlanEntityInterface;
 

@@ -8,8 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Wallet\Account\Mapper\AccountMapper;
 use App\Http\Controllers\Wallet\Account\Mapper\AccountMapperInterface;
 use Illuminate\Http\Request;
-use Wallet\Account\Service\AccountService;
-use Wallet\Account\Service\AccountServiceInterface;
+use Wallet\Wallet\Account\Service\AccountService;
+use Wallet\Wallet\Account\Service\AccountServiceInterface;
 
 class CreateAccountController extends Controller
 {

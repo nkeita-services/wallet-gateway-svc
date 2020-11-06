@@ -6,14 +6,11 @@ namespace App\Http\Controllers\Wallet\Account;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Wallet\Account\Service\AccountService;
-use Wallet\Account\Service\AccountServiceInterface;
+use Wallet\Wallet\Account\Service\AccountService;
+use Wallet\Wallet\Account\Service\AccountServiceInterface;
 use Wallet\Wallet\Account\Entity\TransactionEntity;
 use Wallet\Wallet\Account\Service\AccountTransactionService;
 use Wallet\Wallet\Account\Service\AccountTransactionServiceInterface;
-use Wallet\Wallet\Event\Entity\EventEntity;
-use Wallet\Wallet\Event\Service\EventService;
-use Wallet\Wallet\Event\Service\EventServiceInterface;
 
 class UpdateAccountBalanceController  extends Controller
 {

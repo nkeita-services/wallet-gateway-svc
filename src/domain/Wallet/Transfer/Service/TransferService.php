@@ -4,7 +4,7 @@
 namespace Wallet\Wallet\Transfer\Service;
 
 
-use Wallet\Account\Service\AccountServiceInterface;
+use Wallet\Wallet\Account\Service\AccountServiceInterface;
 use Wallet\Wallet\Account\Entity\TransactionEntity;
 use Wallet\Wallet\Account\Service\AccountTransactionServiceInterface;
 use Wallet\Wallet\Transfer\Entity\TransferEntityInterface;
