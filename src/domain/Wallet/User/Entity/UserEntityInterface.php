@@ -1,10 +1,9 @@
 <?php
 
 
-namespace Wallet\User\Entity;
+namespace Wallet\Wallet\User\Entity;
 
 
-use Wallet\Wallet\Plan\Entity\WalletPlanEntityInterface;
 
 interface UserEntityInterface
 {

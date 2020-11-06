@@ -1,6 +1,6 @@
 <?php
 
-namespace Wallet\User\Entity;
+namespace Wallet\Wallet\User\Entity;
 
 class UserEntity implements UserEntityInterface
 {

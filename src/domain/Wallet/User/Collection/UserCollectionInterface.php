@@ -4,7 +4,6 @@
 namespace Wallet\Wallet\User\Collection;
 
 
-use Wallet\Wallet\Plan\Collection\PlanCollectionInterface;
 
 interface UserCollectionInterface
 {
