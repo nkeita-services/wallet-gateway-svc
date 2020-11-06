@@ -3,12 +3,8 @@
 
 namespace App\Http\Controllers\Wallet\Registration;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use Wallet\User\Entity\UserEntity;
 use Wallet\Wallet\User\Service\Authentification\AuthenticationServiceInterface;
-use Wallet\Wallet\User\Service\UserServiceInterface;
 
 class ConfirmUserRegistrationController extends Controller
 {

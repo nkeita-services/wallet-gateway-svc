@@ -4,8 +4,7 @@
 namespace Wallet\Wallet\User\Repository;
 
 
-use Wallet\User\Entity\UserEntityInterface;
-use Wallet\Wallet\User\Collection\UserCollection;
+use Wallet\Wallet\User\Entity\UserEntityInterface;
 use Wallet\Wallet\User\Collection\UserCollectionInterface;
 use Wallet\Wallet\User\Repository\Exception\UserNotFoundException;
 

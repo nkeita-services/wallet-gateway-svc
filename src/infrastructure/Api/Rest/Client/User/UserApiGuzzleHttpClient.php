@@ -9,7 +9,7 @@ use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\RequestOptions;
 use Infrastructure\Api\Rest\Client\User\Exception\UserNotFoundException;
 use Infrastructure\Api\Rest\Client\User\Mapper\UserMapperInterface;
-use Wallet\User\Entity\UserEntityInterface;
+use Wallet\Wallet\User\Entity\UserEntityInterface;
 use DomainException;
 use Wallet\Wallet\User\Collection\UserCollectionInterface;
 

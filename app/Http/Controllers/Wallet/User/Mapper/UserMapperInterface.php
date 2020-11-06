@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\Wallet\User\Mapper;
 
 use Illuminate\Http\Request;
-use Wallet\User\Entity\UserEntityInterface;
+use Wallet\Wallet\User\Entity\UserEntityInterface;
 
 interface UserMapperInterface
 {

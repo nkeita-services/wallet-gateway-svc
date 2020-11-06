@@ -5,7 +5,7 @@ namespace Infrastructure\Api\Rest\Client\User\Mapper;
 
 
 use Psr\Http\Message\ResponseInterface;
-use Wallet\User\Entity\UserEntityInterface;
+use Wallet\Wallet\User\Entity\UserEntityInterface;
 use Wallet\Wallet\User\Collection\UserCollectionInterface;
 
 interface UserMapperInterface
