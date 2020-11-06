@@ -99,7 +99,7 @@ info:
     backgroundColor: '#FFFFFF'
     altText: NBK Logo
 servers:
-  - url: 'https://wallet-gateway-svc-fjhmnd5asa-ew.a.run.app'
+  - url: 'https://wallet-gateway-svc-x6fr3lwlgq-nw.a.run.app'
     description: Testing Server
   - url: 'http://localhost:8083/'
     description: Local Server

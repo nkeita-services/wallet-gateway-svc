@@ -28,7 +28,7 @@ class UserCollection implements UserCollectionInterface
     {
         return new static(
             array_map(function (array $user){
-                return \Wallet\User\Entity\UserEntity::fromArray($user);
+                return UserEntity::fromArray($user);
             },$users)
         );
     }
