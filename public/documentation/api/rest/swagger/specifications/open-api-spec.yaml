@@ -107,35 +107,35 @@ tags:
   - name: Wallet Plans
     description: Wallet Plans are used to group wallet accounts that have common characteristics
     externalDocs:
-      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+      url: 'https://wallet-gateway-svc-x6fr3lwlgq-nw.a.run.app'
   - name: Wallet Organizations
     description: A Wallet Organization is a company that have a set of wallet plans
     externalDocs:
-      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+      url: 'https://wallet-gateway-svc-x6fr3lwlgq-nw.a.run.app'
   - name: Wallet Accounts
     description: Wallet accounts
     externalDocs:
-      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+      url: 'https://wallet-gateway-svc-x6fr3lwlgq-nw.a.run.app'
   - name: Wallet Account Users
     description: Wallet account owners
     externalDocs:
-      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+      url: 'https://wallet-gateway-svc-x6fr3lwlgq-nw.a.run.app'
   - name: Wallet Fees
     description: Wallet fees
     externalDocs:
-      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+      url: 'https://wallet-gateway-svc-x6fr3lwlgq-nw.a.run.app'
   - name: Wallet Remittance
     description: Wallet remittance
     externalDocs:
-      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+      url: 'https://wallet-gateway-svc-x6fr3lwlgq-nw.a.run.app'
   - name: Wallet Authentication
     description: Wallet API Gateway Authentication
     externalDocs:
-      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+      url: 'https://wallet-gateway-svc-x6fr3lwlgq-nw.a.run.app'
   - name: Wallet Registration
     description: Wallet API Gateway Registration
     externalDocs:
-      url: 'https://wallet-gateway-svc-uzqgb7lfiq-ew.a.run.app'
+      url: 'https://wallet-gateway-svc-x6fr3lwlgq-nw.a.run.app'
 paths:
   /v1/wallets/users:
     $ref: 'open-api-wallet-account-users-spec.yaml'
