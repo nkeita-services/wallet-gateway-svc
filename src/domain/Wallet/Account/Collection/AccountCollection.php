@@ -4,8 +4,8 @@
 namespace Wallet\Wallet\Account\Collection;
 
 
-use Wallet\Account\Entity\AccountEntity;
-use Wallet\Account\Entity\AccountEntityInterface;
+use Wallet\Wallet\Account\Entity\AccountEntity;
+use Wallet\Wallet\Account\Entity\AccountEntityInterface;
 
 class AccountCollection implements AccountCollectionInterface
 {
