@@ -5,6 +5,11 @@ get:
         - FetchOrganizationData
   tags:
     - Wallet Organizations
+  parameters:
+    - in: query
+      name: clientIdentifier
+      schema:
+        type: string
   responses:
     '200':
       description: Successfully obtained the list of organizations plans

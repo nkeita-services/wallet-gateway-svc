@@ -36,11 +36,13 @@ class FetchOrganizationDataController extends Controller
                     'walletOrganization' => $this
                         ->walletOrganizationService
                         ->fromClientIdentifier(
-                            $request->get('ApiConsumer')->getClientId()
+                            $request->get(
+                                'clientIdentifier',
+                                $request->get('ApiConsumer')->getClientId()
+                                )
                         )->toArray()
                 ]
             ]
         );
-
     }
 }
