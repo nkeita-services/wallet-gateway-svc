@@ -213,4 +213,17 @@ class UserEntity implements UserEntityInterface
     {
         return $this->walletOrganizations;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function setWalletOrganizations(
+        array $organizations
+    ): UserEntityInterface
+    {
+        $this->walletOrganizations = $organizations;
+        return $this;
+    }
+
+
 }

@@ -58,4 +58,12 @@ interface UserEntityInterface
      * @return array
      */
     public function getWalletOrganizations(): array;
+
+    /**
+     * @param array $organizations
+     * @return UserEntityInterface
+     */
+    public function setWalletOrganizations(
+        array $organizations
+    ): UserEntityInterface;
 }
