@@ -83,7 +83,7 @@ class WalletPlanEntity implements WalletPlanEntityInterface
      */
     public function toArray(): array
     {
-        return [
+        $planData =  [
             "planId"=> $this->planId,
             "name"=> $this->name,
             "currency"=>$this->currency,
@@ -91,6 +91,14 @@ class WalletPlanEntity implements WalletPlanEntityInterface
             "compliance"=>$this->compliance,
             'organizations'=>$this->organizations
         ];
+
+        return array_filter(
+            $planData,
+            function ($propertyValue, $propertyName){
+                return $propertyValue !== null;
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
     }
 
 }

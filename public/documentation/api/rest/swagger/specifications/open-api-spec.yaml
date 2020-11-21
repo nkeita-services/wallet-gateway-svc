@@ -256,17 +256,11 @@ components:
         compliance:
           type: object
           properties:
-            kyc:
-              type: object
-              properties:
-                required:
-                  type: boolean
-                  example: true
-                level:
-                  type: number
-                  example: 1
-            documents:
-              $ref: '#/components/schemas/ComplianceDocuments'
+            kycRules:
+              type: array
+              items:
+                type: string
+                example: 5fb8db42528c88448b61f7a3
     WalletPlanWithId:
       allOf:
         - $ref: '#/components/schemas/WalletPlan'
