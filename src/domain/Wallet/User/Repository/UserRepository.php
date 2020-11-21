@@ -37,7 +37,9 @@ class UserRepository implements UserRepositoryInterface
     {
         return $this->userApiClient->create(
             $userEntity
-                ->setWalletOrganizations()
+                ->setWalletOrganizations(
+                    $organizations
+                )
                 ->toArray()
         );
     }
