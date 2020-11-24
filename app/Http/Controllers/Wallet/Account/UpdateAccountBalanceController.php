@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Wallet\Account;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Wallet\Wallet\Account\Entity\TransactionEntityInterface;
 use Wallet\Wallet\Account\Service\AccountService;
 use Wallet\Wallet\Account\Service\AccountServiceInterface;
 use Wallet\Wallet\Account\Entity\TransactionEntity;
@@ -54,6 +55,7 @@ class UpdateAccountBalanceController  extends Controller
         $this->accountTransactionService
             ->create(
                 new TransactionEntity(
+                    TransactionEntityInterface::TRANSACTION_TYPE_CREDIT,
                     $userId,
                     $accountId,
                     $request->json()->get('amount'),
@@ -99,6 +101,7 @@ class UpdateAccountBalanceController  extends Controller
         $this->accountTransactionService
             ->create(
                 new TransactionEntity(
+                    TransactionEntityInterface::TRANSACTION_TYPE_DEBIT,
                     $userId,
                     $accountId,
                     -$request->json()->get('amount'),

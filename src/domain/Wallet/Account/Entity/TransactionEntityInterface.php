@@ -6,6 +6,11 @@ namespace Wallet\Wallet\Account\Entity;
 
 interface TransactionEntityInterface
 {
+
+    const TRANSACTION_TYPE_CREDIT = 'Credit';
+
+    const TRANSACTION_TYPE_DEBIT = 'Debit';
+
     /**
      * @return string
      */
@@ -35,5 +40,10 @@ interface TransactionEntityInterface
      * @return string
      */
     public function getOriginatorId(): string;
+
+    /**
+     * @return string
+     */
+    public function getTransactionType(): string;
 
 }

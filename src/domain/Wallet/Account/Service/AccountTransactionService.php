@@ -76,7 +76,8 @@ class AccountTransactionService implements AccountTransactionServiceInterface
                         'entityId' => $transactionEntity->getAccountId(),
                         'actions' => [
                             'AccountBalanceOperation',
-                            'AccountOperation'
+                            'AccountOperation',
+                            sprintf('AccountBalanceOperation::%s', $transactionEntity->getTransactionType())
                         ],
                         'description' => $transactionEntity->getDescription(),
                         'timestamp' => time(),

@@ -4,6 +4,7 @@
 namespace Wallet\Wallet\Transfer\Service;
 
 
+use Wallet\Wallet\Account\Entity\TransactionEntityInterface;
 use Wallet\Wallet\Account\Service\AccountServiceInterface;
 use Wallet\Wallet\Account\Entity\TransactionEntity;
 use Wallet\Wallet\Account\Service\AccountTransactionServiceInterface;
@@ -85,6 +86,7 @@ class TransferService implements TransferServiceInterface
             ->transactionService
             ->create(
                 new TransactionEntity(
+                    TransactionEntityInterface::TRANSACTION_TYPE_DEBIT,
                     $senderAccount->getUserId(),
                     $transferEntity->senderAccountId(),
                     - $transferEntity->getAmount(),
@@ -116,6 +118,7 @@ class TransferService implements TransferServiceInterface
             ->transactionService
             ->create(
                 new TransactionEntity(
+                    TransactionEntityInterface::TRANSACTION_TYPE_CREDIT,
                     $receiverAccount->getUserId(),
                     $receiverAccount->getAccountId(),
                     $transferEntity->getAmount(),

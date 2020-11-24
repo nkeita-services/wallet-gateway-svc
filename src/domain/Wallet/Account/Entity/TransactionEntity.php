@@ -6,6 +6,7 @@ namespace Wallet\Wallet\Account\Entity;
 
 class TransactionEntity implements TransactionEntityInterface
 {
+    private $type;
     /**
      * @var string
      */
@@ -38,6 +39,7 @@ class TransactionEntity implements TransactionEntityInterface
 
     /**
      * TransactionEntity constructor.
+     * @param string $type
      * @param string $userId
      * @param string $accountId
      * @param string $amount
@@ -46,12 +48,14 @@ class TransactionEntity implements TransactionEntityInterface
      * @param string $originatorId
      */
     public function __construct(
+        string $type,
         ?string $userId,
         string $accountId,
         string $amount,
         string $description,
         string $originator,
         string $originatorId){
+        $this->type = $type;
         $this->userId = $userId;
         $this->accountId = $accountId;
         $this->amount = $amount;
@@ -108,4 +112,11 @@ class TransactionEntity implements TransactionEntityInterface
         return $this->originatorId;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getTransactionType(): string
+    {
+        return $this->type;
+    }
 }
