@@ -21,7 +21,7 @@ class RegionMapper implements RegionMapperInterface
         $payload = $request->json()->all();
         return RegionEntity::fromArray([
                 'name'=>$payload['name'],
-                'walletOrganizations'=>  $request->get('ApiConsumer')->getOrganizations(),
+                'walletOrganizations'=> $request->get('ApiConsumer')->getOrganizations(),
                 'countryCodes'=>$payload['countryCodes']
             ]
         );
