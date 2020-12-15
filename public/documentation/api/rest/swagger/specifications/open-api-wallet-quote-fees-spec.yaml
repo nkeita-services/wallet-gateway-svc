@@ -1,0 +1,21 @@
+post:
+  summary: Calculate transaction quote
+  security:
+    - oAuth2:
+        - TransactionQuote
+  tags:
+    - Wallet Fees
+  requestBody:
+    description: Calculate transaction quote
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/QuotePayload'
+  responses:
+    '200':
+      description: Successfully create the wallet fee
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/QuoteResponse'

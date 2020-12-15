@@ -308,4 +308,78 @@ $router->get('/v1/registration/users/confirmation/{userName}/{code}', [
     ]
 ]);
 
+$router->post('v1/wallets/regions', [
+    'uses' => 'Wallet\Fee\Region\CreateRegionController@create',
+    /* 'middleware'=>'auth',
+     'as'=>"wallet-gateway/CreateWalletRegion",
+     'groups'=> [
+         'root',
+         'admin'
+     ]*/
+]);
+
+$router->get('v1/wallets/regions/{regionId}', [
+    'uses' => 'Wallet\Fee\Region\FetchRegionDataController@fetch',
+    /* 'middleware'=>'auth',
+     'as'=>"wallet-gateway/GetWalletRegion",
+      'groups'=> [
+          'root',
+          'admin',
+          'user'
+      ]*/
+ ]);
+
+ $router->get('v1/wallets/regions', [
+     'uses' => 'Wallet\Fee\Region\FetchAllRegionsController@fetchAll',
+     /* 'middleware'=>'auth',
+      'as'=>"wallet-gateway/FetchAllWalletRegions",
+     'groups'=> [
+           'root',
+           'admin'
+       ]*/
+  ]);
+
+
+  $router->post('v1/wallets/fees', [
+      'uses' => 'Wallet\Fee\Fee\CreateFeeController@create',
+      /* 'middleware'=>'auth',
+       'as'=>"wallet-gateway/CreateWalletFee",
+       'groups'=> [
+            'root',
+            'admin'
+        ]*/
+   ]);
+
+   $router->get('v1/wallets/fees/{feeId}', [
+       'uses' => 'Wallet\Fee\Fee\FetchFeeDataController@fetch',
+       /* 'middleware'=>'auth',
+         'as'=>"wallet-gateway/GetWalletFee",
+         'groups'=> [
+             'root',
+             'admin',
+             'user'
+         ]*/
+     ]);
+
+     $router->get('v1/wallets/fees', [
+         'uses' => 'Wallet\Fee\Fee\FetchAllfeesController@fetchAll',
+         /* 'middleware'=>'auth',
+          'as'=>"wallet-gateway/FetchAllWalletFees",
+           'groups'=> [
+               'root',
+               'admin'
+           ]*/
+    ]);
+
+
+    $router->post('/v1/wallets/fees/quote/calculate', [
+        'uses' => 'Wallet\Fee\Quote\GetQuoteController@getQuote',
+        /*'middleware'=>'auth',
+        'as'=>'wallet-gateway/quote'
+        'groups'=> [
+            'root',
+            'admin'
+        ]*/
+]);
+
 
