@@ -1,5 +1,8 @@
 get:
   summary: Obtain a list of wallet fees
+  security:
+    - oAuth2:
+        - FetchRegionData
   tags:
     - Wallet Fees
   responses:
@@ -14,6 +17,9 @@ get:
 
 post:
   summary: Create a wallet fee
+  security:
+    - oAuth2:
+        - CreateFee
   tags:
     - Wallet Fees
   requestBody:

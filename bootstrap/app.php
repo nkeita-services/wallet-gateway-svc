@@ -7,9 +7,12 @@ require_once __DIR__ . '/../vendor/autoload.php';
     dirname(__DIR__)
 ))->bootstrap();
 
+use App\Providers\Domain\Wallet\Fee\Fee\Repository\FeeRepositoryProvider;
+use App\Providers\Domain\Wallet\Fee\Fee\Service\FeeServiceProvider;
 use App\Providers\Infrastructure\Api\Rest\Client\Account\AccountApiClientProvider;
 use App\Providers\Domain\Wallet\Account\Service\AccountServiceProvider;
 use App\Providers\Domain\Wallet\Account\Respository\AccountRepositoryProvider;
+use App\Providers\Infrastructure\Api\Rest\Client\Fee\Fee\FeeApiClientProvider;
 use App\Providers\Infrastructure\Api\Rest\Client\User\UserApiClientProvider;
 use App\Providers\Domain\Wallet\User\Repository\UserRepositoryProvider;
 use App\Providers\Domain\Wallet\User\Service\UserServiceProvider;
@@ -41,6 +44,12 @@ use App\Providers\Domain\Wallet\User\PaymentMean\UserPaymentMeanServiceProvider;
 use App\Providers\Infrastructure\Api\Auth\OAuth2\Oauth2ClientProvider;
 use App\Providers\Infrastructure\Aws\Cognito\IdentityProvider;
 use App\Providers\Domain\Wallet\User\Service\Authentification\AuthenticationServiceProvider;
+use App\Providers\Domain\Wallet\Fee\Quote\Repository\QuoteFeeRepositoryProvider;
+use App\Providers\Domain\Wallet\Fee\Quote\Service\QuoteFeeServiceProvider;
+use App\Providers\Infrastructure\Api\Rest\Client\Fee\Quote\QuoteFeeApiClientProvider;
+use App\Providers\Infrastructure\Api\Rest\Client\Fee\Region\RegionApiClientProvider;
+use App\Providers\Domain\Wallet\Fee\Region\Repository\RegionRepositoryProvider;
+use App\Providers\Domain\Wallet\Fee\Region\Service\RegionServiceProvider;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -153,6 +162,18 @@ $app->register(UserPaymentMeanServiceProvider::class);
 $app->register(Oauth2ClientProvider::class);
 $app->register(IdentityProvider::class);
 $app->register(AuthenticationServiceProvider::class);
+
+$app->register(QuoteFeeApiClientProvider::class);
+$app->register(QuoteFeeRepositoryProvider::class);
+$app->register(QuoteFeeServiceProvider::class);
+
+$app->register(RegionApiClientProvider::class);
+$app->register(RegionRepositoryProvider::class);
+$app->register(RegionServiceProvider::class);
+
+$app->register(FeeApiClientProvider::class);
+$app->register(FeeRepositoryProvider::class);
+$app->register(FeeServiceProvider::class);
 
 //$app->register(\App\Providers\AuthServiceProvider::class);
 

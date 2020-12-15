@@ -13,7 +13,8 @@
         "guzzlehttp/guzzle": "~6.0",
         "laravel/lumen-framework": "^6.0",
         "league/oauth2-client": "^2.4",
-        "nordsoftware/lumen-cors": "^3.3"
+        "nordsoftware/lumen-cors": "^3.3",
+        "ext-json": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.4",
