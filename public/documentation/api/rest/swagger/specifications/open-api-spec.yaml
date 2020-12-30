@@ -938,11 +938,6 @@ components:
           type: string
           description: region name
           example: REGION A
-        walletOrganizations:
-          type: array
-          items:
-            type: string
-            example: 6fc1623161119d4ec9aee036
         countryCodes:
           type: array
           items:
