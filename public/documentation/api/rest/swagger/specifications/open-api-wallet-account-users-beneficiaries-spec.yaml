@@ -2,7 +2,7 @@ get:
   summary: Obtain the list of user beneficiaries
   security:
     - oAuth2:
-      - ListUserBeneficiaries
+      - WalletUserRead
   tags:
     - Wallet Account Users
   parameters:
@@ -30,7 +30,7 @@ post:
   summary: Create a user beneficiary
   security:
     - oAuth2:
-        - CreateUserBeneficiary
+        - WalletUserWrite
   tags:
     - Wallet Account Users
   parameters:

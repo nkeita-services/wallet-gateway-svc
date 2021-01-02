@@ -18,7 +18,7 @@ $router->get('/', function () use ($router) {
 $router->get('v1/wallets/users', [
     'uses' => 'Wallet\User\FetchAllUsersController@fetchAll',
     'middleware'=>'auth',
-    'as'=>'wallet-gateway/ListUsers',
+    'as'=>'wallet-gateway/WalletUserRead',
     'groups'=> [
         'root',
         'admin'
@@ -28,7 +28,7 @@ $router->get('v1/wallets/users', [
 $router->post('v1/wallets/users', [
     'uses' => 'Wallet\User\CreateUserController@create',
     'middleware'=>'auth',
-    'as'=>'wallet-gateway/CreateUsers',
+    'as'=>'wallet-gateway/WalletUserWrite',
     'groups'=> [
         'root',
         'admin',
@@ -40,7 +40,7 @@ $router->post('v1/wallets/users', [
 $router->get('v1/wallets/users/{userId}', [
     'uses' => 'Wallet\User\FetchUserDataController@fetch',
     'middleware'=>'auth',
-    'as'=>'wallet-gateway/GetUser',
+    'as'=>'wallet-gateway/WalletUserRead',
     'groups'=> [
         'root',
         'admin',
@@ -51,7 +51,7 @@ $router->get('v1/wallets/users/{userId}', [
 $router->post('v1/wallets/users/{userId}/accounts', [
     'uses' => 'Wallet\Account\CreateAccountController@create',
     'middleware'=>'auth',
-    'as'=>'wallet-gateway/CreateAccounts',
+    'as'=>'wallet-gateway/WalletUserWrite',
     'groups'=> [
         'root',
         'admin',
@@ -62,7 +62,7 @@ $router->post('v1/wallets/users/{userId}/accounts', [
 $router->get('v1/wallets/users/{userId}/accounts', [
     'uses' => 'Wallet\Account\FetchUserAccountsController@fetch',
     'middleware'=>'auth',
-    'as'=>"wallet-gateway/ListUserAccounts",
+    'as'=>"wallet-gateway/WalletUserRead",
     'groups'=> [
         'root',
         'admin',
@@ -73,7 +73,7 @@ $router->get('v1/wallets/users/{userId}/accounts', [
 $router->patch('v1/wallets/users/{userId}/accounts/{accountId}', [
     'uses' => 'Wallet\Account\UpdateAccountController@update',
     'middleware'=>'auth',
-    'as'=>"wallet-gateway/UpdateAccountInfo",
+    'as'=>"wallet-gateway/WalletUserWrite",
     'groups'=> [
         'root',
         'admin',
@@ -84,7 +84,7 @@ $router->patch('v1/wallets/users/{userId}/accounts/{accountId}', [
 $router->get('v1/wallets/users/{userId}/accounts/{accountId}', [
     'uses' => 'Wallet\Account\FetchAccountDataController@fetch',
     'middleware'=>'auth',
-    'as'=>"wallet-gateway/GetAccountInfo",
+    'as'=>"wallet-gateway/WalletUserRead",
     'groups'=> [
         'root',
         'admin',
@@ -128,7 +128,7 @@ $router->get('v1/wallets/users/{userId}/accounts/{accountId}/transactions', [
 $router->get('v1/wallets/plans/{planId}', [
     'uses' => 'Wallet\Plan\FetchWalletPlanDataController@fetch',
     'middleware'=>'auth',
-    'as'=>"wallet-gateway/GetWalletPlan",
+    'as'=>"wallet-gateway/WalletPlanRead",
     'groups'=> [
         'root',
         'admin',
@@ -139,7 +139,7 @@ $router->get('v1/wallets/plans/{planId}', [
 $router->get('v1/wallets/plans', [
     'uses' => 'Wallet\Plan\FetchAllWalletPlansController@fetchAll',
     'middleware'=>'auth',
-    'as'=>"wallet-gateway/FetchAllWalletPlans",
+    'as'=>"wallet-gateway/WalletPlanRead",
     'groups'=> [
         'root',
         'admin'
@@ -149,7 +149,7 @@ $router->get('v1/wallets/plans', [
 $router->post('v1/wallets/plans', [
     'uses' => 'Wallet\Plan\CreateWalletPlanController@create',
     'middleware'=>'auth',
-    'as'=>"wallet-gateway/CreateWalletPlan",
+    'as'=>"wallet-gateway/WalletPlanWrite",
     'groups'=> [
         'root',
         'admin'
@@ -221,7 +221,7 @@ $router->post('v1/wallets/remittances', [
 $router->get('/v1/wallets/users/{userId}/beneficiaries', [
     'uses' => 'Wallet\User\Beneficiary\FetchAllUserBeneficiariesController@fetchAll',
     'middleware'=>'auth',
-    'as'=>'wallet-gateway/ListUserBeneficiaries',
+    'as'=>'wallet-gateway/WalletUserRead',
     'groups'=> [
         'root',
         'admin',
@@ -232,7 +232,7 @@ $router->get('/v1/wallets/users/{userId}/beneficiaries', [
 $router->post('/v1/wallets/users/{userId}/beneficiaries', [
     'uses' => 'Wallet\User\Beneficiary\CreateBeneficiaryController@create',
     'middleware'=>'auth',
-    'as'=>'wallet-gateway/CreateUserBeneficiary',
+    'as'=>'wallet-gateway/WalletUserWrite',
     'groups'=> [
         'root',
         'admin',
@@ -342,44 +342,44 @@ $router->get('v1/wallets/regions/{regionId}', [
 
   $router->post('v1/wallets/fees', [
       'uses' => 'Wallet\Fee\Fee\CreateFeeController@create',
-      /* 'middleware'=>'auth',
-       'as'=>"wallet-gateway/CreateWalletFee",
+      'middleware'=>'auth',
+       'as'=>"wallet-gateway/WalletFeeWrite",
        'groups'=> [
             'root',
             'admin'
-        ]*/
+        ]
    ]);
 
    $router->get('v1/wallets/fees/{feeId}', [
        'uses' => 'Wallet\Fee\Fee\FetchFeeDataController@fetch',
-       /* 'middleware'=>'auth',
-         'as'=>"wallet-gateway/GetWalletFee",
+       'middleware'=>'auth',
+         'as'=>"wallet-gateway/WalletFeeRead",
          'groups'=> [
              'root',
              'admin',
              'user'
-         ]*/
+         ]
      ]);
 
      $router->get('v1/wallets/fees', [
          'uses' => 'Wallet\Fee\Fee\FetchAllfeesController@fetchAll',
-         /* 'middleware'=>'auth',
-          'as'=>"wallet-gateway/FetchAllWalletFees",
+         'middleware'=>'auth',
+          'as'=>"wallet-gateway/WalletFeeRead",
            'groups'=> [
                'root',
                'admin'
-           ]*/
+           ]
     ]);
 
 
     $router->post('/v1/wallets/fees/quote/calculate', [
         'uses' => 'Wallet\Fee\Quote\GetQuoteController@getQuote',
-        /*'middleware'=>'auth',
-        'as'=>'wallet-gateway/quote'
+        'middleware'=>'auth',
+        'as'=>'wallet-gateway/WalletFeeWrite',
         'groups'=> [
             'root',
             'admin'
-        ]*/
+        ]
 ]);
 
 

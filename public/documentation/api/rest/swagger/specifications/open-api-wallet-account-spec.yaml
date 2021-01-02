@@ -2,7 +2,7 @@ get:
   summary: Obtain wallet account info
   security:
     - oAuth2:
-        - GetAccountInfo
+        - WalletUserRead
   tags:
     - Wallet Accounts
   parameters:
@@ -35,7 +35,7 @@ patch:
   summary: Update wallet account
   security:
     - oAuth2:
-        - UpdateAccountInfo
+        - WalletUserWrite
   tags:
     - Wallet Accounts
   parameters:

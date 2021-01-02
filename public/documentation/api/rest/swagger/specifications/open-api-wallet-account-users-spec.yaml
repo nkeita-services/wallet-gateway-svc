@@ -2,7 +2,7 @@ get:
   summary: Obtain a list of wallet account users
   security:
     - oAuth2:
-      - ListUsers
+      - WalletUserRead
   tags:
     - Wallet Account Users
   responses:
@@ -24,7 +24,7 @@ post:
   summary: Create a wallet account user
   security:
     - oAuth2:
-        - CreateUsers
+        - WalletUserWrite
   tags:
     - Wallet Account Users
   requestBody:

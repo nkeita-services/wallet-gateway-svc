@@ -203,24 +203,15 @@ components:
         clientCredentials:
           tokenUrl: https://nbk-wallet.auth.eu-west-1.amazoncognito.com/oauth2/token
           scopes:
-            CreateUsers: Create Users
-            GetUser: Get User data
-            ListUsers: List Users
-            UpdateUserData: Update user data
-            CreateUserAccounts: Create Accounts
-            ListUserAccounts: List Accounts
-            GetAccountInfo: Get Account Infos
-            UpdateAccountInfo: Update Account Infos
+            WalletUserRead: Read permissions on User data
+            WalletUserWrite: Write permissions on User data
             TopUpAccount: TopUp Account
             DebitAccount: Debit Account
             GetAccountTransactions: List all the transactions on the account
-            GetWalletPlan: Get Wallet Plan
-            FetchAllWalletPlans: Get Wallet Plans
-            CreateWalletPlan: Create Wallet Plans
+            WalletPlanRead: Read permission on Wallet Plan
+            WalletPlanWrite: Write permission on Wallet Plan
             CreateTransfer: Create a transfer
             ListTransfers: List transfers
-            ListUserBeneficiaries: List user beneficiaries
-            CreateUserBeneficiary: Create new beneficiary
             ListPaymentMeans: List Payment Means
             CreatePaymentMeans: Create Payment Mean
             GetPaymentMean: Get Payment Mean Data
@@ -231,6 +222,8 @@ components:
             AuthenticateUsers: Authenticate wallet users
             RegisterNewUsers: Register new users
             ConfirmUserRegistration: Confirm user registration
+            WalletFeeRead: Read permissions on wallet fees
+            WalletFeeWrite: Write permissions on wallet fees
   schemas:
     ResponseStatus:
       type: string

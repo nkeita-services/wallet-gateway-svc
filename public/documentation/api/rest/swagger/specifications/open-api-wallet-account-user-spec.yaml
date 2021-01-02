@@ -2,7 +2,7 @@ get:
   summary: Obtain user data
   security:
     - oAuth2:
-      - GetUser
+      - WalletUserRead
   tags:
     - Wallet Account Users
   parameters:
@@ -30,7 +30,7 @@ patch:
   summary: Update User Data
   security:
     - oAuth2:
-      - UpdateUserData
+      - WalletUserWrite
   tags:
     - Wallet Account Users
   parameters:

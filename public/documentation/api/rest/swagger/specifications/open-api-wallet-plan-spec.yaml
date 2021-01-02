@@ -2,7 +2,7 @@ get:
   summary: Obtain a wallet plan info
   security:
     - oAuth2:
-        - GetAccountInfo
+        - WalletPlanRead
   tags:
     - Wallet Plans
   parameters:

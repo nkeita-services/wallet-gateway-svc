@@ -2,7 +2,7 @@ post:
   summary: Calculate transaction quote
   security:
     - oAuth2:
-        - TransactionQuote
+        - WalletFeeWrite
   tags:
     - Wallet Fees
   requestBody:
