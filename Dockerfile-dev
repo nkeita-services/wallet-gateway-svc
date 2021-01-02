@@ -46,3 +46,10 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 ENV GOOGLE_APPLICATION_CREDENTIALS /var/www/html/GOOGLE_APPLICATION_CREDENTIALS.json
+
+# Install GCloud
+RUN apt-get update -y && apt-get install -y gnupg2
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && apt-get update -y && apt-get install google-cloud-sdk -y
+RUN gcloud auth activate-service-account --key-file=/var/www/html/GOOGLE_APPLICATION_CREDENTIALS.json
+RUN gcloud auth print-identity-token
+RUN usermod -a -G root www-data
