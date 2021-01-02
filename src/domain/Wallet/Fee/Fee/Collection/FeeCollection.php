@@ -8,7 +8,7 @@ use Wallet\Wallet\Fee\Fee\Entity\FeeEntityInterface;
 use Wallet\Wallet\Fee\Fee\Entity\FeeEntity;
 
 
-class FeeCollection
+class FeeCollection implements FeeCollectionInterface
 {
     /**
      * @var array

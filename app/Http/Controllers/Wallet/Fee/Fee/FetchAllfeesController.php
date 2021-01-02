@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Wallet\Fee\Fee;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Wallet\Wallet\Fee\Fee\Service\FeeService;
 use Wallet\Wallet\Fee\Fee\Service\FeeServiceInterface;
 
 class FetchAllfeesController  extends Controller
@@ -17,9 +18,9 @@ class FetchAllfeesController  extends Controller
 
     /**
      * FetchAllFeeController constructor.
-     * @param FeeServiceInterface $feeService
+     * @param FeeService $feeService
      */
-    public function __construct(FeeServiceInterface $feeService)
+    public function __construct(FeeService $feeService)
     {
         $this->feeService = $feeService;
     }
