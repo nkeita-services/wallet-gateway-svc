@@ -120,6 +120,10 @@ tags:
     description: Wallet account owners
     externalDocs:
       url: 'https://wallet-gateway-svc-x6fr3lwlgq-nw.a.run.app'
+  - name: Wallet Regions
+    description: Wallet regions
+    externalDocs:
+      url: 'https://wallet-gateway-svc-x6fr3lwlgq-nw.a.run.app'
   - name: Wallet Fees
     description: Wallet fees
     externalDocs:
@@ -171,8 +175,14 @@ paths:
     $ref: 'open-api-wallet-organization-account-spec.yaml'
   /v1/wallets/organizations/accounts/{accountId}/transactions:
     $ref: 'open-api-wallet-organization-account-transactions-spec.yaml'
+  /v1/wallets/regions:
+    $ref: 'open-api-wallet-regions-spec.yaml'
+  /v1/wallets/regions/{regionId}:
+    $ref: 'open-api-wallet-region-spec.yaml'
   /v1/wallets/fees:
     $ref: 'open-api-wallet-fees-spec.yaml'
+  /v1/wallets/fees/quote/calculate:
+    $ref: 'open-api-wallet-quote-fees-spec.yaml'
   /v1/wallets/remittances:
     $ref: 'open-api-wallet-remittances-spec.yaml'
   /v1/authentication/oauth2/token/{clientId}/{clientSecret}:
@@ -474,27 +484,46 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/WalletAccountUserWithId'
+    Fees:
+      type: object
+      properties:
+        rate:
+          type: number
+          example: 1.4
+        flatRate:
+          type: number
+          example: 0.25
     WalletFee:
       type: object
       properties:
-        id:
+        paymentMean:
           type: string
-          description: An identifier that represents the wallet fee
-          example: 5e4203f3-c949-4e66-a732-9eaa803a3a66
-        operation:
+          description: paymentMean name
+          example: Stripe
+        regionId:
           type: string
-          description: the wallet operation this fee apply to
-          enum:
-            - AccountTopUp
-            - AccountCreation
-        amount:
-          type: number
-          description: the amount of the wallet fee
-          example: 10
+          description: regionId
+          example: 5fc1623161119d4ec9aee036
+        walletOrganizations:
+          type: array
+          items:
+            type: string
+            example: 6fc1623161119d4ec9aee036
+        fees:
+          $ref: '#/components/schemas/Fees'
+        extras:
+          $ref: '#/components/schemas/Extras'
     WalletFees:
-      type: array
-      items:
-        $ref: '#/components/schemas/WalletFee'
+      allOf:
+        - $ref: '#/components/schemas/WalletFee'
+        - type: object
+          required:
+            - regionId
+          properties:
+            feeId:
+              type: string
+              description: fee identifier
+              example: 7fc1623161119d4ec9aee036
     WalletRemittance:
       type: object
       properties:
@@ -792,6 +821,134 @@ components:
           enum:
             - USER
             - ADMIN
+    Extras:
+      type: object
+    Originator:
+      type: object
+      properties:
+        originatorType:
+          type: string
+          example: "User"
+        originatorId:
+          type: string
+          example: 8fc1623161119d4ec9aee036
+    QuoteSpec:
+        type: object
+        properties:
+          feeId:
+            type: string
+            example: 7fc1623161119d4ec9aee036
+          rate:
+            type: number
+            example: 1.4
+          flatRate:
+            type: number
+            example: 0.25
+          extras:
+            $ref: '#/components/schemas/Extras'
+    PaymentMean:
+      type: object
+      properties:
+        type:
+          type: string
+          example: "Stripe"
+        fees:
+          type: number
+          example: 5.25
+        spec:
+          $ref: '#/components/schemas/QuoteSpec'
+    Nbk:
+      type: object
+      properties:
+        fees:
+          type: number
+          example: 5.25
+        spec:
+          $ref: '#/components/schemas/QuoteSpec'
+
+    QuotePayload:
+      type: object
+      properties:
+        paymentMean:
+          type: string
+          description: paymentMean name
+          example: Stripe
+        amount:
+          type: number
+          description: amount
+          example: 30
+        accountId:
+          type: string
+          description:  accountId
+          example: 5fc1623161119d4ec9aee036
+        walletOrganizations:
+          type: array
+          items:
+            type: string
+            example: 6fc1623161119d4ec9aee036
+        regionId:
+          type: string
+          description:  regionId
+          example: 3fc1623161119d4ec9aee036
+        operation:
+          type: string
+          description: operation name
+          example: "topUp"
+        currency:
+          type: string
+          description: currency name
+          example: "EUR"
+        originator:
+          $ref: '#/components/schemas/Originator'
+    QuoteResponse:
+      type: object
+      properties:
+        walletOrganizations:
+          type: array
+          items:
+            type: string
+            example: 6fc1623161119d4ec9aee036
+        regionId:
+          type: string
+          example: 8fc1623161119d4ec9aee036
+        paymentMean:
+          $ref: '#/components/schemas/PaymentMean'
+        nbk:
+          $ref: '#/components/schemas/Nbk'
+        extras:
+          $ref: '#/components/schemas/Extras'
+    WalletRegionWithId:
+      allOf:
+        - $ref: '#/components/schemas/WalletRegion'
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              description: region identifier
+              example: 6fc1623161119d4ec9aee036
+    CountryCodes:
+      type: string
+      example: FR
+    WalletRegion:
+      type: object
+      properties:
+        name:
+          type: string
+          description: region name
+          example: REGION A
+        countryCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountryCodes'
+        extras:
+          $ref: '#/components/schemas/Extras'
+    WalletRegions:
+      type: array
+      items:
+        $ref: '#/components/schemas/WalletRegion'
+
 
 
 

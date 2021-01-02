@@ -1,0 +1,95 @@
+get:
+  summary: Fetch wallet region data
+  security:
+    - oAuth2:
+        - FetchRegionData
+  tags:
+    - Wallet Regions
+  parameters:
+    - name: regionId
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 5fc1623161119d4ec9aee036
+  responses:
+    '200':
+      description: Successfully fetched wallet Regions data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletRegions:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletRegionWithId'
+    '404':
+      description: Regions not found
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/ErrorResponse'
+          example:
+            status: fail
+            statusCode: 6020
+            statusDescription: wallet Regions not found
+    '500':
+      description: Error when fetching wallet Regions
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/ErrorResponse'
+          example:
+            status: fail
+            statusCode: 6021
+            statusDescription: Error when fetching wallet Regions
+patch:
+  summary: Update wallet Regions data
+  security:
+    - oAuth2:
+        - UbdateRegionData
+  tags:
+    - Wallet Regions
+  parameters:
+    - name: regionId
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 5fc1623161119d4ec9aee036
+  requestBody:
+    description: The region specification
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/WalletRegion'
+  responses:
+    '201':
+      description: Successfully updated wallet region
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletRegion:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletRegionWithId'
+    '500':
+      description: Error when updating the wallet account region information
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/ErrorResponse'
+          example:
+            status: fail
+            statusCode: 4030
+            statusDescription: Error when updating the wallet  regions information
