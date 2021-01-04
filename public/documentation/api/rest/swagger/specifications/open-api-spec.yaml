@@ -101,7 +101,7 @@ info:
 servers:
   - url: 'https://wallet-gateway-svc-x6fr3lwlgq-nw.a.run.app'
     description: Testing Server
-  - url: 'http://localhost:8083/'
+  - url: 'http://localhost:8083'
     description: Local Server
 tags:
   - name: Wallet Plans
@@ -181,6 +181,8 @@ paths:
     $ref: 'open-api-wallet-region-spec.yaml'
   /v1/wallets/fees:
     $ref: 'open-api-wallet-fees-spec.yaml'
+  /v1/wallets/fees/{feeId}:
+    $ref: 'open-api-wallet-fee-spec.yaml'
   /v1/wallets/fees/quote/calculate:
     $ref: 'open-api-wallet-quote-fees-spec.yaml'
   /v1/wallets/remittances:
@@ -493,10 +495,11 @@ components:
           type: string
           description: paymentMean name
           example: Stripe
-        regionId:
-          type: string
-          description: regionId
-          example: 5fc1623161119d4ec9aee036
+        regions:
+          type: array
+          items:
+            type: string
+            example: 8fc1623161119d4ec9aee036
         walletOrganizations:
           type: array
           items:
@@ -506,12 +509,23 @@ components:
           $ref: '#/components/schemas/Fees'
         extras:
           $ref: '#/components/schemas/Extras'
-    WalletFees:
+    WalletFeeWithId:
       allOf:
         - $ref: '#/components/schemas/WalletFee'
         - type: object
           required:
             - regionId
+          properties:
+            feeId:
+              type: string
+              description: fee identifier
+              example: 7fc1623161119d4ec9aee036
+    WalletFees:
+      allOf:
+        - $ref: '#/components/schemas/WalletFee'
+        - type: object
+          required:
+            - feeId
           properties:
             feeId:
               type: string
@@ -879,10 +893,11 @@ components:
           items:
             type: string
             example: 6fc1623161119d4ec9aee036
-        regionId:
-          type: string
-          description:  regionId
-          example: 3fc1623161119d4ec9aee036
+        regions:
+          type: array
+          items:
+            type: string
+            example: 8fc1623161119d4ec9aee036
         operation:
           type: string
           description: operation name

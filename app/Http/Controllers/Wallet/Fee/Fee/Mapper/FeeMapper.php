@@ -22,7 +22,7 @@ class FeeMapper implements FeeMapperInterface
         $payload = $request->json()->all();
         return FeeEntity::fromArray([
                 'paymentMean'=> $payload['paymentMean'],
-                'regionId' => $payload['regionId'],
+                'regions' => $payload['regions'],
                 'walletOrganizations'=> $request->get('ApiConsumer')->getOrganizations(),
                 'fees'=> $payload['fees']
             ]

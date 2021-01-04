@@ -1,0 +1,49 @@
+get:
+  summary: Fetch wallet Fee data
+  security:
+    - oAuth2:
+        - WalletFeeRead
+  tags:
+    - Wallet Fees
+  parameters:
+    - name: feeId
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 5fc1623161119d4ec9aee036
+  responses:
+    '200':
+      description: Successfully fetched the  wallet fee data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletRegions:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletFeeWithId'
+    '404':
+      description: Fee not found
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/ErrorResponse'
+          example:
+            status: fail
+            statusCode: 6020
+            statusDescription: wallet Fee not found
+    '500':
+      description: Error when fetching wallet Fee
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/ErrorResponse'
+          example:
+            status: fail
+            statusCode: 6021
+            statusDescription: Error when fetching wallet Fee

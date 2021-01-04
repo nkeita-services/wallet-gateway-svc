@@ -17,9 +17,9 @@ class FeeEntity implements FeeEntityInterface
     private $paymentMean;
 
     /**
-     * @var string
+     * @var array
      */
-    private $regionId;
+    private $regions;
 
     /**
      * @var array
@@ -32,25 +32,33 @@ class FeeEntity implements FeeEntityInterface
     private $fees;
 
     /**
+     * @var int
+     */
+    public $createdAt;
+
+    /**
      * OrganizationEntity constructor.
      * @param string|null $feeId
      * @param string|null $paymentMean
-     * @param string $regionId
+     * @param array|null $regions
      * @param array|null $walletOrganizations
      * @param array|null $fees
+     * @param int|null $createdAt
      */
     public function __construct(
         ?string $feeId = null,
         ?string $paymentMean = null,
-        ?string $regionId = null,
+        ?array $regions = null,
         ?array $walletOrganizations = null,
-        ?array $fees = null
+        ?array $fees = null,
+        int $createdAt = null
     ){
         $this->feeId = $feeId;
         $this->paymentMean = $paymentMean;
-        $this->regionId = $regionId;
+        $this->regions = $regions;
         $this->walletOrganizations = $walletOrganizations;
         $this->fees = $fees;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -62,9 +70,11 @@ class FeeEntity implements FeeEntityInterface
         return new static(
             $data['feeId'] ?? null,
             $data['paymentMean'] ?? null,
-            $data['regionId'] ?? null,
+            $data['regions'] ?? null,
             $data['walletOrganizations'] ?? null,
-            $data['fees'] ?? null
+            $data['fees'] ?? null,
+            $data['createdAt'] ?? null
+
         );
     }
 
@@ -76,9 +86,10 @@ class FeeEntity implements FeeEntityInterface
         return [
             'feeId' => $this->feeId,
             'paymentMean' => $this->paymentMean,
-            'regionId' => $this->regionId,
+            'regions' => $this->regions,
             'walletOrganizations' => $this->walletOrganizations,
-            'fees'=> $this->fees
+            'fees'=> $this->fees,
+            'createdAt' => $this->createdAt
         ];
     }
 
@@ -107,11 +118,11 @@ class FeeEntity implements FeeEntityInterface
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getRegionId(): string
+    public function getRegions(): array
     {
-        return $this->regionId;
+        return $this->regions;
     }
 
 
@@ -122,5 +133,6 @@ class FeeEntity implements FeeEntityInterface
     {
         return $this->fees;
     }
+
 
 }

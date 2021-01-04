@@ -19,12 +19,12 @@ interface FeeRepositoryInterface
     ): FeeEntityInterface;
 
     /**
-     * @param string $regionId
+     * @param string $feeId
      * @return FeeEntityInterface
      * @throws FeeNotFoundException
      */
     public function fetchWithFeeId(
-        string $regionId
+        string $feeId
     ): FeeEntityInterface;
 
     /**
