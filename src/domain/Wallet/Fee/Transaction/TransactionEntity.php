@@ -106,7 +106,7 @@ class TransactionEntity implements TransactionEntityInterface
         $transactionData =  [
             "paymentMean"=> $this->paymentMean,
             "amount"=> floatval($this->amount),
-            "accountId"=>$this->currency,
+            "accountId"=>$this->accountId,
             "walletOrganizations"=>$this->walletOrganizations,
             "regionId"=>$this->regionId,
             'operation'=>$this->operation,

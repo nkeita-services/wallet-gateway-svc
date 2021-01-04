@@ -47,3 +47,5 @@ patch:
                 properties:
                   walletAccount:
                     $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountWithId'
+                  TransactionDetails:
+                    $ref: 'open-api-spec.yaml#/components/schemas/AccountUpdateTransactionDetails'

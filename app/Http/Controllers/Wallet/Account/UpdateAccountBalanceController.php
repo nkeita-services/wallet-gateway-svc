@@ -52,7 +52,7 @@ class UpdateAccountBalanceController  extends Controller
         );
 
 
-        $this->accountTransactionService
+        $event = $this->accountTransactionService
             ->create(
                 new TransactionEntity(
                     TransactionEntityInterface::TRANSACTION_TYPE_CREDIT,
@@ -69,7 +69,10 @@ class UpdateAccountBalanceController  extends Controller
             [
                 'status' => 'success',
                 'data' => [
-                    'walletAccount' => $accountEntity->toArray()
+                    'walletAccount' => $accountEntity->toArray(),
+                    'TransactionDetails'=>[
+                        'transactionId'=> $event->getEventId()
+                    ]
                 ]
             ]
 
@@ -98,7 +101,7 @@ class UpdateAccountBalanceController  extends Controller
             $request->json()->get('amount')
         );
 
-        $this->accountTransactionService
+        $event = $this->accountTransactionService
             ->create(
                 new TransactionEntity(
                     TransactionEntityInterface::TRANSACTION_TYPE_DEBIT,
@@ -115,7 +118,10 @@ class UpdateAccountBalanceController  extends Controller
             [
                 'status' => 'success',
                 'data' => [
-                    'walletAccount' => $accountEntity->toArray()
+                    'walletAccount' => $accountEntity->toArray(),
+                    'TransactionDetails'=>[
+                        'transactionId'=> $event->getEventId()
+                    ]
                 ]
             ]
         );

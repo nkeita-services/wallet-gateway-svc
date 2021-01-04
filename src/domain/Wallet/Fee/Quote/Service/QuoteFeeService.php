@@ -55,6 +55,7 @@ class QuoteFeeService implements QuoteFeeServiceInterface
             $transactionEntity
         );
 
+
         $nbk =  $this->getQuote(
             $transactionEntity
                 ->setPaymentMean(
