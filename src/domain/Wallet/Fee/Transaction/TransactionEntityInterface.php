@@ -35,9 +35,9 @@ interface TransactionEntityInterface
     public function getWalletOrganizations(): array ;
 
     /**
-     * @return string
+     * @return array
      */
-    public function getRegionId(): string;
+    public function getRegions(): array ;
 
     /**
      * @return string

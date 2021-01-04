@@ -5,17 +5,17 @@ namespace App\Providers\Domain\Wallet\Fee\Fee\Service;
 
 
 use Illuminate\Support\ServiceProvider;
-use Wallet\Wallet\Fee\Region\Repository\RegionRepositoryInterface;
-use Wallet\Wallet\Fee\Region\Service\RegionService;
-use Wallet\Wallet\Fee\Region\Service\RegionServiceInterface;
+use Wallet\Wallet\Fee\Fee\Repository\FeeRepositoryInterface;
+use Wallet\Wallet\Fee\Fee\Service\FeeService;
+use Wallet\Wallet\Fee\Fee\Service\FeeServiceInterface;
 
 class FeeServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->singleton(RegionServiceInterface::class, function ($app) {
-            return new RegionService(
-                $app->make(RegionRepositoryInterface::class)
+        $this->app->singleton(FeeServiceInterface::class, function ($app) {
+            return new FeeService(
+                $app->make(FeeRepositoryInterface::class)
             );
         });
     }

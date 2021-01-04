@@ -310,33 +310,33 @@ $router->get('/v1/registration/users/confirmation/{userName}/{code}', [
 
 $router->post('v1/wallets/regions', [
     'uses' => 'Wallet\Fee\Region\CreateRegionController@create',
-    /* 'middleware'=>'auth',
+     'middleware'=>'auth',
      'as'=>"wallet-gateway/CreateWalletRegion",
      'groups'=> [
          'root',
          'admin'
-     ]*/
+     ]
 ]);
 
 $router->get('v1/wallets/regions/{regionId}', [
     'uses' => 'Wallet\Fee\Region\FetchRegionDataController@fetch',
-    /* 'middleware'=>'auth',
+     'middleware'=>'auth',
      'as'=>"wallet-gateway/GetWalletRegion",
       'groups'=> [
           'root',
           'admin',
           'user'
-      ]*/
+      ]
  ]);
 
  $router->get('v1/wallets/regions', [
      'uses' => 'Wallet\Fee\Region\FetchAllRegionsController@fetchAll',
-     /* 'middleware'=>'auth',
+      'middleware'=>'auth',
       'as'=>"wallet-gateway/FetchAllWalletRegions",
      'groups'=> [
            'root',
            'admin'
-       ]*/
+       ]
   ]);
 
 

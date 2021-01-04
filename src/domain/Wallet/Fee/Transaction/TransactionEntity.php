@@ -19,7 +19,7 @@ class TransactionEntity implements TransactionEntityInterface
     /**
      * @var string
      */
-    private $regionId;
+    private $regions;
 
     /**
      * @var string
@@ -52,7 +52,7 @@ class TransactionEntity implements TransactionEntityInterface
      * @param string $amount
      * @param string $accountId
      * @param array $walletOrganizations
-     * @param string $regionId
+     * @param array|null $regions
      * @param string $operation
      * @param string $currency
      * @param array $originator
@@ -62,14 +62,14 @@ class TransactionEntity implements TransactionEntityInterface
         ?string $amount,
         ?string $accountId,
         ?array $walletOrganizations,
-        ?string $regionId,
+        ?array $regions,
         ?string $operation,
         ?string $currency,
         ?array $originator
     ){
         $this->paymentMean = $paymentMean;
         $this->walletOrganizations = $walletOrganizations;
-        $this->regionId = $regionId;
+        $this->regions = $regions;
         $this->currency = $currency;
         $this->accountId = $accountId;
         $this->amount = $amount;
@@ -90,7 +90,7 @@ class TransactionEntity implements TransactionEntityInterface
             $data['amount'] ?? null,
             $data['accountId'] ?? null,
             $data['walletOrganizations'] ?? null,
-            $data['regionId'] ?? null,
+            $data['regions'] ?? null,
             $data['operation'] ?? null,
             $data['currency'] ?? null,
             $data['originator'] ?? null
@@ -108,7 +108,7 @@ class TransactionEntity implements TransactionEntityInterface
             "amount"=> floatval($this->amount),
             "accountId"=>$this->currency,
             "walletOrganizations"=>$this->walletOrganizations,
-            "regionId"=>$this->regionId,
+            "regions"=>$this->regions,
             'operation'=>$this->operation,
             'currency'=>$this->currency,
             'originator'=>$this->originator
@@ -150,11 +150,11 @@ class TransactionEntity implements TransactionEntityInterface
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getRegionId(): string
+    public function getRegions(): array
     {
-        return $this->regionId;
+        return $this->regions;
     }
 
     /**

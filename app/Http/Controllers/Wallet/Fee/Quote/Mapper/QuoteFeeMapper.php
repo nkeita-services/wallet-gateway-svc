@@ -20,8 +20,8 @@ class QuoteFeeMapper
                 'paymentMean'=> $payload['paymentMean'],
                 'amount'=> floatval($payload['amount']),
                 'accountId'=> $payload['accountId'],
-                'walletOrganizations'=> $request->get('ApiConsumer')->getOrganizations(),
-                'regionId'=> $payload['regionId'],
+                'walletOrganizations'=> $payload['walletOrganizations'],//$request->get('ApiConsumer')->getOrganizations(),
+                'regions'=> $payload['regions'],
                 'operation'=> $payload['operation'],
                 'currency'=> $payload['currency'],
                 'originator' =>  $payload['originator']
