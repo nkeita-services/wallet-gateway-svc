@@ -888,11 +888,6 @@ components:
           type: string
           description:  accountId
           example: 5fc1623161119d4ec9aee036
-        walletOrganizations:
-          type: array
-          items:
-            type: string
-            example: 6fc1623161119d4ec9aee036
         regions:
           type: array
           items:
