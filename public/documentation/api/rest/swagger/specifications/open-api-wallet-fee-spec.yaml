@@ -47,3 +47,49 @@ get:
             status: fail
             statusCode: 6021
             statusDescription: Error when fetching wallet Fee
+patch:
+  summary: Update wallet fee data
+  security:
+    - oAuth2:
+        - UbdateFeeData
+  tags:
+    - Wallet Fees
+  parameters:
+    - name: feeId
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 5fc1623161119d4ec9aee036
+  requestBody:
+    description: The fee specification
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/WalletFee'
+  responses:
+    '201':
+      description: Successfully updated wallet fee
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletRegion:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletFeeWithId'
+    '500':
+      description: Error when updating the wallet fee information
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/ErrorResponse'
+          example:
+            status: fail
+            statusCode: 4030
+            statusDescription: Error when updating the wallet fee information

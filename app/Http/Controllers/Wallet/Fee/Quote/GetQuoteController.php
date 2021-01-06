@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Wallet\Wallet\Fee\Quote\Service\QuoteFeeServiceInterface;
 use App\Http\Controllers\Wallet\Fee\Quote\Mapper\QuoteFeeMapperInterface;
+use Illuminate\Support\Facades\Validator;
+
 
 class GetQuoteController extends Controller
 {
@@ -38,6 +40,27 @@ class GetQuoteController extends Controller
 
     public function getQuote(Request $request)
     {
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'paymentMean' => ['required', 'string'],
+                'amount' =>  ['required', 'numeric'],
+                'regions' => ['required', 'array'],
+                'currency' => ['required', 'string'],
+                'originator' => ['required', 'array']
+            ]
+        );
+
+        if($validator->fails()){
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode'=> 0,
+                    'StatusDescription'=> $validator->errors()
+                ]
+            );
+        }
         return response()->json(
             [
                 'status' => 'success',

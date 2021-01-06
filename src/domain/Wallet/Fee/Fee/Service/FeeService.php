@@ -68,4 +68,20 @@ class FeeService implements FeeServiceInterface
     {
         return $this->feeRepository->fetchAll($filter);
     }
+
+    /**
+     * @param string $feeId
+     * @param FeeEntityInterface $feeEntity
+     * @return FeeEntityInterface
+     */
+    public function update(
+        string $feeId,
+        FeeEntityInterface $feeEntity
+    ): FeeEntityInterface {
+        return $this->feeRepository
+            ->update(
+                $feeId,
+                $feeEntity
+            );
+    }
 }

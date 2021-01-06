@@ -34,4 +34,14 @@ interface FeeRepositoryInterface
     public function fetchAll(
         array $filter
     ): FeeCollectionInterface;
+
+    /**
+     * @param string $feeId
+     * @param FeeEntityInterface $feeEntity
+     * @return FeeEntityInterface
+     */
+    public function update(
+        string $feeId,
+        FeeEntityInterface $feeEntity
+    ): FeeEntityInterface;
 }

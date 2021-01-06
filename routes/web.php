@@ -350,6 +350,16 @@ $router->get('v1/wallets/regions/{regionId}', [
         ]
    ]);
 
+    $router->patch('v1/wallets/fees/{feeId}', [
+        'uses' => 'Wallet\Fee\Fee\UpdateFeeDataController@update',
+        'middleware'=>'auth',
+        'as'=>"wallet-gateway/WalletFeeWrite",
+        'groups'=> [
+             'root',
+             'admin'
+         ]
+    ]);
+
    $router->get('v1/wallets/fees/{feeId}', [
        'uses' => 'Wallet\Fee\Fee\FetchFeeDataController@fetch',
        'middleware'=>'auth',

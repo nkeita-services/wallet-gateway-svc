@@ -76,4 +76,21 @@ class FeeRepository implements FeeRepositoryInterface
             ->feeApiClient
             ->fetchAll($filter);
     }
+
+    /**
+     * @param string $feeId
+     * @param FeeEntityInterface $feeEntity
+     * @return FeeEntityInterface
+     */
+    public function update(
+        string $feeId,
+        FeeEntityInterface $feeEntity
+    ): FeeEntityInterface {
+        return $this
+            ->feeApiClient
+            ->update(
+                $feeId,
+                $feeEntity->toArray()
+            );
+    }
 }

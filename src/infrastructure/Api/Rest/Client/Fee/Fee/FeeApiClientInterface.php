@@ -11,11 +11,11 @@ use Wallet\Wallet\Fee\Fee\Entity\FeeEntityInterface;
 interface FeeApiClientInterface
 {
     /**
-     * @param array $regionCreatePayload
+     * @param array $feeCreatePayload
      * @return FeeEntityInterface
      */
     public function create(
-        array $regionCreatePayload
+        array $feeCreatePayload
     ): FeeEntityInterface;
 
     /**
@@ -35,4 +35,16 @@ interface FeeApiClientInterface
     public function fetchAll(
         array $filters
     ): FeeCollectionInterface;
+
+
+    /**
+     * @param string $feeId
+     * @param array $feeUpdatePayload
+     * @return FeeEntityInterface
+     */
+    public function update(
+        string $feeId,
+        array $feeUpdatePayload
+    ): FeeEntityInterface;
+
 }

@@ -104,4 +104,25 @@ class FeeApiGuzzleHttpClient implements FeeApiClientInterface
             $response
         );
     }
+
+    /**
+     * @param string $feeId
+     * @param array $feeUpdatePayload
+     * @return FeeEntityInterface
+     */
+    public function update(
+        string $feeId,
+        array $feeUpdatePayload
+    ): FeeEntityInterface
+    {
+        $response = $this->guzzleClient->patch(sprintf('/v1/fees/%s', $feeId), [
+            RequestOptions::JSON => $feeUpdatePayload
+        ]);
+
+        return $this
+            ->feeMapper
+            ->createFeeFromApiResponse(
+                $response
+            );
+    }
 }
