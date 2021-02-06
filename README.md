@@ -1,6 +1,6 @@
 #### Build container image locally
 ```
-docker build . -t card-payment-svc
+docker build . -t wallet-gateway-svc
 ```
 
 #### Run container image locally
