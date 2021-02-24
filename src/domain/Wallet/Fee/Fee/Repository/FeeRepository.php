@@ -74,7 +74,9 @@ class FeeRepository implements FeeRepositoryInterface
     {
         return $this
             ->feeApiClient
-            ->fetchAll($filter);
+            ->fetchAll([
+                    'walletOrganizations' => $filter
+                ]);
     }
 
     /**

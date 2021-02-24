@@ -87,15 +87,17 @@ class FeeApiGuzzleHttpClient implements FeeApiClientInterface
 
 
     /**
-     * @param array $filters
+     * @param array $filter
      * @return FeeCollectionInterface
      */
     public function fetchAll(
-        array $filters
+        array $filter
     ): FeeCollectionInterface
     {
         try {
-            $response = $this->guzzleClient->get('/v1/fees');
+            $response = $this->guzzleClient->get('/v1/fees', [
+                    RequestOptions::QUERY => $filter
+            ]);
         } catch (ClientException $e) {
             throw $e;
         }

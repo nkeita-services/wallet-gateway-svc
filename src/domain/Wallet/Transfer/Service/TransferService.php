@@ -41,8 +41,12 @@ class TransferService implements TransferServiceInterface
      * @param AccountTransactionServiceInterface $transactionService
      * @param UserServiceInterface $userService
      */
-    public function __construct(AccountServiceInterface $accountService, UserBeneficiaryService $userBeneficiaryService, AccountTransactionServiceInterface $transactionService, UserServiceInterface $userService)
-    {
+    public function __construct(
+        AccountServiceInterface $accountService,
+        UserBeneficiaryService $userBeneficiaryService,
+        AccountTransactionServiceInterface $transactionService,
+        UserServiceInterface $userService
+    ){
         $this->accountService = $accountService;
         $this->userBeneficiaryService = $userBeneficiaryService;
         $this->transactionService = $transactionService;
@@ -89,11 +93,10 @@ class TransferService implements TransferServiceInterface
                     TransactionEntityInterface::TRANSACTION_TYPE_DEBIT,
                     $senderAccount->getUserId(),
                     $transferEntity->senderAccountId(),
-                    - $transferEntity->getAmount(),
+                    $transferEntity->getAmount(),
                     sprintf('Transfer to %s', $userBeneficiary->getBeneficiaryName()),
                     current($senderAccount->getOrganizations()),
                     ''
-
                 )
             );
 

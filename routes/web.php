@@ -273,7 +273,6 @@ $router->post('/v1/wallets/users/{userId}/payment-means', [
     ]
 ]);
 
-
 $router->get('/v1/authentication/oauth2/token/{clientId}/{clientSecret}', [
     'uses' => 'Wallet\Authentication\FetchAccessTokenController@fetch',
 ]);
@@ -329,67 +328,65 @@ $router->get('v1/wallets/regions/{regionId}', [
       ]
  ]);
 
- $router->get('v1/wallets/regions', [
-     'uses' => 'Wallet\Fee\Region\FetchAllRegionsController@fetchAll',
-      'middleware'=>'auth',
-      'as'=>"wallet-gateway/FetchAllWalletRegions",
+$router->get('v1/wallets/regions', [
+    'uses' => 'Wallet\Fee\Region\FetchAllRegionsController@fetchAll',
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/FetchAllWalletRegions",
+    'groups'=> [
+       'root',
+       'admin'
+    ]
+]);
+
+$router->post('v1/wallets/fees', [
+    'uses' => 'Wallet\Fee\Fee\CreateFeeController@create',
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/WalletFeeWrite",
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);
+
+$router->patch('v1/wallets/fees/{feeId}', [
+    'uses' => 'Wallet\Fee\Fee\UpdateFeeDataController@update',
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/WalletFeeWrite",
+    'groups'=> [
+         'root',
+         'admin'
+     ]
+]);
+
+$router->get('v1/wallets/fees/{feeId}', [
+    'uses' => 'Wallet\Fee\Fee\FetchFeeDataController@fetch',
+    'middleware'=>'auth',
+     'as'=>"wallet-gateway/WalletFeeRead",
      'groups'=> [
-           'root',
-           'admin'
-       ]
-  ]);
+         'root',
+         'admin',
+         'user'
+     ]
+ ]);
 
+$router->get('v1/wallets/fees', [
+    'uses' => 'Wallet\Fee\Fee\FetchAllfeesController@fetchAll',
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/WalletFeeRead",
+    'groups'=> [
+       'root',
+       'admin'
+    ]
+]);
 
-  $router->post('v1/wallets/fees', [
-      'uses' => 'Wallet\Fee\Fee\CreateFeeController@create',
-      'middleware'=>'auth',
-       'as'=>"wallet-gateway/WalletFeeWrite",
-       'groups'=> [
-            'root',
-            'admin'
-        ]
-   ]);
-
-    $router->patch('v1/wallets/fees/{feeId}', [
-        'uses' => 'Wallet\Fee\Fee\UpdateFeeDataController@update',
-        'middleware'=>'auth',
-        'as'=>"wallet-gateway/WalletFeeWrite",
-        'groups'=> [
-             'root',
-             'admin'
-         ]
-    ]);
-
-   $router->get('v1/wallets/fees/{feeId}', [
-       'uses' => 'Wallet\Fee\Fee\FetchFeeDataController@fetch',
-       'middleware'=>'auth',
-         'as'=>"wallet-gateway/WalletFeeRead",
-         'groups'=> [
-             'root',
-             'admin',
-             'user'
-         ]
-     ]);
-
-     $router->get('v1/wallets/fees', [
-         'uses' => 'Wallet\Fee\Fee\FetchAllfeesController@fetchAll',
-         'middleware'=>'auth',
-          'as'=>"wallet-gateway/WalletFeeRead",
-           'groups'=> [
-               'root',
-               'admin'
-           ]
-    ]);
-
-
-    $router->post('/v1/wallets/fees/quote/calculate', [
-        'uses' => 'Wallet\Fee\Quote\GetQuoteController@getQuote',
-        'middleware'=>'auth',
-        'as'=>'wallet-gateway/WalletFeeWrite',
-        'groups'=> [
-            'root',
-            'admin'
-        ]
+$router->post('/v1/wallets/fees/quote/calculate', [
+    'uses' => 'Wallet\Fee\Quote\GetQuoteController@getQuote',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/WalletFeeWrite',
+    'groups'=> [
+        'root',
+        'admin'
+    ]
 ]);
 
 

@@ -34,9 +34,7 @@ class FetchAllfeesController  extends Controller
                     'WalletFees' => $this
                         ->feeService
                         ->fetchAll(
-                            $request
-                                ->json()
-                                ->all()
+                            $request->get('ApiConsumer')->getOrganizations()
                         )
                         ->toArray()
                 ]
