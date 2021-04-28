@@ -61,18 +61,6 @@ class RegisterNewUserController extends Controller
             );
         }
 
-        $this
-            ->userAuthenticationService
-            ->register(
-                $request->get('email'),
-                $request->get('password'),
-                $request->get('email')
-            )->addUserToGroup(
-                $request->get('email'),
-                $request->get('group')
-            );
-
-
         $userEntity = $this
             ->userService
             ->create(
@@ -83,6 +71,18 @@ class RegisterNewUserController extends Controller
                     ]
                 ),
                 $request->get('ApiConsumer')->getOrganizations()
+            );
+
+        $this
+            ->userAuthenticationService
+            ->register(
+                $request->get('email'),
+                $request->get('password'),
+                $request->get('email'),
+                $userEntity->getUserId()
+            )->addUserToGroup(
+                $request->get('email'),
+                $request->get('group')
             );
 
         return response()->json(

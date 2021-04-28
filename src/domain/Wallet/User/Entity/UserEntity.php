@@ -149,6 +149,13 @@ class UserEntity implements UserEntityInterface
         );
     }
 
+    /**
+     * @return string
+     */
+    public function getUserId(): string
+    {
+        return $this->userId;
+    }
 
     /**
      * @return string

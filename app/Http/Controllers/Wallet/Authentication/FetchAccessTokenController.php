@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Wallet\Authentication;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Infrastructure\Api\Auth\OAuth2\Client;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -22,11 +23,9 @@ class FetchAccessTokenController extends Controller
      * FetchAccessTokenController constructor.
      * @param ClientInterface $oauth2Client
      */
-    public function __construct(ClientInterface $oauth2Client)
-    {
+    public function __construct(ClientInterface $oauth2Client) {
         $this->oauth2Client = $oauth2Client;
     }
-
 
     /**
      * @param string $clientId

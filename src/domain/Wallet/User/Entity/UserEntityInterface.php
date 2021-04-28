@@ -24,6 +24,11 @@ interface UserEntityInterface
     /**
      * @return string
      */
+    public function getUserId(): string;
+
+    /**
+     * @return string
+     */
     public function getLastName(): string;
 
     /**

@@ -243,11 +243,11 @@ components:
       type: object
       properties:
         status:
-          $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+          $ref: '#/components/schemas/ResponseStatus'
         statusCode:
-          $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatusCode'
+          $ref: '#/components/schemas/ResponseStatusCode'
         statusDescription:
-          $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatusDescription'
+          $ref: '#/components/schemas/ResponseStatusDescription'
     WalletPlan:
       type: object
       properties:

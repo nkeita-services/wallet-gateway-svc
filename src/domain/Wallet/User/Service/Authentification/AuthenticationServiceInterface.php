@@ -11,12 +11,14 @@ interface AuthenticationServiceInterface
      * @param string $username
      * @param string $password
      * @param string $email
+     * @param string $userId
      * @return AuthenticationServiceInterface
      */
     public function register(
         string $username,
         string $password,
-        string $email
+        string $email,
+        string $userId
     );
 
     /**
@@ -48,4 +50,23 @@ interface AuthenticationServiceInterface
         string $username,
         string $code
     );
+
+    /**
+     * @param string $accessToken
+     * @return mixed
+     */
+    public function getUser(
+        string $accessToken
+    );
+
+    /**
+     * @inheritDoc
+     */
+    public function updateUserAttributes(
+        string $userId,
+        string $accessToken
+    );
+
+
+
 }

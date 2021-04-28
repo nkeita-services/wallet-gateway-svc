@@ -5,6 +5,7 @@ namespace Wallet\Wallet\User\Service\Authentification;
 
 
 use Aws\CognitoIdentityProvider\CognitoIdentityProviderClient;
+use Illuminate\Support\Arr;
 
 class AuthenticationService implements AuthenticationServiceInterface
 {
@@ -44,8 +45,12 @@ class AuthenticationService implements AuthenticationServiceInterface
     /**
      * @inheritDoc
      */
-    public function register(string $username, string $password, string $email)
-    {
+    public function register(
+        string $username,
+        string $password,
+        string $email,
+        string $userId
+    ){
         $this
             ->cognitoIdentityProviderClient
             ->signUp(
@@ -57,7 +62,11 @@ class AuthenticationService implements AuthenticationServiceInterface
                         [
                             'Name' => 'email',
                             'Value' => $email
-                        ]
+                        ],
+                        [
+                            'Name' => 'custom:userId',
+                            'Value' => $userId
+                        ],
                     ]
                 ]
             );
@@ -86,8 +95,10 @@ class AuthenticationService implements AuthenticationServiceInterface
      * @inheritDoc
      */
     public function authenticate(string $username, string $password)
-    {$username = 'mkeita@hakili.io';
-    $password= 'M0oiuyt12@uiU';
+    {
+       /* $username = 'mkeita@hakili.io';
+        $password= 'M0oiuyt12@uiU';*/
+
         $result = $this
             ->cognitoIdentityProviderClient
             ->initiateAuth([
@@ -98,9 +109,20 @@ class AuthenticationService implements AuthenticationServiceInterface
                 ],
                 'ClientId' => $this->clientId
             ]);
-       return $result->get('AuthenticationResult');
-    }
 
+        $userData = array_filter($this->getUser(
+            $result->get('AuthenticationResult')['AccessToken']
+        ), function($value, $k) {
+            return $value['Name'] == 'custom:userId';
+        }, ARRAY_FILTER_USE_BOTH);
+
+        $userData = current($userData);
+
+       return array_merge(
+           $result->get('AuthenticationResult'),
+           [ 'userId' =>  isset($userData['Value']) ? $userData['Value'] : "" ]
+       );
+    }
 
     /**
      * @inheritDoc
@@ -115,6 +137,38 @@ class AuthenticationService implements AuthenticationServiceInterface
                     'ConfirmationCode' => $code,
                 ]
             );
+    }
 
+    /**
+     * @inheritDoc
+     */
+    public function getUser(string $accessToken)
+    {
+        $result = $this
+            ->cognitoIdentityProviderClient
+            ->getUser([
+                'AccessToken' => $accessToken
+            ]);
+
+        return $result->get('UserAttributes');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateUserAttributes(string $userId, string $accessToken)
+    {
+        $result = $this
+            ->cognitoIdentityProviderClient
+            ->updateUserAttributes([
+                    'AccessToken' => $accessToken,
+                    'UserAttributes' => [
+                        [
+                            'Name' => 'userId',
+                            'Value' => $userId
+                        ]
+                    ],
+            ]
+            );
     }
 }
