@@ -37,4 +37,12 @@ interface UserServiceInterface
         array $filter
     ): UserCollectionInterface;
 
+    /**
+     * @param array $mobileNumbers
+     * @return array
+     */
+    public function fetchAllAppUser(
+        array $mobileNumbers
+    ): array;
+
 }

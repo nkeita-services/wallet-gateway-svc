@@ -1,0 +1,38 @@
+post:
+  summary: Get a Wallet Account Users
+  security:
+    - oAuth2:
+        - WalletUserRead
+  tags:
+    - Wallet Account Users
+  requestBody:
+    description: Phone Number
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/AppUserRequest'
+  responses:
+    '201':
+      description: Successfully obtained the list of wallet account users
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletAccountUser:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountUserWithId'
+    '500':
+      description: Error when obtaining the list of wallet account users
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/ErrorResponse'
+          example:
+            status: fail
+            statusCode: 4010

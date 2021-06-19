@@ -23,4 +23,10 @@ interface UserMapperInterface
     public function createUserCollectionFromApiResponse(
         ResponseInterface $response
     ):UserCollectionInterface;
+
+    /**
+     * @param ResponseInterface $response
+     * @return array
+     */
+    public function mobileNumber(ResponseInterface $response):array;
 }

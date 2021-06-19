@@ -161,6 +161,8 @@ paths:
     $ref: 'open-api-wallet-account-users-payment-means-spec.yaml'
   /v1/wallets/users/{userId}/payment-means/{paymentMeanId}:
     $ref: 'open-api-wallet-account-users-payment-mean-spec.yaml'
+  /v1/wallets/users/app/users:
+    $ref: 'open-api-wallet-account-users-app-spec.yaml'
   /v1/wallets/plans:
     $ref: 'open-api-wallet-plans-spec.yaml'
   /v1/wallets/plans/{planId}:
@@ -958,6 +960,20 @@ components:
           type: string
           description: transactionId
           example: 6fc1623161119d4ec9aee036
+    AppUserRequest:
+      type: object
+      properties:
+        mobileNumbers:
+          $ref: '#/components/schemas/MobileNumbers'
+
+    MobileNumber:
+      type: string
+
+    MobileNumbers:
+      type: array
+      items:
+        $ref: '#/components/schemas/MobileNumber'
+      example: ['00447307568957', '00443307568957', '00447347568957', '00447347568943']
 
 
 

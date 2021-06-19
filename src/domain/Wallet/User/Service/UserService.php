@@ -66,5 +66,19 @@ class UserService implements UserServiceInterface
         );
     }
 
+    /**
+     * @param array $mobileNumbers
+     * @return array
+     */
+    public function fetchAllAppUser(
+        array $mobileNumbers
+    ): array
+    {
+        return $this->userRepository
+            ->fetchAllAppUser(
+                $mobileNumbers
+            );
+    }
+
 
 }

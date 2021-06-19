@@ -70,5 +70,19 @@ class UserRepository implements UserRepositoryInterface
        );
     }
 
+    /**
+     * @param array $mobileNumbers
+     * @return array
+     */
+    public function fetchAllAppUser(
+        array $mobileNumbers
+    ): array
+    {
+        return $this->userApiClient
+            ->fetchAllAppUser(
+                $mobileNumbers
+        );
+    }
+
 
 }

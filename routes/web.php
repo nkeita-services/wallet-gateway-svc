@@ -37,6 +37,19 @@ $router->post('v1/wallets/users', [
 ]);
 
 
+$router->post('v1/wallets/users/app/users', [
+    'uses' => 'Wallet\User\FetchAllAppUsersController@fetchAllAppUser',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/WalletUserRead',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
+
+
 $router->get('v1/wallets/users/{userId}', [
     'uses' => 'Wallet\User\FetchUserDataController@fetch',
     'middleware'=>'auth',

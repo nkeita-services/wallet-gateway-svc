@@ -43,5 +43,21 @@ class UserMapper implements UserMapperInterface
         );
     }
 
+    /**
+     * @param ResponseInterface $response
+     * @return array
+     */
+    public function mobileNumber(ResponseInterface $response):array
+    {
+        $data = json_decode(
+            $response->getBody()->getContents(),
+            true
+        );
+
+        $mobileNumbers = collect($data['data']['walletAccounts']);
+
+        return $mobileNumbers->pluck('mobileNumber')->toArray();
+    }
+
 
 }

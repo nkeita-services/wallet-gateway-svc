@@ -98,5 +98,27 @@ class UserApiGuzzleHttpClient implements UserApiClientInterface
         }
     }
 
+    /**
+     * @param array $mobileNumbers
+     * @return array
+     */
+    public function fetchAllAppUser(
+        array $mobileNumbers
+    ): array
+    {
+        try {
+
+            $response = $this->guzzleClient->post('/v1/users/app/users', [
+                RequestOptions::JSON => $mobileNumbers
+            ]);
+
+            return $this->userMapper->mobileNumber(
+                $response
+            );
+        } catch (ClientException $e) {
+            throw $e;
+        }
+    }
+
 
 }
