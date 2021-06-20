@@ -4,7 +4,7 @@ post:
     - oAuth2:
         - WalletUserRead
   tags:
-    - Wallet Account Users
+    - Wallet Account Users from Mobile Number
   requestBody:
     description: Phone Number
     required: true
