@@ -5,15 +5,12 @@ namespace App\Http\Controllers\Wallet\User;
 
 
 use App\Http\Controllers\Controller;
-use App\Rules\Wallet\WalletPlanIdRule;
-use App\Rules\Wallet\WalletUserIdRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Wallet\Wallet\User\Service\UserService;
 use Wallet\Wallet\User\Service\UserServiceInterface;
 
-class FetchAllAppUsersController extends Controller
+class FetchAllNonAppUsersController extends Controller
 {
     /**
      * @var UserServiceInterface
@@ -29,7 +26,7 @@ class FetchAllAppUsersController extends Controller
         $this->userService = $userService;
     }
 
-    public function fetchAllAppUser(
+    public function fetchAllNonAppUser(
         Request $request
     ){
         $validator = Validator::make(
@@ -49,8 +46,8 @@ class FetchAllAppUsersController extends Controller
             );
         }
 
-        /*$requestMobilesNumber = collect($request->json()
-            ->get('mobileNumbers'));*/
+        $requestMobilesNumber = collect($request->json()
+            ->get('mobileNumbers'));
 
         $appUsers = $this
             ->userService
@@ -68,7 +65,8 @@ class FetchAllAppUsersController extends Controller
                 'data' => [
                     'walletAccountUserMobile' => array_values
                     (
-                        $appUsers
+                        $requestMobilesNumber
+                            ->diff($appUsers)->all()
                     )
                 ]
             ]

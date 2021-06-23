@@ -49,6 +49,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         string $username,
         string $password,
         string $email,
+        string $mobileNumber,
         string $userId
     ){
         $this
@@ -62,6 +63,10 @@ class AuthenticationService implements AuthenticationServiceInterface
                         [
                             'Name' => 'email',
                             'Value' => $email
+                        ],
+                        [
+                            'Name' => 'phone_number',
+                            'Value' => $mobileNumber
                         ],
                         [
                             'Name' => 'custom:userId',

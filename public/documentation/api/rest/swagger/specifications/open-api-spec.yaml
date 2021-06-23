@@ -163,6 +163,8 @@ paths:
     $ref: 'open-api-wallet-account-users-payment-mean-spec.yaml'
   /v1/wallets/users/app/users:
     $ref: 'open-api-wallet-account-users-app-spec.yaml'
+  /v1/wallets/users/non-app/users:
+    $ref: 'open-api-wallet-account-non-users-app-spec.yaml'
   /v1/wallets/plans:
     $ref: 'open-api-wallet-plans-spec.yaml'
   /v1/wallets/plans/{planId}:
@@ -825,6 +827,10 @@ components:
           type: string
           description: user password
           example: M0oiuyt12@uiU
+        mobileNumber:
+          type: string
+          description: User mobile number
+          example: +447307568957
         group:
           type: string
           enum:

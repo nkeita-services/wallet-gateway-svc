@@ -48,6 +48,20 @@ $router->post('v1/wallets/users/app/users', [
     ]
 ]);
 
+$router->post('v1/wallets/users/non-app/users', [
+    'uses' => 'Wallet\User\FetchAllNonAppUsersController@fetchAllNonAppUser',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/WalletUserRead',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
+
+
+
 
 
 $router->get('v1/wallets/users/{userId}', [

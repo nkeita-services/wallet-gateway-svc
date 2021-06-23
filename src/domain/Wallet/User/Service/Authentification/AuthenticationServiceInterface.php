@@ -11,6 +11,7 @@ interface AuthenticationServiceInterface
      * @param string $username
      * @param string $password
      * @param string $email
+     * @param string $mobileNumber
      * @param string $userId
      * @return AuthenticationServiceInterface
      */
@@ -18,6 +19,7 @@ interface AuthenticationServiceInterface
         string $username,
         string $password,
         string $email,
+        string $mobileNumber,
         string $userId
     );
 

@@ -47,6 +47,7 @@ class RegisterNewUserController extends Controller
             [
                 'email' => ['required', 'email'],
                 'password' => ['required', 'string'],
+                'mobileNumber' => ['required', 'string','regex:/^([0-9\s\-\+\(\)]*)$/','min:10' ],
                 'group' => ['required', 'string'],
             ]
         );
@@ -67,6 +68,7 @@ class RegisterNewUserController extends Controller
                 UserEntity::fromArray(
                     [
                         'email' => $request->get('email'),
+                        'mobileNumber' => $request->get('mobileNumber'),
                         'walletOrganizations' => $request->get('ApiConsumer')->getOrganizations()
                     ]
                 ),
@@ -79,6 +81,7 @@ class RegisterNewUserController extends Controller
                 $request->get('email'),
                 $request->get('password'),
                 $request->get('email'),
+                $request->get('mobileNumber'),
                 $userEntity->getUserId()
             )->addUserToGroup(
                 $request->get('email'),

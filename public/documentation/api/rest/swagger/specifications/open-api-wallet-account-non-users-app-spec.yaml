@@ -1,5 +1,5 @@
 post:
-  summary: Get a Wallet Account Users
+  summary: Get a Wallet No app Users
   security:
     - oAuth2:
         - WalletUserRead
