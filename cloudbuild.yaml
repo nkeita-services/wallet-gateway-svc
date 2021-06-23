@@ -10,4 +10,3 @@ steps:
     args: ['beta', 'run', 'deploy', 'wallet-gateway-svc', '--image', 'gcr.io/$PROJECT_ID/wallet-gateway-svc', '--region', 'europe-west1','--platform', 'managed', '--allow-unauthenticated' ,'--quiet']
 images:
   - gcr.io/$PROJECT_ID/wallet-gateway-svc
-timeout: '1600s'
