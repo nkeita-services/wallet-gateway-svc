@@ -37,7 +37,7 @@ $router->post('v1/wallets/users', [
 ]);
 
 
-$router->post('v1/wallets/users/app/users', [
+$router->post('v1/wallets/users/connected/users', [
     'uses' => 'Wallet\User\FetchAllAppUsersController@fetchAllAppUser',
     'middleware'=>'auth',
     'as'=>'wallet-gateway/WalletUserRead',

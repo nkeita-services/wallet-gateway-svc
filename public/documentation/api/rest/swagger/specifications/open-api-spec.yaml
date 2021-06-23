@@ -161,7 +161,7 @@ paths:
     $ref: 'open-api-wallet-account-users-payment-means-spec.yaml'
   /v1/wallets/users/{userId}/payment-means/{paymentMeanId}:
     $ref: 'open-api-wallet-account-users-payment-mean-spec.yaml'
-  /v1/wallets/users/app/users:
+  /v1/wallets/users/connected/users:
     $ref: 'open-api-wallet-account-users-app-spec.yaml'
   /v1/wallets/users/non-app/users:
     $ref: 'open-api-wallet-account-non-users-app-spec.yaml'
