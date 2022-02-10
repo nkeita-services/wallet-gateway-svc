@@ -3,11 +3,13 @@
 
 namespace App\Http\Controllers\Wallet\Registration;
 
+use Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Wallet\Wallet\User\Entity\UserEntity;
 use Wallet\Wallet\User\Service\Authentification\AuthenticationServiceInterface;
+use Wallet\Wallet\User\Service\Exception\UserNotFoundException;
 use Wallet\Wallet\User\Service\UserServiceInterface;
 
 class RegisterNewUserController extends Controller
@@ -47,7 +49,7 @@ class RegisterNewUserController extends Controller
             [
                 'email' => ['required', 'email'],
                 'password' => ['required', 'string'],
-                'mobileNumber' => ['required', 'string','regex:/^([0-9\s\-\+\(\)]*)$/','min:10' ],
+                'mobileNumber' => ['required', 'string','regex:/^([0-9\s\-\+\(\)]*)$/','min:10'],
                 'group' => ['required', 'string'],
             ]
         );
@@ -62,31 +64,50 @@ class RegisterNewUserController extends Controller
             );
         }
 
-        $userEntity = $this
-            ->userService
-            ->create(
-                UserEntity::fromArray(
-                    [
-                        'email' => $request->get('email'),
-                        'mobileNumber' => $request->get('mobileNumber'),
-                        'walletOrganizations' => $request->get('ApiConsumer')->getOrganizations()
-                    ]
-                ),
-                $request->get('ApiConsumer')->getOrganizations()
-            );
+        try{
 
-        $this
-            ->userAuthenticationService
-            ->register(
-                $request->get('email'),
-                $request->get('password'),
-                $request->get('email'),
-                $request->get('mobileNumber'),
-                $userEntity->getUserId()
-            )->addUserToGroup(
-                $request->get('email'),
-                $request->get('group')
+            $userEntity = $this
+                ->userService
+                ->create(
+                    UserEntity::fromArray(
+                        [
+                            'email' => $request->get('email'),
+                            'mobileNumber' => $request->get('mobileNumber'),
+                            'walletOrganizations' => $request->get('ApiConsumer')->getOrganizations()
+                        ]
+                    ),
+                    $request->get('ApiConsumer')->getOrganizations()
+                );
+
+            $this
+                ->userAuthenticationService
+                ->register(
+                    $request->get('email'),
+                    $request->get('password'),
+                    $request->get('email'),
+                    $request->get('mobileNumber'),
+                    $userEntity->getUserId()
+                )->addUserToGroup(
+                    $request->get('email'),
+                    $request->get('group')
+                );
+        } catch (UserNotFoundException $exception) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $exception->getCode(),
+                    'StatusDescription' => $exception->getMessage()
+                ], 404
             );
+        } catch(CognitoIdentityProviderException $c) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $c->getStatusCode(),
+                    'StatusDescription' => $c->getAwsErrorMessage()
+                ], 404
+            );
+        }
 
         return response()->json(
             [

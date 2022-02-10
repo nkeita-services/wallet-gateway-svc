@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Wallet\Authentication;
 
 use App\Http\Controllers\Controller;
+use Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Wallet\Wallet\User\Service\Authentification\AuthenticationServiceInterface;
@@ -46,11 +47,19 @@ class AuthenticateWalletUserController extends Controller
                 ]
 
             );
+        } catch(CognitoIdentityProviderException $c) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $c->getStatusCode(),
+                    'StatusDescription' => $c->getAwsErrorMessage()
+                ] , $c->getStatusCode()
+            );
         } catch (Exception $exception) {
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => 0,
+                    'StatusCode' => $exception->getCode(),
                     'StatusDescription' => $exception->getMessage()
                 ], 401
             );
