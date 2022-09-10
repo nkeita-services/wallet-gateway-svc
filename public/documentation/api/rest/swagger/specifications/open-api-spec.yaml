@@ -191,14 +191,28 @@ paths:
     $ref: 'open-api-wallet-quote-fees-spec.yaml'
   /v1/wallets/remittances:
     $ref: 'open-api-wallet-remittances-spec.yaml'
+
   /v1/authentication/oauth2/token/{clientId}/{clientSecret}:
     $ref: 'open-api-wallet-authentication-oauth2-spec.yaml'
+  /v1/authentication/users:
+    $ref: 'open-api-wallet-authentication-user-spec.yaml'
   /v1/authentication/users/{userName}/{userPassword}:
     $ref: 'open-api-wallet-authentication-users-spec.yaml'
+  /v1/authentication/forgot/password/users/{userName}:
+    $ref: 'open-api-wallet-forgot-password-users-spec.yaml'
+  /v1/authentication/forgot/confirm/new/password/users:
+    $ref: 'open-api-wallet-confirm-forgot-password-users-spec.yaml'
+  /v1/authentication/users/disable:
+    $ref: 'open-api-wallet-authentication-disable-spec.yaml'
+  /v1/authentication/users/enable:
+    $ref: 'open-api-wallet-authentication-enable-spec.yaml'
+
   /v1/registration/users:
     $ref: 'open-api-wallet-users-registration-spec.yaml'
   /v1/registration/users/confirmation/{userName}/{code}:
     $ref: 'open-api-wallet-users-registration-confirmation-spec.yaml'
+  /v1/registration/users/resend/{userName}/confirmationcode:
+    $ref: 'open-api-wallet-resend-confirmation-spec.yaml'
 
 components:
   securitySchemes:
@@ -338,7 +352,7 @@ components:
         streetNumber:
           type: string
           description: Street number
-          example: 35
+          example: "35"
         city:
           type: string
           description: The city name
@@ -346,7 +360,7 @@ components:
         postCode:
           type: string
           description: The zip code
-          example: SE16RQ
+          example: "SE16RQ"
         state:
           type: string
           description: The state name
@@ -819,6 +833,10 @@ components:
     RegistrationRequest:
       type: object
       properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
         email:
           type: string
           description: user email address
@@ -826,11 +844,16 @@ components:
         password:
           type: string
           description: user password
-          example: M0oiuyt12@uiU
+          example: "M0oiuyt12@uiU"
         mobileNumber:
           type: string
           description: User mobile number
-          example: +447307568957
+          example: "+447307568957"
+        language:
+          type: string
+          example: "EN"
+        address:
+          $ref: '#/components/schemas/Address'
         group:
           type: string
           enum:
@@ -980,6 +1003,90 @@ components:
       items:
         $ref: '#/components/schemas/MobileNumber'
       example: ['00447307568957', '00443307568957', '00447347568957', '00447347568943']
+
+    ConfirmForgetPassWordRequest:
+      type: object
+      properties:
+        userName:
+          type: string
+          description: user email address
+          example: john.doe@gmail.com
+        userPassword:
+          type: string
+          description: user password
+          example: M0oiuyt12@uiU
+        confirmationCode:
+          type: string
+          description: confirmationCode sent by email
+          example: "234564"
+
+    AuthenticationRequest:
+      type: object
+      properties:
+        userName:
+          type: string
+          description: user email address
+          example: john.doe@gmail.com
+        userPassword:
+          type: string
+          description: user password
+          example: M0oiuyt12@uiU
+#        userIp:
+#          type: string
+#          description: user Ip
+#          example: 192.168.4.230
+#        address:
+#          $ref: '#/components/schemas/Address'
+
+
+    AuthenticationResponse:
+      type: object
+      properties:
+        AccessToken:
+          type: string
+          example: |
+            eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ....
+        ExpiresIn:
+          type: string
+          example: 3600
+        TokenType:
+          type: string
+          enum:
+            - Bearer
+        RefreshToken:
+          type: string
+          example: |
+            eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ....
+        IdToken:
+          type: string
+          example: |
+            eyJraWQiOiJ5eENpaEJKV1hRXC9SSjBzOEpkVTk4ZEtWYnMzWHdjQWp3Q3R4WFBhWmN0bz0iLCJhbGciOiJSUzI1NiJ9
+        userId:
+          type: string
+          example: |
+            2123445
+
+
+    EnableAndDisableUserRequest:
+      type: object
+      properties:
+        userName:
+          type: string
+          description: user email address
+          example: john.doe@gmail.com
+
+    EnableAndDisableUserResponse:
+      type: object
+      properties:
+        email:
+          type: string
+          description: user email address
+          example: john.doe@gmail.com
+        information:
+          type: string
+          description: disable or enable user
+          example: User is disabled or enabled successfully
+
 
 
 

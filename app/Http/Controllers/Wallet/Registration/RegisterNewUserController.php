@@ -3,10 +3,16 @@
 
 namespace App\Http\Controllers\Wallet\Registration;
 
+use App\Http\Controllers\Wallet\Account\Mapper\AccountMapper;
+use App\Http\Controllers\Wallet\Account\Mapper\AccountMapperInterface;
 use Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Wallet\Wallet\Account\Entity\AccountEntity;
+use Wallet\Wallet\Account\Service\AccountService;
+use Wallet\Wallet\Account\Service\AccountServiceInterface;
+use Wallet\Wallet\Account\Service\Exception\AccountNotFoundException;
 use Wallet\Wallet\User\Entity\UserEntity;
 use Wallet\Wallet\User\Service\Authentification\AuthenticationServiceInterface;
 use Wallet\Wallet\User\Service\Exception\UserNotFoundException;
@@ -24,19 +30,36 @@ class RegisterNewUserController extends Controller
      */
     private $userAuthenticationService;
 
+    /**
+     * @var AccountServiceInterface
+     */
+    private $accountService;
+
+    /**
+     * @var AccountMapperInterface
+     */
+    private $accountMapper;
+
 
     /**
      * RegisterNewUserController constructor.
      * @param UserServiceInterface $userService
      * @param AuthenticationServiceInterface $userAuthenticationService
+     * @param AccountService $accountService
+     * @param AccountMapper $accountMapper
      */
     public function __construct(
         UserServiceInterface $userService,
-        AuthenticationServiceInterface $userAuthenticationService
+        AuthenticationServiceInterface $userAuthenticationService,
+        AccountService $accountService,
+        AccountMapper $accountMapper
+
     )
     {
         $this->userService = $userService;
         $this->userAuthenticationService = $userAuthenticationService;
+        $this->accountService = $accountService;
+        $this->accountMapper = $accountMapper;
     }
 
 
@@ -44,12 +67,22 @@ class RegisterNewUserController extends Controller
         Request $request
     )
     {
+
         $validator = Validator::make(
             $request->json()->all(),
             [
+                'firstName' => ['required', 'string'],
+                'lastName' => ['required', 'string'],
                 'email' => ['required', 'email'],
                 'password' => ['required', 'string'],
                 'mobileNumber' => ['required', 'string','regex:/^([0-9\s\-\+\(\)]*)$/','min:10'],
+                'address.streetName' => ['required', 'string'],
+                'address.streetNumber' => ['required', 'string'],
+                'address.city' => ['required', 'string'],
+                'address.postCode' => ['required', 'string'],
+                'address.state' => ['required', 'string'],
+                'address.country' => ['required', 'string'],
+                'language' => ['required', 'string'],
                 'group' => ['required', 'string'],
             ]
         );
@@ -64,16 +97,28 @@ class RegisterNewUserController extends Controller
             );
         }
 
-        try{
 
+        try{
+            $address = $request->json()->get('address');
             $userEntity = $this
                 ->userService
                 ->create(
                     UserEntity::fromArray(
                         [
-                            'email' => $request->get('email'),
-                            'mobileNumber' => $request->get('mobileNumber'),
-                            'walletOrganizations' => $request->get('ApiConsumer')->getOrganizations()
+                            "email" => $request->get('email'),
+                            "firstName" => $request->get('firstName'),
+                            "lastName" => $request->get('lastName'),
+                            "address" => [
+                                "streetName" => $address['streetName'],
+                                "streetNumber" => $address['streetNumber'],
+                                "city"=> $address['city'],
+                                "postCode"=> $address['postCode'],
+                                "state"=> $address['state'],
+                                "country"=> $address['country']
+                            ],
+                            "mobileNumber" => $request->get('mobileNumber'),
+                            "language" => $request->get('language'),
+                            "walletOrganizations" => $request->get('ApiConsumer')->getOrganizations()
                         ]
                     ),
                     $request->get('ApiConsumer')->getOrganizations()
@@ -91,6 +136,19 @@ class RegisterNewUserController extends Controller
                     $request->get('email'),
                     $request->get('group')
                 );
+
+
+            $accountEntity = $this->accountService->create(
+                AccountEntity::fromArray(
+                    [
+                        'accountType' => "personal",
+                        'walletPlanId'=> "5ff742fb98f1c543604f391d",
+                        'name'=> "Main Account",
+                    ]
+                ),
+                $userEntity->getUserId(),
+                $request->get('ApiConsumer')->getOrganizations()
+            );
         } catch (UserNotFoundException $exception) {
             return response()->json(
                 [
@@ -100,6 +158,14 @@ class RegisterNewUserController extends Controller
                 ], 404
             );
         } catch(CognitoIdentityProviderException $c) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $c->getStatusCode(),
+                    'StatusDescription' => $c->getAwsErrorMessage()
+                ], 404
+            );
+        } catch(AccountNotFoundException $c) {
             return response()->json(
                 [
                     'status' => 'error',

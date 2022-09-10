@@ -1,0 +1,32 @@
+post:
+  summary: Disable user
+  security:
+    - oAuth2:
+        - AuthenticateUsers
+  tags:
+    - Wallet Authentication
+  requestBody:
+    description: Request to Disable User
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/EnableAndDisableUserRequest'
+  responses:
+    '200':
+      description: Successfully disabled user
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                $ref: 'open-api-spec.yaml#/components/schemas/EnableAndDisableUserResponse'
+    '401':
+      description: Invalid username or password
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/ErrorResponse'

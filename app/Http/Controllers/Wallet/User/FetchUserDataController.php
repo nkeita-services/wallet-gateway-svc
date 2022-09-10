@@ -19,7 +19,7 @@ class FetchUserDataController extends Controller
 
     /**
      * FetchUserDataController constructor.
-     * @param UserServiceInterface $userService
+     * @param UserService $userService
      */
     public function __construct(UserService $userService)
     {

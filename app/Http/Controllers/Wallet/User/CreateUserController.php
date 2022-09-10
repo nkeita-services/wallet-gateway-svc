@@ -26,8 +26,8 @@ class CreateUserController extends Controller
 
     /**
      * CreateUserController constructor.
-     * @param UserMapperInterface $userMapper
-     * @param UserServiceInterface $userService
+     * @param UserMapper $userMapper
+     * @param UserService $userService
      */
     public function __construct(
         UserMapper $userMapper,

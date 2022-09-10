@@ -300,6 +300,9 @@ $router->post('/v1/wallets/users/{userId}/payment-means', [
     ]
 ]);
 
+
+#----------------------------------------- Authentication -----------------------------------------------------
+
 $router->get('/v1/authentication/oauth2/token/{clientId}/{clientSecret}', [
     'uses' => 'Wallet\Authentication\FetchAccessTokenController@fetch',
 ]);
@@ -314,6 +317,67 @@ $router->get('/v1/authentication/users/{userName}/{userPassword}', [
     ]
 ]);
 
+$router->post('v1/authentication/users', [
+    'uses' => 'Wallet\Authentication\AuthenticateWalletUserController@userAuthenticate',
+    'middleware'=>'auth',
+    'as'=>'adl-gateway/AuthenticateUsers',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
+
+$router->get('v1/authentication/forgot/password/users/{userName}', [
+    'uses' => 'Wallet\Authentication\AuthenticateWalletUserController@forgotPassword',
+    'middleware'=>'auth',
+    'as'=>'adl-gateway/AuthenticateUsers',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
+$router->post('v1/authentication/forgot/confirm/new/password/users', [
+    'uses' => 'Wallet\Authentication\AuthenticateWalletUserController@confirmForgotPassword',
+    'middleware'=>'auth',
+    'as'=>'adl-gateway/AuthenticateUsers',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
+$router->post('v1/authentication/users/disable', [
+    'uses' => 'Wallet\Authentication\AuthenticateWalletUserController@disableUser',
+    'middleware'=>'auth',
+    'as'=>'adl-gateway/AuthenticateUsers',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
+
+$router->post('v1/authentication/users/enable', [
+    'uses' => 'Wallet\Authentication\AuthenticateWalletUserController@enableUser',
+    'middleware'=>'auth',
+    'as'=>'adl-gateway/AuthenticateUsers',
+    'groups'=> [
+        'root',
+        'admin',
+        //'user'
+    ]
+]);
+
+#----------------------------------------- End ----------------------------------------------------------------
+
+
+#----------------------------------------- Registration -----------------------------------------------------
 $router->post('/v1/registration/users', [
     'uses' => 'Wallet\Registration\RegisterNewUserController@register',
     'middleware'=>'auth',
@@ -324,6 +388,7 @@ $router->post('/v1/registration/users', [
     ]
 ]);
 
+
 $router->get('/v1/registration/users/confirmation/{userName}/{code}', [
     'uses' => 'Wallet\Registration\ConfirmUserRegistrationController@confirm',
     'middleware'=>'auth',
@@ -333,6 +398,19 @@ $router->get('/v1/registration/users/confirmation/{userName}/{code}', [
         'admin'
     ]
 ]);
+
+$router->get('v1/registration/users/resend/{userName}/confirmationcode', [
+    'uses' => 'Wallet\Registration\ConfirmUserRegistrationController@resendConfirmationCode',
+    'middleware'=>'auth',
+    'as'=>'adl-gateway/ConfirmUserRegistration',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
+#----------------------------------------- End ----------------------------------------------------------------
 
 $router->post('v1/wallets/regions', [
     'uses' => 'Wallet\Fee\Region\CreateRegionController@create',

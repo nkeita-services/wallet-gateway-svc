@@ -4,6 +4,8 @@
 namespace Wallet\Wallet\User\Service\Authentification;
 
 
+use Wallet\Wallet\User\Entity\AwsRequestEntityInterface;
+
 interface AuthenticationServiceInterface
 {
 
@@ -34,13 +36,11 @@ interface AuthenticationServiceInterface
     );
 
     /**
-     * @param string $username
-     * @param string $password
+     * @param AwsRequestEntityInterface $awsRequestEntity
      * @return mixed
      */
     public function authenticate(
-        string $username,
-        string $password
+        AwsRequestEntityInterface $awsRequestEntity
     );
 
     /**
@@ -68,6 +68,55 @@ interface AuthenticationServiceInterface
         string $userId,
         string $accessToken
     );
+
+    /**
+     * @param string $username
+     * @return mixed
+     */
+    public function resendConfirmationCode(string $username);
+
+    /**
+     * @param string $username
+     * @return mixed
+     */
+    public function forgotPassword(string $username);
+
+    /**
+     * @param string $username
+     * @param string $password
+     * @param string $confirmationCode
+     * @return mixed
+     *
+     */
+    public function confirmForgotPassword(
+        string $username,
+        string $password,
+        string $confirmationCode
+    );
+
+    /**
+     * @param string $accessToken
+     * @param string $previousPassword
+     * @param string $proposedPassword
+     * @return mixed
+     */
+    public function changePassword(
+        string $accessToken,
+        string $previousPassword,
+        string $proposedPassword
+    );
+
+    /**
+     * @param string $userName
+     * @return mixed
+     */
+    public function disableUser(string $userName);
+
+    /**
+     * @param string $userName
+     * @return mixed
+     */
+    public function enableUser(string $userName);
 
 
 

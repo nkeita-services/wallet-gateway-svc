@@ -3,9 +3,10 @@
 
 namespace Wallet\Wallet\User\Service\Authentification;
 
-
+use Exception;
 use Aws\CognitoIdentityProvider\CognitoIdentityProviderClient;
-use Illuminate\Support\Arr;
+use Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException;
+use Wallet\Wallet\User\Entity\AwsRequestEntityInterface;
 
 class AuthenticationService implements AuthenticationServiceInterface
 {
@@ -98,35 +99,48 @@ class AuthenticationService implements AuthenticationServiceInterface
 
     /**
      * @inheritDoc
+     * @throws Exception
      */
-    public function authenticate(string $username, string $password)
-    {
-       /* $username = 'mkeita@hakili.io';
-        $password= 'M0oiuyt12@uiU';*/
+    public function authenticate(
+        AwsRequestEntityInterface $awsRequestEntity
+    ) {
 
-        $result = $this
-            ->cognitoIdentityProviderClient
-            ->initiateAuth([
-                'AuthFlow' => 'USER_PASSWORD_AUTH',
-                'AuthParameters' => [
-                    'USERNAME' => $username,
-                    'PASSWORD' => $password
-                ],
-                'ClientId' => $this->clientId
-            ]);
+        try {
+            $result = $this
+                ->cognitoIdentityProviderClient
+                ->initiateAuth([
+                    'AuthFlow' => 'USER_PASSWORD_AUTH',
+                    'AuthParameters' => [
+                        'USERNAME' => $awsRequestEntity->getEmail(),
+                        'PASSWORD' => $awsRequestEntity->getPassword()
+                    ],
+                    'ClientId' => $this->clientId
+                ]);
 
-        $userData = array_filter($this->getUser(
-            $result->get('AuthenticationResult')['AccessToken']
-        ), function($value, $k) {
-            return $value['Name'] == 'custom:userId';
-        }, ARRAY_FILTER_USE_BOTH);
+            if (
+                $result->hasKey('AuthenticationResult') &&
+                isset($result->get('AuthenticationResult')['AccessToken'])
+            )
+            {
+                $userData = array_filter($this->getUser(
+                    $result->get('AuthenticationResult')['AccessToken']
+                ), function($value, $k) {
+                    return $value['Name'] == 'custom:userId';
+                }, ARRAY_FILTER_USE_BOTH);
 
-        $userData = current($userData);
+                $userData = current($userData);
+                $userId = isset($userData['Value']) ? $userData['Value'] : "";
 
-       return array_merge(
-           $result->get('AuthenticationResult'),
-           [ 'userId' =>  isset($userData['Value']) ? $userData['Value'] : "" ]
-       );
+                return array_merge(
+                    $result->get('AuthenticationResult'),
+                    [
+                        'userId' =>  $userId
+                    ]
+                );
+            }
+        } catch (CognitoIdentityProviderException $exception) {
+            throw $exception;
+        }
     }
 
     /**
@@ -175,5 +189,142 @@ class AuthenticationService implements AuthenticationServiceInterface
                     ],
             ]
             );
+    }
+
+    /**
+     * @param string $username
+     * @return mixed
+     */
+    public function resendConfirmationCode(string $username)
+    {
+        try {
+            $result = $this
+                ->cognitoIdentityProviderClient
+                ->resendConfirmationCode([
+                        'ClientId' => $this->clientId,
+                        'Username' => $username,
+
+                    ]
+                );
+        } catch (CognitoIdentityProviderException $exception) {
+            throw $exception;
+        }
+    }
+
+    /**
+     * @param string $username
+     * @return mixed
+     */
+    public function forgotPassword(string $username)
+    {
+        try {
+            $result = $this
+                ->cognitoIdentityProviderClient
+                ->forgotPassword([
+                        'ClientId' => $this->clientId,
+                        'Username' => $username,
+                    ]
+                );
+
+            return $result->get('CodeDeliveryDetails');
+
+        } catch (CognitoIdentityProviderException $exception) {
+            throw $exception;
+        }
+    }
+
+    /**
+     * @param string $username
+     * @param string $password
+     * @param string $confirmationCode
+     * @return mixed
+     *
+     */
+    public function confirmForgotPassword(
+        string $username,
+        string $password,
+        string $confirmationCode
+    ) {
+        try {
+            $result = $this
+                ->cognitoIdentityProviderClient
+                ->confirmForgotPassword([
+                        'ClientId' => $this->clientId,
+                        'ConfirmationCode' => $confirmationCode,
+                        'Password' => $password,
+                        'Username' => $username,
+
+                    ]
+                );
+        } catch (CognitoIdentityProviderException $exception) {
+            throw $exception;
+        }
+    }
+
+    /**
+     * @param string $accessToken
+     * @param string $previousPassword
+     * @param string $proposedPassword
+     * @return mixed
+     */
+    public function changePassword(
+        string $accessToken,
+        string $previousPassword,
+        string $proposedPassword
+    ) {
+        try {
+            $result = $this
+                ->cognitoIdentityProviderClient
+                ->changePassword([
+                        'AccessToken' => $accessToken,
+                        'PreviousPassword' => $previousPassword,
+                        'ProposedPassword' => $proposedPassword,
+
+                    ]
+                );
+
+        } catch (CognitoIdentityProviderException $exception) {
+            throw $exception;
+        }
+    }
+
+    /**
+     * @param string $userName
+     * @return mixed
+     */
+    public function disableUser(string $userName)
+    {
+        try {
+            $result = $this
+                ->cognitoIdentityProviderClient
+                ->adminDisableUser([
+                        'Username' => $userName,
+                        'UserPoolId' => $this->userPoolId,
+                    ]
+                );
+
+        } catch (CognitoIdentityProviderException $exception) {
+            throw $exception;
+        }
+    }
+
+    /**
+     * @param string $userName
+     * @return mixed
+     */
+    public function enableUser(string $userName)
+    {
+        try {
+            $result = $this
+                ->cognitoIdentityProviderClient
+                ->adminEnableUser([
+                        'Username' => $userName,
+                        'UserPoolId' => $this->userPoolId,
+                    ]
+                );
+
+        } catch (CognitoIdentityProviderException $exception) {
+            throw $exception;
+        }
     }
 }
