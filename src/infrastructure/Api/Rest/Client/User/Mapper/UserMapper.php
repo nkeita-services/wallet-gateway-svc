@@ -56,7 +56,7 @@ class UserMapper implements UserMapperInterface
 
         $mobileNumbers = collect($data['data']['walletAccounts']);
 
-        return $mobileNumbers->pluck('userId', 'mobileNumber')->toArray();
+        return $mobileNumbers->pluck(['userId', 'mobileNumber', 'firstName', 'lastName'])->toArray();
     }
 
 
