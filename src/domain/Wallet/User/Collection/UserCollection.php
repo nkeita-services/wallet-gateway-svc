@@ -43,4 +43,14 @@ class UserCollection implements UserCollectionInterface
             return $userEntity->toArray();
         },$this->entities);
     }
+
+    /**UserCollection
+     * @inheritDoc
+     */
+    public function toArrayAppUser() :array
+    {
+        return array_map(function (UserEntityInterface $userEntity){
+            return $userEntity->toArrayAppUser();
+        },$this->entities);
+    }
 }

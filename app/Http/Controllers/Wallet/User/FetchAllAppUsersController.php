@@ -62,14 +62,13 @@ class FetchAllAppUsersController extends Controller
                 ]
             );
 
+        //var_dump($appUsers);
+
         return response()->json(
             [
                 'status' => 'success',
                 'data' => [
-                    'walletAccountUserMobile' => array_values
-                    (
-                        $appUsers
-                    )
+                    'walletAccountUserMobile' => $appUsers
                 ]
             ]
         );

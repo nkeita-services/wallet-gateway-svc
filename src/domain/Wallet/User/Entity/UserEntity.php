@@ -150,6 +150,27 @@ class UserEntity implements UserEntityInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function toArrayAppUser():array
+    {
+        $userData =  [
+            'lastName' => $this->lastName,
+            'firstName' => $this->firstName,
+            'mobileNumber' => $this->mobileNumber,
+            'userId'=> $this->userId,
+        ];
+
+        return array_filter(
+            $userData,
+            function ($propertyValue, $propertyName){
+                return $propertyValue !== null;
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
+    }
+
+    /**
      * @return string
      */
     public function getUserId(): string

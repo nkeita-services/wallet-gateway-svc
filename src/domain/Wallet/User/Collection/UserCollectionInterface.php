@@ -16,5 +16,10 @@ interface UserCollectionInterface
     /**
      * @return array
      */
-    public function toArray(): array ;
+    public function toArray(): array;
+
+    /**
+     * @return array
+     */
+    public function toArrayAppUser():array;
 }

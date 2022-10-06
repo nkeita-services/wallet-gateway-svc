@@ -59,6 +59,42 @@ class UserService implements UserServiceInterface
     /**
      * @inheritDoc
      */
+    public function fetchByEmail(
+        string $email
+    ): UserEntityInterface
+    {
+        try {
+            return $this->userRepository->fetchByEmail(
+                $email
+            );
+        } catch (RepositoryUserNotFoundException $e) {
+            throw new UserNotFoundException(
+                $e->getMessage()
+            );
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetchByMobileNumber(
+        string $mobileNumber
+    ): UserEntityInterface
+    {
+        try {
+            return $this->userRepository->fetchByMobileNumber(
+                $mobileNumber
+            );
+        } catch (RepositoryUserNotFoundException $e) {
+            throw new UserNotFoundException(
+                $e->getMessage()
+            );
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function fetchAll(array $filter): UserCollectionInterface
     {
         return $this->userRepository->fetchAll(

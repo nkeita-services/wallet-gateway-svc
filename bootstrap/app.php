@@ -31,6 +31,8 @@ use App\Providers\Infrastructure\CloudRun\Metadata\CloudRunMetadataGuzzleClientP
 use App\Providers\Infrastructure\CloudRun\Metadata\OAuth\IDToken\OAuthIDTokenServiceProvider;
 use App\Providers\Infrastructure\CloudRun\Metadata\ProjectID\CloudRunProjectIDServiceProvider;
 use App\Providers\Infrastructure\Secrets\SecretManagerServiceProvider;
+use App\Providers\Validation\Rules\User\UserEmailRuleServiceProvider;
+use App\Providers\Validation\Rules\User\UserMobileNumberRuleServiceProvider;
 use App\Providers\Validation\Rules\Wallet\WalletPlanIdRuleServiceProvider;
 use App\Providers\Validation\Rules\Wallet\WalletUserIdRuleServiceProvider;
 use Nord\Lumen\Cors\CorsServiceProvider;
@@ -150,6 +152,9 @@ $app->register(CloudRunMetadataGuzzleClientProvider::class);
 
 $app->register(WalletPlanIdRuleServiceProvider::class);
 $app->register(WalletUserIdRuleServiceProvider::class);
+
+$app->register(UserEmailRuleServiceProvider::class);
+$app->register(UserMobileNumberRuleServiceProvider::class);
 
 $app->register(UserBeneficiaryApiClientProvider::class);
 $app->register(UserBeneficiaryRepositoryProvider::class);

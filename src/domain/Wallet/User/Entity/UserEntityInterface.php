@@ -11,7 +11,7 @@ interface UserEntityInterface
     /**
      * @return array
      */
-    public function toArray(): array ;
+    public function toArray(): array;
 
     /**
      * @param array $data
@@ -20,6 +20,11 @@ interface UserEntityInterface
     public static function fromArray(
         array $data
     ):UserEntityInterface;
+
+    /**
+     * @return array
+     */
+    public function toArrayAppUser():array;
 
     /**
      * @return string

@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Wallet\Registration;
 
 use App\Http\Controllers\Wallet\Account\Mapper\AccountMapper;
 use App\Http\Controllers\Wallet\Account\Mapper\AccountMapperInterface;
+use App\Rules\User\UserEmailRule;
+use App\Rules\User\UserMobileNumberRule;
+use App\Rules\Wallet\WalletUserIdRule;
 use Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -62,7 +66,10 @@ class RegisterNewUserController extends Controller
         $this->accountMapper = $accountMapper;
     }
 
-
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function register(
         Request $request
     )
@@ -73,9 +80,15 @@ class RegisterNewUserController extends Controller
             [
                 'firstName' => ['required', 'string'],
                 'lastName' => ['required', 'string'],
-                'email' => ['required', 'email'],
+                //'email' => ['required', 'email'],
+               'email' => ['required', 'email', app(UserEmailRule::class)],
                 'password' => ['required', 'string'],
-                'mobileNumber' => ['required', 'string','regex:/^([0-9\s\-\+\(\)]*)$/','min:10'],
+                'mobileNumber' => [
+                    'required',
+                    'string',
+                    'regex:/^([0-9\s\-\+\(\)]*)$/','min:10',
+                    app(UserMobileNumberRule::class)
+                ],
                 'address.streetName' => ['required', 'string'],
                 'address.streetNumber' => ['required', 'string'],
                 'address.city' => ['required', 'string'],
@@ -96,7 +109,6 @@ class RegisterNewUserController extends Controller
                 ]
             );
         }
-
 
         try{
             $address = $request->json()->get('address');

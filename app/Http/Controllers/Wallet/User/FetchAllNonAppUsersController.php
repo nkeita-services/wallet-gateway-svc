@@ -66,7 +66,11 @@ class FetchAllNonAppUsersController extends Controller
                     'walletAccountUserMobile' => array_values
                     (
                         $requestMobilesNumber
-                            ->diff($appUsers)->all()
+                            ->diff(
+                                collect(
+                                    $appUsers
+                                )->pluck('mobileNumber')
+                            )->all()
                     )
                 ]
             ]

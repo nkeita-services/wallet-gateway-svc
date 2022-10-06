@@ -30,6 +30,24 @@ interface UserServiceInterface
     ): UserEntityInterface;
 
     /**
+     * @param string $email
+     * @return UserEntityInterface
+     * @throws UserNotFoundException
+     */
+    public function fetchByEmail(
+        string $email
+    ): UserEntityInterface;
+
+    /**
+     * @param string $mobileNumber
+     * @return UserEntityInterface
+     * @throws UserNotFoundException
+     */
+    public function fetchByMobileNumber(
+        string $mobileNumber
+    ): UserEntityInterface;
+
+    /**
      * @param array $filter
      * @return UserCollectionInterface
      */

@@ -24,6 +24,24 @@ interface UserApiClientInterface
     public function get(string $userId): UserEntityInterface;
 
     /**
+     * @param string $email
+     * @return UserEntityInterface
+     * @throws UserNotFoundException
+     */
+    public function fetchByEmail(
+        string $email
+    ): UserEntityInterface;
+
+    /**
+     * @param string $mobileNumber
+     * @return UserEntityInterface
+     * @throws UserNotFoundException
+     */
+    public function fetchByMobileNumber(
+        string $mobileNumber
+    ): UserEntityInterface;
+
+    /**
      * @param $filter
      * @return UserCollectionInterface
      */

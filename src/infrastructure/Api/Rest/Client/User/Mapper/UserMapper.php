@@ -54,9 +54,11 @@ class UserMapper implements UserMapperInterface
             true
         );
 
-        $mobileNumbers = collect($data['data']['walletAccounts']);
+        $appUserCollection = UserCollection::fromArray(
+            $data['data']['walletAccounts']
+        );
 
-        return $mobileNumbers->pluck(['userId', 'mobileNumber', 'firstName', 'lastName'])->toArray();
+        return $appUserCollection->toArrayAppUser();
     }
 
 

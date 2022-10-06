@@ -83,6 +83,75 @@ class UserApiGuzzleHttpClient implements UserApiClientInterface
     /**
      * @inheritDoc
      */
+    public function fetchByEmail(
+        string $email
+    ): UserEntityInterface
+    {
+        try {
+            $response = $this->guzzleClient->post('/v1/users/email', [
+                RequestOptions::JSON => ["email" => $email]
+            ]);
+        } catch (ClientException $e) {
+            if($e->getResponse()->getStatusCode() == 404){
+                throw new UserNotFoundException(
+                    sprintf('User %s not found', $email)
+                );
+            }
+
+            throw $e;
+        }catch (ServerException $e){
+            $decodedPayload = json_decode(
+                $e->getResponse()->getBody()->getContents(), true
+            );
+
+            throw new DomainException(
+                $decodedPayload['StatusDescription']
+            );
+        }
+
+        return $this->userMapper->createUserFromApiResponse(
+            $response
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetchByMobileNumber(
+        string $mobileNumber
+    ): UserEntityInterface
+    {
+        try {
+            $response = $this->guzzleClient->post('/v1/users/phone', [
+                RequestOptions::JSON => ["mobileNumber" => $mobileNumber]
+            ]);
+
+        } catch (ClientException $e) {
+            if($e->getResponse()->getStatusCode() == 404){
+                throw new UserNotFoundException(
+                    sprintf('User %s not found', $mobileNumber)
+                );
+            }
+
+            throw $e;
+        }catch (ServerException $e){
+            $decodedPayload = json_decode(
+                $e->getResponse()->getBody()->getContents(), true
+            );
+
+            throw new DomainException(
+                $decodedPayload['StatusDescription']
+            );
+        }
+
+        return $this->userMapper->createUserFromApiResponse(
+            $response
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function fetchAll($filter): UserCollectionInterface
     {
         try {

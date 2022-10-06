@@ -63,6 +63,42 @@ class UserRepository implements UserRepositoryInterface
     /**
      * @inheritDoc
      */
+    public function fetchByEmail(
+        string $email
+    ): UserEntityInterface
+    {
+        try {
+            return $this->userApiClient->fetchByEmail(
+                $email
+            );
+        } catch (ApiClientUserNotFoundException $e) {
+            throw new UserNotFoundException(
+                $e->getMessage()
+            );
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetchByMobileNumber(
+        string $mobileNumber
+    ): UserEntityInterface
+    {
+        try {
+            return $this->userApiClient->fetchByMobileNumber(
+                $mobileNumber
+            );
+        } catch (ApiClientUserNotFoundException $e) {
+            throw new UserNotFoundException(
+                $e->getMessage()
+            );
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function fetchAll(array $filter): UserCollectionInterface
     {
        return $this->userApiClient->fetchAll(

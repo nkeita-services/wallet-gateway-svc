@@ -321,10 +321,10 @@ components:
           example: admin@hakili-corp.io
         phoneNumber:
           type: string
-          example: 00447307568957
+          example: "+447307568957"
         mobileNumber:
           type: string
-          example: 00447307568957
+          example: "+447307568952"
         address:
           $ref: '#/components/schemas/Address'
     WalletOrganizationWithId:
@@ -480,11 +480,11 @@ components:
         phoneNumber:
           type: string
           description: User phone number
-          example: 00447307568957
+          example: "+447307368957"
         mobileNumber:
           type: string
           description: User mobile number
-          example: 00447307568957
+          example: "+447507568957"
         language:
           type: string
           description: User language
@@ -1002,7 +1002,7 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/MobileNumber'
-      example: ['00447307568957', '00443307568957', '00447347568957', '00447347568943']
+      example: ['+447337568975', '+447311568923']
 
     ConfirmForgetPassWordRequest:
       type: object
