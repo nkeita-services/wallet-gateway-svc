@@ -20,7 +20,7 @@ class PinpointProvider extends ServiceProvider
                     ],
                     'region' => $app->make(SecretManagerInterface::class)->get('AWS_REGION'),
                     'version' =>$app->make(SecretManagerInterface::class)->get('AWS_VERSION'),
-                    'user_pool_id' => $app->make(SecretManagerInterface::class)->get('AWS_USER_POOL_ID'),
+                    'user_pool_id' => $app->make(SecretManagerInterface::class)->get('AWS_COGNITO_USER_POOL_ID'),
                 ]
             );
 
