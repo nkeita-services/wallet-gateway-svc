@@ -42,12 +42,12 @@ class AuthenticationService implements AuthenticationServiceInterface
      */
     public function __construct(
         CognitoIdentityProviderClient $cognitoIdentityProviderClient,
-        PinpointClient $pinpointClientClient,
+        //PinpointClient $pinpointClientClient,
         string $clientId,
         string $userPoolId
     ){
         $this->cognitoIdentityProviderClient = $cognitoIdentityProviderClient;
-        $this->pinpointClientClient = $pinpointClientClient;
+        //$this->pinpointClientClient = $pinpointClientClient;
         $this->clientId = $clientId;
         $this->userPoolId = $userPoolId;
     }
