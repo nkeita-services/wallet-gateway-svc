@@ -862,11 +862,24 @@ components:
           type: string
           description: User mobile number
           example: "+447307568957"
+        birthDay:
+          type: string
+          description: user birthDay
+          format: email
+          example: yyy-mm-dd
+        nationality:
+          type: string
+          description: user nationality
+          example: "Senegalese"
+        deviceToken:
+          type: string
+          description: User mobile device Token
+          example: "dqdzdfzdcxxxxxx13122322"
+        address:
+          $ref: '#/components/schemas/Address'
         language:
           type: string
           example: "EN"
-        address:
-          $ref: '#/components/schemas/Address'
         group:
           type: string
           enum:
