@@ -7,6 +7,8 @@ use Exception;
 use Aws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException;
 use Wallet\Wallet\User\Entity\AwsRequestEntityInterface;
+use Aws\Pinpoint\PinpointClient;
+
 
 class AuthenticationService implements AuthenticationServiceInterface
 {
@@ -15,6 +17,11 @@ class AuthenticationService implements AuthenticationServiceInterface
      * @var CognitoIdentityProviderClient
      */
     private $cognitoIdentityProviderClient;
+
+    /**
+     * @var PinpointClient
+     */
+    private $pinpointClientClient;
 
     /**
      * @var string
@@ -29,15 +36,18 @@ class AuthenticationService implements AuthenticationServiceInterface
     /**
      * AuthenticationService constructor.
      * @param CognitoIdentityProviderClient $cognitoIdentityProviderClient
+     * @param PinpointClient $pinpointClientClient
      * @param string $clientId
      * @param string $userPoolId
      */
     public function __construct(
         CognitoIdentityProviderClient $cognitoIdentityProviderClient,
+        PinpointClient $pinpointClientClient,
         string $clientId,
         string $userPoolId
     ){
         $this->cognitoIdentityProviderClient = $cognitoIdentityProviderClient;
+        $this->pinpointClientClient = $pinpointClientClient;
         $this->clientId = $clientId;
         $this->userPoolId = $userPoolId;
     }

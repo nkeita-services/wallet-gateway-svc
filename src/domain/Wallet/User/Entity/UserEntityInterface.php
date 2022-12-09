@@ -44,10 +44,21 @@ interface UserEntityInterface
      * @return array
      */
     public function getAddress(): array;
+
     /**
      * @return string
      */
     public function getEmail(): string;
+
+    /**
+     * @return string
+     */
+    public function getBirthDay(): string;
+
+    /**
+     * @return string
+     */
+    public function getNationality(): string;
 
     /**
      * @return string
@@ -63,6 +74,16 @@ interface UserEntityInterface
      * @return string
      */
     public function getLanguage(): string;
+
+    /**
+     * @return string
+     */
+    public function getDateSigned(): string;
+
+    /**
+     * @return string
+     */
+    public function getDeviceToken(): string;
 
     /**
      * @return array

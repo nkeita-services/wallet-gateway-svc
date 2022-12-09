@@ -20,11 +20,20 @@ class UserEntity implements UserEntityInterface
      */
     private $address;
 
-
     /**
      * @var string
      */
     private $email;
+
+    /**
+     * @var string
+     */
+    private $nationality;
+
+    /**
+     * @var string
+     */
+    private $birthDay;
 
     /**
      * @var string
@@ -40,6 +49,11 @@ class UserEntity implements UserEntityInterface
      * @var string
      */
     private $language;
+
+    /**
+     * @var string
+     */
+    private $dateSigned;
 
     /**
      * @var array
@@ -62,14 +76,23 @@ class UserEntity implements UserEntityInterface
     private $status;
 
     /**
+     * @var string
+     */
+    private $deviceToken;
+
+    /**
      * UserEntity constructor.
      * @param string $lastName
      * @param string $firstName
      * @param array $address
      * @param string $email
+     * @param string|null $birthDay
+     * @param string|null $nationality
      * @param string $phoneNumber
      * @param string $mobileNumber
      * @param string $language
+     * @param string|null $dateSigned
+     * @param string|null $deviceToken
      * @param array $walletOrganizations
      * @param string $userId
      * @param int $createdAt
@@ -80,9 +103,13 @@ class UserEntity implements UserEntityInterface
         ?string $firstName,
         ?array $address,
         ?string $email,
+        ?string $birthDay,
+        ?string $nationality,
         ?string $phoneNumber,
         ?string $mobileNumber,
         ?string $language,
+        ?string $dateSigned,
+        ?string $deviceToken,
         ?array $walletOrganizations = null,
         ?string $userId = null,
         ?int $createdAt = null,
@@ -92,9 +119,13 @@ class UserEntity implements UserEntityInterface
         $this->firstName = $firstName;
         $this->address = $address;
         $this->email = $email;
+        $this->birthDay = $birthDay;
+        $this->nationality = $nationality;
         $this->phoneNumber = $phoneNumber;
         $this->mobileNumber = $mobileNumber;
         $this->language = $language;
+        $this->dateSigned = $dateSigned;
+        $this->deviceToken = $deviceToken;
         $this->walletOrganizations = $walletOrganizations;
         $this->userId = $userId;
         $this->createdAt = $createdAt;
@@ -112,9 +143,13 @@ class UserEntity implements UserEntityInterface
             $data['firstName'] ?? null,
             $data['address'] ?? null,
             $data['email'] ?? null,
+            $data['birthDay'] ?? null,
+            $data['nationality'] ?? null,
             $data['phoneNumber'] ?? null,
             $data['mobileNumber'] ?? null,
             $data['language'] ?? null,
+            $data['dateSigned'] ?? null,
+            $data['deviceToken'] ?? null,
             $data['walletOrganizations'] ?? null,
             $data['userId'] ?? null,
             $data['createdAt'] ?? null,
@@ -131,13 +166,17 @@ class UserEntity implements UserEntityInterface
             'firstName' => $this->firstName,
             'address' => $this->address,
             'email' => $this->email,
+            'birthDay' => $this->birthDay,
+            'nationality' => $this->nationality,
             'phoneNumber' => $this->phoneNumber,
             'mobileNumber' => $this->mobileNumber,
             'language' => $this->language,
+            'dateSigned' => $this->dateSigned,
+            'deviceToken' => $this->deviceToken,
             'walletOrganizations' => $this->walletOrganizations,
-            'userId'=>$this->userId,
+            'userId'=> $this->userId,
             'createdAt'=> $this->createdAt,
-            'status'=>$this->status
+            'status'=> $this->status
         ];
 
         return array_filter(
@@ -213,6 +252,22 @@ class UserEntity implements UserEntityInterface
     /**
      * @return string
      */
+    public function getBirthDay(): string
+    {
+        return $this->birthDay;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNationality(): string
+    {
+        return $this->nationality;
+    }
+
+    /**
+     * @return string
+     */
     public function getPhoneNumber(): string
     {
         return $this->phoneNumber;
@@ -232,6 +287,22 @@ class UserEntity implements UserEntityInterface
     public function getLanguage(): string
     {
         return $this->language;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateSigned(): string
+    {
+        return $this->dateSigned;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeviceToken(): string
+    {
+        return $this->deviceToken;
     }
 
     /**

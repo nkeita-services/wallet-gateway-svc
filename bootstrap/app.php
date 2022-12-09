@@ -27,6 +27,7 @@ use App\Providers\Domain\Wallet\Organization\Service\OrganizationServiceProvider
 use App\Providers\Infrastructure\Api\Rest\Client\Wallet\WalletPlanApiClientProvider;
 use App\Providers\Domain\Wallet\Plan\Repository\WalletPlanRepositoryProvider;
 use App\Providers\Domain\Wallet\Plan\Service\WalletPlanServiceProvider;
+use App\Providers\Infrastructure\Aws\Pinpoint\PinpointProvider;
 use App\Providers\Infrastructure\CloudRun\Metadata\CloudRunMetadataGuzzleClientProvider;
 use App\Providers\Infrastructure\CloudRun\Metadata\OAuth\IDToken\OAuthIDTokenServiceProvider;
 use App\Providers\Infrastructure\CloudRun\Metadata\ProjectID\CloudRunProjectIDServiceProvider;
@@ -166,6 +167,7 @@ $app->register(UserPaymentMeanServiceProvider::class);
 
 $app->register(Oauth2ClientProvider::class);
 $app->register(IdentityProvider::class);
+$app->register(PinpointProvider::class);
 $app->register(AuthenticationServiceProvider::class);
 
 $app->register(QuoteFeeApiClientProvider::class);

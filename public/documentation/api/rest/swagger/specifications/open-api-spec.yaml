@@ -470,13 +470,20 @@ components:
           type: string
           description: User first name
           example: Doe
-        address:
-          $ref: '#/components/schemas/Address'
         email:
           type: string
           description: user email address
           format: email
           example: my-email@gmail.com
+        birthDay:
+          type: string
+          description: user birthDay
+          format: email
+          example: yyy-mm-dd
+        nationality:
+          type: string
+          description: user nationality
+          example: "Senegalese"
         phoneNumber:
           type: string
           description: User phone number
@@ -488,7 +495,13 @@ components:
         language:
           type: string
           description: User language
-          example: en
+          example: EN
+        deviceToken:
+          type: string
+          description: User mobile device Token
+          example: "dqdzdfzdcxxxxxx13122322"
+        address:
+          $ref: '#/components/schemas/Address'
     WalletAccountUsers:
       type: array
       items:

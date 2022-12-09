@@ -9,6 +9,7 @@ use App\Rules\User\UserEmailRule;
 use App\Rules\User\UserMobileNumberRule;
 use App\Rules\Wallet\WalletUserIdRule;
 use Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -81,8 +82,10 @@ class RegisterNewUserController extends Controller
                 'firstName' => ['required', 'string'],
                 'lastName' => ['required', 'string'],
                 //'email' => ['required', 'email'],
-               'email' => ['required', 'email', app(UserEmailRule::class)],
+                'email' => ['required', 'email', app(UserEmailRule::class)],
                 'password' => ['required', 'string'],
+                'birthDay' => ['required', 'string'],
+                'nationality' => ['required', 'string'],
                 'mobileNumber' => [
                     'required',
                     'string',
@@ -96,6 +99,7 @@ class RegisterNewUserController extends Controller
                 'address.state' => ['required', 'string'],
                 'address.country' => ['required', 'string'],
                 'language' => ['required', 'string'],
+                'deviceToken' => ['required', 'string'],
                 'group' => ['required', 'string'],
             ]
         );
@@ -120,6 +124,8 @@ class RegisterNewUserController extends Controller
                             "email" => $request->get('email'),
                             "firstName" => $request->get('firstName'),
                             "lastName" => $request->get('lastName'),
+                            "birthDay" => $request->get('birthDay'),
+                            "nationality" => $request->get('nationality'),
                             "address" => [
                                 "streetName" => $address['streetName'],
                                 "streetNumber" => $address['streetNumber'],
@@ -130,6 +136,7 @@ class RegisterNewUserController extends Controller
                             ],
                             "mobileNumber" => $request->get('mobileNumber'),
                             "language" => $request->get('language'),
+                            "dateSigned" => Carbon::now()->format('Y/m/d H:i:s'),
                             "walletOrganizations" => $request->get('ApiConsumer')->getOrganizations()
                         ]
                     ),
