@@ -198,6 +198,7 @@ class UserEntity implements UserEntityInterface
             'firstName' => $this->firstName,
             'mobileNumber' => $this->mobileNumber,
             'userId'=> $this->userId,
+            'deviceToken' => $this->deviceToken,
         ];
 
         return array_filter(

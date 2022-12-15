@@ -136,6 +136,7 @@ class RegisterNewUserController extends Controller
                             ],
                             "mobileNumber" => $request->get('mobileNumber'),
                             "language" => $request->get('language'),
+                            "deviceToken" => $request->get('deviceToken'),
                             "dateSigned" => Carbon::now()->format('Y/m/d H:i:s'),
                             "walletOrganizations" => $request->get('ApiConsumer')->getOrganizations()
                         ]
