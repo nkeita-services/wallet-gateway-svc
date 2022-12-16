@@ -81,9 +81,19 @@ interface UserEntityInterface
     public function getDateSigned(): string;
 
     /**
+     * @return array
+     */
+    public function getDevice(): array;
+
+    /**
      * @return string
      */
     public function getDeviceToken(): string;
+
+    /**
+     * @return string
+     */
+    public function getDeviceOs(): string;
 
     /**
      * @return array

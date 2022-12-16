@@ -100,6 +100,7 @@ class RegisterNewUserController extends Controller
                 'address.country' => ['required', 'string'],
                 'language' => ['required', 'string'],
                 'deviceToken' => ['required', 'string'],
+                //'deviceOs' => ['required', 'string'],
                 'group' => ['required', 'string'],
             ]
         );
@@ -114,8 +115,12 @@ class RegisterNewUserController extends Controller
             );
         }
 
-        try{
+        try {
             $address = $request->json()->get('address');
+            $device = [
+                "deviceToken" => $request->get('deviceToken', ""),
+                "deviceOs" => $request->get('deviceOs', ""),
+            ];
             $userEntity = $this
                 ->userService
                 ->create(
@@ -136,7 +141,7 @@ class RegisterNewUserController extends Controller
                             ],
                             "mobileNumber" => $request->get('mobileNumber'),
                             "language" => $request->get('language'),
-                            "deviceToken" => $request->get('deviceToken'),
+                            "device" => $device,
                             "dateSigned" => Carbon::now()->format('Y/m/d H:i:s'),
                             "walletOrganizations" => $request->get('ApiConsumer')->getOrganizations()
                         ]

@@ -76,9 +76,9 @@ class UserEntity implements UserEntityInterface
     private $status;
 
     /**
-     * @var string
+     * @var array
      */
-    private $deviceToken;
+    private $device;
 
     /**
      * UserEntity constructor.
@@ -92,7 +92,7 @@ class UserEntity implements UserEntityInterface
      * @param string $mobileNumber
      * @param string $language
      * @param string|null $dateSigned
-     * @param string|null $deviceToken
+     * @param string|array $device
      * @param array $walletOrganizations
      * @param string $userId
      * @param int $createdAt
@@ -109,7 +109,7 @@ class UserEntity implements UserEntityInterface
         ?string $mobileNumber,
         ?string $language,
         ?string $dateSigned,
-        ?string $deviceToken,
+        array $device = [],
         ?array $walletOrganizations = null,
         ?string $userId = null,
         ?int $createdAt = null,
@@ -125,7 +125,7 @@ class UserEntity implements UserEntityInterface
         $this->mobileNumber = $mobileNumber;
         $this->language = $language;
         $this->dateSigned = $dateSigned;
-        $this->deviceToken = $deviceToken;
+        $this->device = $device;
         $this->walletOrganizations = $walletOrganizations;
         $this->userId = $userId;
         $this->createdAt = $createdAt;
@@ -149,7 +149,7 @@ class UserEntity implements UserEntityInterface
             $data['mobileNumber'] ?? null,
             $data['language'] ?? null,
             $data['dateSigned'] ?? null,
-            $data['deviceToken'] ?? null,
+            $data['device'] ?? null,
             $data['walletOrganizations'] ?? null,
             $data['userId'] ?? null,
             $data['createdAt'] ?? null,
@@ -172,7 +172,7 @@ class UserEntity implements UserEntityInterface
             'mobileNumber' => $this->mobileNumber,
             'language' => $this->language,
             'dateSigned' => $this->dateSigned,
-            'deviceToken' => $this->deviceToken,
+            'device' => $this->device,
             'walletOrganizations' => $this->walletOrganizations,
             'userId'=> $this->userId,
             'createdAt'=> $this->createdAt,
@@ -198,7 +198,7 @@ class UserEntity implements UserEntityInterface
             'firstName' => $this->firstName,
             'mobileNumber' => $this->mobileNumber,
             'userId'=> $this->userId,
-            'deviceToken' => $this->deviceToken,
+            'device' => $this->device,
         ];
 
         return array_filter(
@@ -296,6 +296,15 @@ class UserEntity implements UserEntityInterface
     public function getDateSigned(): string
     {
         return $this->dateSigned;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getDevice(): array
+    {
+        return $this->device;
     }
 
     /**
