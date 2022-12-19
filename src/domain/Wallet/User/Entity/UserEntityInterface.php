@@ -86,16 +86,6 @@ interface UserEntityInterface
     public function getDevice(): array;
 
     /**
-     * @return string
-     */
-    public function getDeviceToken(): string;
-
-    /**
-     * @return string
-     */
-    public function getDeviceOs(): string;
-
-    /**
      * @return array
      */
     public function getWalletOrganizations(): array;

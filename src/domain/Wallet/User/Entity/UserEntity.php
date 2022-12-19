@@ -307,13 +307,6 @@ class UserEntity implements UserEntityInterface
         return $this->device;
     }
 
-    /**
-     * @return string
-     */
-    public function getDeviceToken(): string
-    {
-        return $this->deviceToken;
-    }
 
     /**
      * @return array
