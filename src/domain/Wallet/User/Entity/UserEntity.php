@@ -149,7 +149,7 @@ class UserEntity implements UserEntityInterface
             $data['mobileNumber'] ?? null,
             $data['language'] ?? null,
             $data['dateSigned'] ?? null,
-            $data['device'] ?? null,
+            $data['device'] ?? [],
             $data['walletOrganizations'] ?? null,
             $data['userId'] ?? null,
             $data['createdAt'] ?? null,
