@@ -871,7 +871,7 @@ components:
           type: string
           description: user nationality
           example: "Senegalese"
-        deviceToken:
+        device:
           type: string
           description: User mobile device Token
           example: "dqdzdfzdcxxxxxx13122322"
