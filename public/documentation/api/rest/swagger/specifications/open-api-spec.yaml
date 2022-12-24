@@ -871,10 +871,14 @@ components:
           type: string
           description: user nationality
           example: "Senegalese"
-        device:
+        deviceToken:
           type: string
           description: User mobile device Token
           example: "dqdzdfzdcxxxxxx13122322"
+        deviceOs:
+          type: string
+          description: User mobile device OS
+          example: "ANDROID"
         address:
           $ref: '#/components/schemas/Address'
         language:
