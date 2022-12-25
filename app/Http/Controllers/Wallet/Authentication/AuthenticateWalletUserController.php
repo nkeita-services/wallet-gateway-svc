@@ -37,8 +37,7 @@ class AuthenticateWalletUserController extends Controller
     public function authenticate(
         string $userName,
         string $userPassword
-    )
-    {
+    ) {
         try {
             return response()->json(
                 [

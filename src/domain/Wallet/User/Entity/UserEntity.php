@@ -80,6 +80,9 @@ class UserEntity implements UserEntityInterface
      */
     private $device;
 
+    /*** @var array */
+    private $notification;
+
     /**
      * UserEntity constructor.
      * @param string $lastName
@@ -93,6 +96,7 @@ class UserEntity implements UserEntityInterface
      * @param string $language
      * @param string|null $dateSigned
      * @param string|array $device
+     * @param array $notification
      * @param array $walletOrganizations
      * @param string $userId
      * @param int $createdAt
@@ -110,6 +114,7 @@ class UserEntity implements UserEntityInterface
         ?string $language,
         ?string $dateSigned,
         array $device = [],
+        array $notification = [],
         ?array $walletOrganizations = null,
         ?string $userId = null,
         ?int $createdAt = null,
@@ -126,6 +131,7 @@ class UserEntity implements UserEntityInterface
         $this->language = $language;
         $this->dateSigned = $dateSigned;
         $this->device = $device;
+        $this->notification = $notification;
         $this->walletOrganizations = $walletOrganizations;
         $this->userId = $userId;
         $this->createdAt = $createdAt;
@@ -150,6 +156,7 @@ class UserEntity implements UserEntityInterface
             $data['language'] ?? null,
             $data['dateSigned'] ?? null,
             $data['device'] ?? [],
+            $data['notification'] ?? [],
             $data['walletOrganizations'] ?? null,
             $data['userId'] ?? null,
             $data['createdAt'] ?? null,
@@ -173,6 +180,7 @@ class UserEntity implements UserEntityInterface
             'language' => $this->language,
             'dateSigned' => $this->dateSigned,
             'device' => $this->device,
+            'notification' => $this->notification,
             'walletOrganizations' => $this->walletOrganizations,
             'userId'=> $this->userId,
             'createdAt'=> $this->createdAt,
@@ -305,6 +313,22 @@ class UserEntity implements UserEntityInterface
     public function getDevice(): array
     {
         return $this->device;
+    }
+
+
+    /** @inheritDoc */
+    public function getNotification(): array
+    {
+        return $this->notification;
+    }
+
+    /** @inheritDoc */
+    public function setNotification(
+        array $notification
+    ): UserEntityInterface
+    {
+        $this->notification = $notification;
+        return $this;
     }
 
 

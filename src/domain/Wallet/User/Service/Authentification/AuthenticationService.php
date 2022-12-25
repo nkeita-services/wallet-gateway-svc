@@ -8,6 +8,8 @@ use Aws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException;
 use Wallet\Wallet\User\Entity\AwsRequestEntityInterface;
 use Aws\Pinpoint\PinpointClient;
+use Wallet\Wallet\User\Service\Exception\UserNotFoundException;
+use Wallet\Wallet\User\Service\UserServiceInterface;
 
 
 class AuthenticationService implements AuthenticationServiceInterface
@@ -34,22 +36,30 @@ class AuthenticationService implements AuthenticationServiceInterface
     private $userPoolId;
 
     /**
+     * @var UserServiceInterface
+     */
+    private $userService;
+
+    /**
      * AuthenticationService constructor.
      * @param CognitoIdentityProviderClient $cognitoIdentityProviderClient
      * @param PinpointClient $pinpointClientClient
      * @param string $clientId
      * @param string $userPoolId
+     * @param UserServiceInterface $userService
      */
     public function __construct(
         CognitoIdentityProviderClient $cognitoIdentityProviderClient,
         PinpointClient $pinpointClientClient,
         string $clientId,
-        string $userPoolId
-    ){
+        string $userPoolId,
+        UserServiceInterface $userService
+    ) {
         $this->cognitoIdentityProviderClient = $cognitoIdentityProviderClient;
         $this->pinpointClientClient = $pinpointClientClient;
         $this->clientId = $clientId;
         $this->userPoolId = $userPoolId;
+        $this->userService = $userService;
     }
 
 
@@ -139,18 +149,38 @@ class AuthenticationService implements AuthenticationServiceInterface
                 }, ARRAY_FILTER_USE_BOTH);
 
                 $userData = current($userData);
+
                 $userId = isset($userData['Value']) ? $userData['Value'] : "";
+
+                $userEntity = $this->userService->fetch($userId);
 
                 return array_merge(
                     $result->get('AuthenticationResult'),
                     [
-                        'userId' =>  $userId
+                        'userId' =>  $userId,
+                        'notification' => $userEntity->getNotification()
                     ]
                 );
             }
         } catch (CognitoIdentityProviderException $exception) {
             throw $exception;
+        } catch (UserNotFoundException $exception) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $exception->getCode(),
+                    'StatusDescription' => $exception->getMessage()
+                ], 404
+            );
         }
+
+        return response()->json(
+            [
+                'status' => 'error',
+                'StatusCode' => 500,
+                'StatusDescription' => "Something wrong"
+            ], 404
+        );
     }
 
     /**

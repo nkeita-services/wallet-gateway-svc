@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 use Infrastructure\Secrets\SecretManagerInterface;
 use Wallet\Wallet\User\Service\Authentification\AuthenticationService;
 use Wallet\Wallet\User\Service\Authentification\AuthenticationServiceInterface;
+use Wallet\Wallet\User\Service\UserServiceInterface;
 
 class AuthenticationServiceProvider extends ServiceProvider
 {
@@ -19,7 +20,8 @@ class AuthenticationServiceProvider extends ServiceProvider
                 $app->make('Aws::Cognito::IdentityProvider'),
                 $app->make('Aws::Pinpoint::Provider'),
                 $app->make(SecretManagerInterface::class)->get('AWS_COGNITO_USER_POOL_CLIENT_ID'),
-                $app->make(SecretManagerInterface::class)->get('AWS_COGNITO_USER_POOL_ID')
+                $app->make(SecretManagerInterface::class)->get('AWS_COGNITO_USER_POOL_ID'),
+                $app->make(UserServiceInterface::class)
             );
         });
     }

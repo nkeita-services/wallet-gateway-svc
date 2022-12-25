@@ -88,6 +88,19 @@ interface UserEntityInterface
     /**
      * @return array
      */
+    public function getNotification(): array;
+
+    /**
+     * @param array $notification
+     * @return UserEntityInterface
+     */
+    public function setNotification(
+        array $notification
+    ): UserEntityInterface;
+
+    /**
+     * @return array
+     */
     public function getWalletOrganizations(): array;
 
     /**
