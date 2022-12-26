@@ -95,7 +95,5 @@ class UpdateUserNotifyController extends Controller
                 ], 404
             );
         }
-
     }
-
 }
