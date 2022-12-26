@@ -16,4 +16,13 @@ interface TransferServiceInterface
     public function create(
         TransferEntityInterface $transferEntity
     ): TransferEntityInterface;
+
+
+    /**
+     * @param TransferEntityInterface $transferEntity
+     * @return mixed
+     */
+    public function walletToWallet(
+        TransferEntityInterface $transferEntity
+    ): TransferEntityInterface;
 }

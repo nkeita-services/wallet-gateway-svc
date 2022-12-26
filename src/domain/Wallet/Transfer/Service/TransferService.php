@@ -133,4 +133,13 @@ class TransferService implements TransferServiceInterface
 
        return $transferEntity;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function walletToWallet(
+        TransferEntityInterface $transferEntity
+    ): TransferEntityInterface {
+
+    }
 }

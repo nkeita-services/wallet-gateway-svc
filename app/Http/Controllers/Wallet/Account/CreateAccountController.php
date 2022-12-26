@@ -46,7 +46,12 @@ class CreateAccountController extends Controller
             [
                 'userId' => ['required', 'string', app(WalletUserIdRule::class)],
                 'walletPlanId' => ['required', 'string', app(WalletPlanIdRule::class)],
-                'accountType' => ['required', 'string', Rule::in(['personal', 'business'])],
+                'accountType' => [
+                    'required',
+                    'string',
+                    Rule::in(
+                        ['personal', 'business', 'tontine']
+                    )],
                 'name' => ['required', 'string']
             ]
         );

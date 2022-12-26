@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Wallet\Remittances;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Wallet\Remittances\Mapper\TransferMapper;
 use App\Http\Controllers\Wallet\Remittances\Mapper\TransferMapperInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Wallet\Wallet\Transfer\Service\TransferService;
 use Wallet\Wallet\Transfer\Service\TransferServiceInterface;
@@ -35,6 +36,10 @@ class CreateTransferController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function create(
         Request $request
     ){
@@ -51,10 +56,14 @@ class CreateTransferController extends Controller
                     ]
                 ]
             );
-        } catch (\Exception $e) {
-            die($e->getMessage());
+        } catch (\Exception $exception) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $exception->getCode(),
+                    'StatusDescription' => $exception->getMessage()
+                ], 404
+            );
         }
     }
-
-
 }
