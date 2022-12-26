@@ -63,4 +63,11 @@ interface UserServiceInterface
         array $mobileNumbers
     ): array;
 
+    /**
+     * @param string $userId
+     * @param array $userPayload
+     * @return mixed
+     */
+    public function updateNotify(string $userId, array $userPayload);
+
 }

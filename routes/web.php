@@ -75,6 +75,20 @@ $router->get('v1/wallets/users/{userId}', [
     ]
 ]);
 
+$router->put('/v1/wallets/users/{userId}/update/notify', [
+    'uses' => 'Wallet\User\UpdateUserNotifyController@updateNotify',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/WalletUserWrite',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
+
+
+
 $router->post('v1/wallets/users/{userId}/accounts', [
     'uses' => 'Wallet\Account\CreateAccountController@create',
     'middleware'=>'auth',

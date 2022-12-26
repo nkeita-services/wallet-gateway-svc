@@ -33,8 +33,10 @@ class UserRepository implements UserRepositoryInterface
      * @param array $organizations
      * @return UserEntityInterface
      */
-    public function create(UserEntityInterface $userEntity, array $organizations): UserEntityInterface
-    {
+    public function create(
+        UserEntityInterface $userEntity,
+        array $organizations
+    ): UserEntityInterface {
         return $this->userApiClient->create(
             $userEntity
                 ->setWalletOrganizations(
@@ -120,5 +122,21 @@ class UserRepository implements UserRepositoryInterface
         );
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function updateNotify(string $userId, array $userPayload)
+    {
+        try {
+            return $this->userApiClient->updateNotify(
+                $userId,
+                $userPayload
+            );
+        } catch (ApiClientUserNotFoundException $e) {
+            throw new UserNotFoundException(
+                $e->getMessage()
+            );
+        }
+    }
 
 }

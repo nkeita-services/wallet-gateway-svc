@@ -168,8 +168,7 @@ class UserApiGuzzleHttpClient implements UserApiClientInterface
     }
 
     /**
-     * @param array $mobileNumbers
-     * @return array
+     * @inheritDoc
      */
     public function fetchAllAppUser(
         array $mobileNumbers
@@ -189,5 +188,18 @@ class UserApiGuzzleHttpClient implements UserApiClientInterface
         }
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function updateNotify(string $userId, array $userPayload)
+    {
+        $response = $this->guzzleClient->patch(
+            sprintf('/v1/users/%s', $userId),
+            [RequestOptions::JSON => $userPayload]
+        );
 
+        return $this->userMapper->createUserFromApiResponse(
+            $response
+        );
+    }
 }

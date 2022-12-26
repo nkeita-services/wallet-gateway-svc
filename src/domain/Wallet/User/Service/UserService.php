@@ -116,5 +116,20 @@ class UserService implements UserServiceInterface
             );
     }
 
-
+    /**
+     * @inheritDoc
+     */
+    public function updateNotify(string $userId, array $userPayload)
+    {
+        try {
+            return $this->userRepository->updateNotify(
+                $userId,
+                $userPayload
+            );
+        } catch (RepositoryUserNotFoundException $e) {
+            throw new UserNotFoundException(
+                $e->getMessage()
+            );
+        }
+    }
 }

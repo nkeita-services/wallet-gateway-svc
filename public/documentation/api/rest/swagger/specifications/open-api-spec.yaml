@@ -145,6 +145,8 @@ paths:
     $ref: 'open-api-wallet-account-users-spec.yaml'
   /v1/wallets/users/{userId}:
     $ref: 'open-api-wallet-account-user-spec.yaml'
+  /v1/wallets/users/{userId}/update/notify:
+    $ref: 'open-api-wallet-account-user-update-notify-spec.yaml'
   /v1/wallets/users/{userId}/accounts:
     $ref: 'open-api-wallet-accounts-spec.yaml'
   /v1/wallets/users/{userId}/accounts/{accountId}:
@@ -500,6 +502,10 @@ components:
           type: string
           description: User mobile device Token
           example: "dqdzdfzdcxxxxxx13122322"
+        deviceOs:
+          type: string
+          description: User mobile device OS
+          example: "ANDROID"
         address:
           $ref: '#/components/schemas/Address'
     WalletAccountUsers:
@@ -1097,6 +1103,13 @@ components:
             2123445
 
 
+    UpdateUserNotifyRequest:
+      type: object
+      properties:
+        notify:
+          type: boolean
+          description: user notify
+          example: false
     EnableAndDisableUserRequest:
       type: object
       properties:

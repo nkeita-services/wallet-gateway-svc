@@ -1,0 +1,35 @@
+put:
+  summary: Update User Data notify
+  security:
+    - oAuth2:
+        - WalletUserWrite
+  tags:
+    - Wallet Account Users
+  parameters:
+    - in: path
+      required: true
+      name: userId
+      schema:
+        type: string
+  requestBody:
+    description: The wallet user data
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/UpdateUserNotifyRequest'
+  responses:
+    '200':
+      description: Successfully patched wallet user
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletAccountUser:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountUserWithId'
