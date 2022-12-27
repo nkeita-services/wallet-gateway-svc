@@ -191,7 +191,7 @@ class UserApiGuzzleHttpClient implements UserApiClientInterface
     /**
      * @inheritDoc
      */
-    public function updateNotify(string $userId, array $userPayload)
+    public function update(string $userId, array $userPayload)
     {
         $response = $this->guzzleClient->patch(
             sprintf('/v1/users/%s', $userId),

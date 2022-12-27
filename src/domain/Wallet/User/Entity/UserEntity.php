@@ -315,6 +315,14 @@ class UserEntity implements UserEntityInterface
         return $this->device;
     }
 
+    /** @inheritDoc */
+    public function setDevice(
+        array $device
+    ): UserEntityInterface{
+        $this->device = $device;
+        return $this;
+    }
+
 
     /** @inheritDoc */
     public function getNotification(): array
@@ -325,8 +333,7 @@ class UserEntity implements UserEntityInterface
     /** @inheritDoc */
     public function setNotification(
         array $notification
-    ): UserEntityInterface
-    {
+    ): UserEntityInterface {
         $this->notification = $notification;
         return $this;
     }

@@ -86,6 +86,12 @@ interface UserEntityInterface
     public function getDevice(): array;
 
     /**
+     * @param array $device
+     * @return UserEntityInterface
+     */
+    public function setDevice(array $device): UserEntityInterface;
+
+    /**
      * @return array
      */
     public function getNotification(): array;

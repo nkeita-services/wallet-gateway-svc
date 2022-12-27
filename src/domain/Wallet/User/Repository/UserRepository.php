@@ -125,10 +125,10 @@ class UserRepository implements UserRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function updateNotify(string $userId, array $userPayload)
+    public function update(string $userId, array $userPayload)
     {
         try {
-            return $this->userApiClient->updateNotify(
+            return $this->userApiClient->update(
                 $userId,
                 $userPayload
             );

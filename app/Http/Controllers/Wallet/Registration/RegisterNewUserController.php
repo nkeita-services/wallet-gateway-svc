@@ -99,7 +99,7 @@ class RegisterNewUserController extends Controller
                 'address.state' => ['required', 'string'],
                 'address.country' => ['required', 'string'],
                 'language' => ['required', 'string'],
-                'deviceToken' => ['required', 'string'],
+                //'deviceToken' => ['required', 'string'],
                 //'deviceOs' => ['required', 'string'],
                 'group' => ['required', 'string'],
             ]

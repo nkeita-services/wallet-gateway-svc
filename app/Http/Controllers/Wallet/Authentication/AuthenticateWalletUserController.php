@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Wallet\Wallet\User\Service\Authentification\AuthenticationServiceInterface;
 use Wallet\Wallet\User\Entity\AwsRequestEntity;
+use Wallet\Wallet\User\Service\UserServiceInterface;
 
 class AuthenticateWalletUserController extends Controller
 {
@@ -20,12 +21,21 @@ class AuthenticateWalletUserController extends Controller
     private $userAuthenticationService;
 
     /**
+     * @var UserServiceInterface
+     */
+    private $userService;
+
+    /**
      * AuthenticateWalletUserController constructor.
      * @param AuthenticationServiceInterface $userAuthenticationService
+     * @param UserServiceInterface $userService
      */
-    public function __construct(AuthenticationServiceInterface $userAuthenticationService)
-    {
+    public function __construct(
+        AuthenticationServiceInterface $userAuthenticationService,
+        UserServiceInterface $userService
+    ) {
         $this->userAuthenticationService = $userAuthenticationService;
+        $this->userService = $userService;
     }
 
 
@@ -113,6 +123,20 @@ class AuthenticateWalletUserController extends Controller
                         ]
                     )
                 );
+
+            $userEntity = $this->userService->fetch($userAuthentication['userId']);
+            $device = [
+                "deviceToken" => $request->get('deviceToken', ""),
+                "deviceOs" => $request->get('deviceOs', ""),
+            ];
+            $userEntity->setDevice($device);
+
+            $this->userService->update(
+                $userAuthentication['userId'],
+                $userEntity->toArray()
+            );
+
+
         } catch(CognitoIdentityProviderException $c) {
             return response()->json(
                 [

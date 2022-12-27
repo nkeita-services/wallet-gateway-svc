@@ -69,6 +69,6 @@ interface UserRepositoryInterface
      * @param array $userPayload
      * @return mixed
      */
-    public function updateNotify(string $userId, array $userPayload);
+    public function update(string $userId, array $userPayload);
 
 }

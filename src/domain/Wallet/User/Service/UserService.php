@@ -119,10 +119,10 @@ class UserService implements UserServiceInterface
     /**
      * @inheritDoc
      */
-    public function updateNotify(string $userId, array $userPayload)
+    public function update(string $userId, array $userPayload)
     {
         try {
-            return $this->userRepository->updateNotify(
+            return $this->userRepository->update(
                 $userId,
                 $userPayload
             );
