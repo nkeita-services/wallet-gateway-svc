@@ -110,6 +110,9 @@ class AuthenticateWalletUserController extends Controller
             );
         }
 
+        $deviceToken = $request->get('deviceToken', "");
+        $deviceOs = $request->get('deviceOs', "");
+
         try {
 
             $userAuthentication = $this
@@ -124,18 +127,26 @@ class AuthenticateWalletUserController extends Controller
                     )
                 );
 
-            $userEntity = $this->userService->fetch($userAuthentication['userId']);
-            $device = [
-                "deviceToken" => $request->get('deviceToken', ""),
-                "deviceOs" => $request->get('deviceOs', ""),
-            ];
-            $userEntity->setDevice($device);
 
-            $this->userService->update(
-                $userAuthentication['userId'],
-                $userEntity->toArray()
-            );
+            if ($deviceToken &&  $deviceOs) {
 
+                $userEntity = $this
+                    ->userService
+                    ->fetch(
+                        $userAuthentication['userId']
+                    );
+                $userEntity->setDevice(
+                    [
+                        "deviceToken" => $deviceToken,
+                        "deviceOs" => $deviceOs,
+                    ]
+                );
+
+                $this->userService->update(
+                    $userAuthentication['userId'],
+                    $userEntity->toArray()
+                );
+            }
 
         } catch(CognitoIdentityProviderException $c) {
             return response()->json(
