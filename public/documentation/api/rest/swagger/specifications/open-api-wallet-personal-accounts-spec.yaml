@@ -1,0 +1,28 @@
+get:
+  summary: Obtain a list of personal wallet accounts
+  security:
+    - oAuth2:
+        - WalletUserRead
+  tags:
+    - Wallet Accounts
+  parameters:
+    - in: path
+      required: true
+      name: userId
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successfully obtained the list of personal wallet accounts
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletAccounts:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountsWithId'
