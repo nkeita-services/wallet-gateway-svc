@@ -269,7 +269,7 @@ $router->post('v1/wallets/remittances', [
     ]
 ]);
 
-$router->post('v1/wallets/remittances/walletToWallet', [
+$router->post('v1/wallets/walletToWallet/remittances', [
     'uses' => 'Wallet\Remittances\CreateTransferController@createWalletToWallet',
     'middleware'=>'auth',
     'as'=>'wallet-gateway/CreateUsers',
