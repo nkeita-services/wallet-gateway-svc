@@ -149,6 +149,8 @@ paths:
     $ref: 'open-api-wallet-account-user-update-notify-spec.yaml'
   /v1/wallets/users/{userId}/accounts:
     $ref: 'open-api-wallet-accounts-spec.yaml'
+  /v1/wallets/users/{userId}/personal/accounts:
+    $ref: 'open-api-wallet-personal-accounts-spec.yaml'
   /v1/wallets/users/{userId}/accounts/{accountId}:
     $ref: 'open-api-wallet-account-spec.yaml'
   /v1/wallets/users/{userId}/accounts/{accountId}/balance/topUp:
@@ -193,6 +195,8 @@ paths:
     $ref: 'open-api-wallet-quote-fees-spec.yaml'
   /v1/wallets/remittances:
     $ref: 'open-api-wallet-remittances-spec.yaml'
+  /v1/wallets/walletToWallet/remittances:
+    $ref: 'open-api-wallet-to-wallet-remittances-spec.yaml'
 
   /v1/authentication/oauth2/token/{clientId}/{clientSecret}:
     $ref: 'open-api-wallet-authentication-oauth2-spec.yaml'

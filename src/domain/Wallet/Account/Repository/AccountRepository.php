@@ -57,6 +57,21 @@ class AccountRepository implements AccountRepositoryInterface
     /**
      * @inheritDoc
      */
+    public function fetchAllPersonalWithUserAndOrganizations(
+        string $userId,
+        array $organizations
+    ): AccountCollectionInterface
+    {
+        return $this
+            ->accountApiClient
+            ->fetchAllPersonal([
+                'userId' => $userId
+            ]);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function updateWithUserAndAccountAndOrganizations(
         ?string $userId,
         string $accountId,

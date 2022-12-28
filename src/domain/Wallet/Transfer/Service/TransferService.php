@@ -4,6 +4,7 @@
 namespace Wallet\Wallet\Transfer\Service;
 
 
+use Wallet\Wallet\Account\Entity\AccountEntityInterface;
 use Wallet\Wallet\Account\Entity\TransactionEntityInterface;
 use Wallet\Wallet\Account\Service\AccountServiceInterface;
 use Wallet\Wallet\Account\Entity\TransactionEntity;
@@ -134,12 +135,92 @@ class TransferService implements TransferServiceInterface
        return $transferEntity;
     }
 
+    public function nameFormat(
+        AccountEntityInterface $accountEntity
+    ): string {
+        $senderDetail = "";
+
+        if ($accountEntity->getAccountType() == "personal")
+        {
+            $sender = $this
+                ->userService
+                ->fetch(
+                    $accountEntity->getUserId()
+                );
+            $senderDetail = sprintf('%s %s', $sender->getFirstName(), $sender->getLastName());
+        } else {
+            if ($accountEntity->getAccountType() == "tontine")
+                $senderDetail = sprintf('Tontine %s', $accountEntity->getName());
+            else
+                $senderDetail = $accountEntity->getName();
+        }
+
+        return $senderDetail;
+    }
+
     /**
      * @inheritDoc
      */
     public function walletToWallet(
         TransferEntityInterface $transferEntity
     ): TransferEntityInterface {
+        // Debit Sender Account
+        $senderAccount = $this->accountService->fetchWithAccountId(
+            $transferEntity->senderAccountId()
+        );
 
+        $this
+            ->accountService
+            ->debit(
+                $senderAccount->getUserId(),
+                $transferEntity->senderAccountId(),
+                $senderAccount->getOrganizations(),
+                $transferEntity->getAmount()
+            );
+
+        // TopUp Receiver Account
+        $receiverAccount = $this->accountService->fetchWithAccountId(
+            $transferEntity->receiverAccountId()
+        );
+
+
+        $this
+            ->transactionService
+            ->create(
+                new TransactionEntity(
+                    TransactionEntityInterface::TRANSACTION_TYPE_DEBIT,
+                    $senderAccount->getUserId(),
+                    $transferEntity->senderAccountId(),
+                    $transferEntity->getAmount(),
+                    sprintf('Transfer to %s', $this->nameFormat($receiverAccount)),
+                    current($senderAccount->getOrganizations()),
+                    ''
+                )
+            );
+
+        $this
+            ->accountService
+            ->topUp(
+                $receiverAccount->getUserId(),
+                $receiverAccount->getAccountId(),
+                $receiverAccount->getOrganizations(),
+                $transferEntity->getAmount()
+            );
+
+        $this
+            ->transactionService
+            ->create(
+                new TransactionEntity(
+                    TransactionEntityInterface::TRANSACTION_TYPE_CREDIT,
+                    $receiverAccount->getUserId(),
+                    $receiverAccount->getAccountId(),
+                    $transferEntity->getAmount(),
+                    sprintf('Received from %s ', $this->nameFormat($senderAccount)),
+                    current($receiverAccount->getOrganizations()),
+                    ''
+                )
+            );
+
+        return $transferEntity;
     }
 }

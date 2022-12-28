@@ -60,6 +60,22 @@ class AccountService implements AccountServiceInterface
     /**
      * @inheritDoc
      */
+    public function fetchAllPersonalWithUserAndOrganizations(
+        string $userId,
+        array $organizations
+    ): AccountCollectionInterface
+    {
+        return $this
+            ->accountRepository
+            ->fetchAllPersonalWithUserAndOrganizations(
+                $userId,
+                $organizations
+            );
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function updateWithUserAndAccountAndOrganizations(
         string $userId,
         string $accountId,

@@ -33,6 +33,17 @@ interface AccountServiceInterface
 
     /**
      * @param string $userId
+     * @param array $organizations
+     * @return AccountCollectionInterface
+     */
+    public function fetchAllPersonalWithUserAndOrganizations(
+        string $userId,
+        array $organizations
+    ): AccountCollectionInterface;
+
+
+    /**
+     * @param string $userId
      * @param string $accountId
      * @param array $organizations
      * @param array $data

@@ -66,4 +66,35 @@ class CreateTransferController extends Controller
             );
         }
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function createWalletToWallet(
+        Request $request
+    ){
+        try {
+            return response()->json(
+                [
+                    'status' => 'success',
+                    'data' => [
+                        'transfer' => $this->transferService->walletToWallet(
+                            $this->transferMapper::createTransferFromHttpRequest(
+                                $request
+                            )
+                        )->toArray()
+                    ]
+                ]
+            );
+        } catch (\Exception $exception) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $exception->getCode(),
+                    'StatusDescription' => $exception->getMessage()
+                ], 404
+            );
+        }
+    }
 }

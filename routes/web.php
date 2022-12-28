@@ -111,6 +111,17 @@ $router->get('v1/wallets/users/{userId}/accounts', [
     ]
 ]);
 
+$router->get('v1/wallets/users/{userId}/personal/accounts', [
+    'uses' => 'Wallet\Account\FetchUserPersonalAccountsController@fetch',
+    'middleware'=>'auth',
+    'as'=>"wallet-gateway/WalletUserRead",
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
 $router->patch('v1/wallets/users/{userId}/accounts/{accountId}', [
     'uses' => 'Wallet\Account\UpdateAccountController@update',
     'middleware'=>'auth',
@@ -249,6 +260,17 @@ $router->get('v1/wallets/organizations/accounts/{accountId}/transactions', [
 
 $router->post('v1/wallets/remittances', [
     'uses' => 'Wallet\Remittances\CreateTransferController@create',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/CreateUsers',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
+$router->post('v1/wallets/remittances/walletToWallet', [
+    'uses' => 'Wallet\Remittances\CreateTransferController@createWalletToWallet',
     'middleware'=>'auth',
     'as'=>'wallet-gateway/CreateUsers',
     'groups'=> [

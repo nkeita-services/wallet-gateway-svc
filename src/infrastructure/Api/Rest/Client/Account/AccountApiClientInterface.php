@@ -20,6 +20,14 @@ interface AccountApiClientInterface
      */
     public function fetchAll(array $filter): AccountCollectionInterface;
 
+
+    /**
+     * @param array $filter
+     * @return AccountCollectionInterface
+     */
+    public function fetchAllPersonal(array $filter): AccountCollectionInterface;
+
+
     /**
      * @param string $accountId
      * @param array $data

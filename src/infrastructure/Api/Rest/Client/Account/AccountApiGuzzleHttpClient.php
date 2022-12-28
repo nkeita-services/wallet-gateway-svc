@@ -65,6 +65,22 @@ class AccountApiGuzzleHttpClient implements AccountApiClientInterface
     /**
      * @inheritDoc
      */
+    public function fetchAllPersonal(array $filter): AccountCollectionInterface
+    {
+        $response = $this->guzzleClient->get('/v1/personal/accounts', [
+            RequestOptions::QUERY => $filter
+        ]);
+
+        return $this
+            ->accountMapper
+            ->createAccountCollectionFromApiResponse(
+                $response
+            );
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function update(string $accountId, array $data): AccountEntityInterface
     {
         $response = $this->guzzleClient->patch(sprintf('/v1/accounts/%s', $accountId), [
