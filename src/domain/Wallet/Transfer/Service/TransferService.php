@@ -164,10 +164,14 @@ class TransferService implements TransferServiceInterface
     public function walletToWallet(
         TransferEntityInterface $transferEntity
     ): TransferEntityInterface {
+
+
         // Debit Sender Account
         $senderAccount = $this->accountService->fetchWithAccountId(
             $transferEntity->senderAccountId()
         );
+
+        //var_dump($senderAccount->getAccountType());die();
 
         $this
             ->accountService
@@ -182,7 +186,6 @@ class TransferService implements TransferServiceInterface
         $receiverAccount = $this->accountService->fetchWithAccountId(
             $transferEntity->receiverAccountId()
         );
-
 
         $this
             ->transactionService

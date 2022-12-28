@@ -123,7 +123,7 @@ class TransferEntity implements TransferEntityInterface
      */
     public function receiverAccountId(): string
     {
-        return $this->receiver['accountId'];
+        return $this->receiver['beneficiaryId'];
     }
 
     /**
