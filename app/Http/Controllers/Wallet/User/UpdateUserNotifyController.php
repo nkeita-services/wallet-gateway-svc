@@ -64,6 +64,9 @@ class UpdateUserNotifyController extends Controller
             );
         }
 
+        $deviceToken = $request->get('deviceToken', "");
+        $deviceOs = $request->get('deviceOs', "");
+
         $userEntity = $this->userService->fetch($userId);
 
         $userEntity->setNotification(
@@ -73,12 +76,21 @@ class UpdateUserNotifyController extends Controller
             ]
         );
 
+        if( $deviceToken && $deviceOs) {
+            $userEntity->setDevice([
+                [
+                    'deviceToken' => $deviceToken,
+                    'deviceOs' => $deviceOs
+                ]
+            ]);
+        }
+
         try {
             return response()->json(
                 [
                     'status' => 'success',
                     'data' => [
-                        'walletAccountUser' => $this->userService->updateNotify(
+                        'walletAccountUser' => $this->userService->update(
                             $userId,
                             $userEntity->toArray()
                         )->toArray()
