@@ -93,11 +93,11 @@ class RegisterNewUserController extends Controller
                     app(UserMobileNumberRule::class)
                 ],
                 'address.streetName' => ['required', 'string'],
-                'address.streetNumber' => ['required', 'string'],
-                'address.city' => ['required', 'string'],
+                //'address.streetNumber' => ['required', 'string'],
+                //'address.city' => ['required', 'string'],
                 'address.postCode' => ['required', 'string'],
-                'address.state' => ['required', 'string'],
-                'address.country' => ['required', 'string'],
+                //'address.state' => ['required', 'string'],
+                //'address.country' => ['required', 'string'],
                 'language' => ['required', 'string'],
                 //'deviceToken' => ['required', 'string'],
                 //'deviceOs' => ['required', 'string'],
@@ -133,11 +133,11 @@ class RegisterNewUserController extends Controller
                             "nationality" => $request->get('nationality'),
                             "address" => [
                                 "streetName" => $address['streetName'],
-                                "streetNumber" => $address['streetNumber'],
-                                "city"=> $address['city'],
+                                "streetNumber" => $address['streetNumber'] ?? null,
+                                "city"=> $address['city'] ?? null,
                                 "postCode"=> $address['postCode'],
-                                "state"=> $address['state'],
-                                "country"=> $address['country']
+                                "state"=> $address['state'] ?? null,
+                                "country"=> $address['country'] ?? null
                             ],
                             "mobileNumber" => $request->get('mobileNumber'),
                             "language" => $request->get('language'),
