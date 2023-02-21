@@ -131,8 +131,8 @@ class AuthenticateWalletUserController extends Controller
                 ->authenticate(
                     AwsRequestEntity::fromArray(
                         [
-                            'email' => urldecode($request->json()->get('userName')),
-                            'username' => urldecode($request->json()->get('userName')),
+                            'email' => urldecode(strtolower($request->json()->get('userName'))),
+                            'username' => urldecode(strtolower($request->json()->get('userName'))),
                             'password' => urldecode($request->json()->get('userPassword'))
                         ]
                     )
