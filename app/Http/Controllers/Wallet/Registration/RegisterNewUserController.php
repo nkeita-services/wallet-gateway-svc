@@ -156,9 +156,9 @@ class RegisterNewUserController extends Controller
             $this
                 ->userAuthenticationService
                 ->register(
-                    $request->get('email'),
+                    strtolower($request->get('email')),
                     $request->get('password'),
-                    $request->get('email'),
+                    strtolower($request->get('email')),
                     $request->get('mobileNumber'),
                     $userEntity->getUserId()
                 )->addUserToGroup(
