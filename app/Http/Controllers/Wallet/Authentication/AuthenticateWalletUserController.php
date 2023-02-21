@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Wallet\Wallet\Document\Service\ComplianceServiceInterface;
 use Wallet\Wallet\User\Service\Authentification\AuthenticationServiceInterface;
 use Wallet\Wallet\User\Entity\AwsRequestEntity;
 use Wallet\Wallet\User\Service\UserServiceInterface;
@@ -26,16 +27,26 @@ class AuthenticateWalletUserController extends Controller
     private $userService;
 
     /**
+     * @var ComplianceServiceInterface
+     */
+    private $complianceService;
+
+
+    /**
      * AuthenticateWalletUserController constructor.
      * @param AuthenticationServiceInterface $userAuthenticationService
      * @param UserServiceInterface $userService
+     * @param ComplianceServiceInterface $complianceService
      */
     public function __construct(
         AuthenticationServiceInterface $userAuthenticationService,
-        UserServiceInterface $userService
+        UserServiceInterface $userService,
+        ComplianceServiceInterface $complianceService
+
     ) {
         $this->userAuthenticationService = $userAuthenticationService;
         $this->userService = $userService;
+        $this->complianceService = $complianceService;
     }
 
 
@@ -148,6 +159,11 @@ class AuthenticateWalletUserController extends Controller
                 );
             }
 
+
+            /*$this->complianceService->getUserKyc(
+                $userAuthentication['userId']
+            );*/
+
         } catch(CognitoIdentityProviderException $c) {
             return response()->json(
                 [
@@ -188,7 +204,7 @@ class AuthenticateWalletUserController extends Controller
                     'data' => $this
                         ->userAuthenticationService
                         ->forgotPassword(
-                            urldecode($userName),
+                            urldecode($userName)
                     )
                 ]
             );

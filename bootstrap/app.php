@@ -9,10 +9,13 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Providers\Domain\Wallet\Fee\Fee\Repository\FeeRepositoryProvider;
 use App\Providers\Domain\Wallet\Fee\Fee\Service\FeeServiceProvider;
+use App\Providers\Domain\Wallet\User\Document\Repository\ComplianceRepositoryApiProvider;
+use App\Providers\Domain\Wallet\User\Document\Service\ComplianceServiceApiProvider;
 use App\Providers\Infrastructure\Api\Rest\Client\Account\AccountApiClientProvider;
 use App\Providers\Domain\Wallet\Account\Service\AccountServiceProvider;
 use App\Providers\Domain\Wallet\Account\Respository\AccountRepositoryProvider;
 use App\Providers\Infrastructure\Api\Rest\Client\Fee\Fee\FeeApiClientProvider;
+use App\Providers\Infrastructure\Api\Rest\Client\User\Document\ComplianceApiProvider;
 use App\Providers\Infrastructure\Api\Rest\Client\User\UserApiClientProvider;
 use App\Providers\Domain\Wallet\User\Repository\UserRepositoryProvider;
 use App\Providers\Domain\Wallet\User\Service\UserServiceProvider;
@@ -181,6 +184,10 @@ $app->register(RegionServiceProvider::class);
 $app->register(FeeApiClientProvider::class);
 $app->register(FeeRepositoryProvider::class);
 $app->register(FeeServiceProvider::class);
+
+$app->register(ComplianceApiProvider::class);
+$app->register(ComplianceRepositoryApiProvider::class);
+$app->register(ComplianceServiceApiProvider::class);
 
 //$app->register(\App\Providers\AuthServiceProvider::class);
 

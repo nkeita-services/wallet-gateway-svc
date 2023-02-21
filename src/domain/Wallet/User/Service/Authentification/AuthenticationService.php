@@ -6,6 +6,7 @@ namespace Wallet\Wallet\User\Service\Authentification;
 use Exception;
 use Aws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException;
+use Wallet\Wallet\Document\Service\ComplianceServiceInterface;
 use Wallet\Wallet\User\Entity\AwsRequestEntityInterface;
 use Aws\Pinpoint\PinpointClient;
 use Wallet\Wallet\User\Service\Exception\UserNotFoundException;
@@ -41,25 +42,33 @@ class AuthenticationService implements AuthenticationServiceInterface
     private $userService;
 
     /**
+     * @var ComplianceServiceInterface
+     */
+    private $complianceService;
+
+    /**
      * AuthenticationService constructor.
      * @param CognitoIdentityProviderClient $cognitoIdentityProviderClient
      * @param PinpointClient $pinpointClientClient
      * @param string $clientId
      * @param string $userPoolId
      * @param UserServiceInterface $userService
+     * @param ComplianceServiceInterface $complianceService
      */
     public function __construct(
         CognitoIdentityProviderClient $cognitoIdentityProviderClient,
         PinpointClient $pinpointClientClient,
         string $clientId,
         string $userPoolId,
-        UserServiceInterface $userService
+        UserServiceInterface $userService,
+        ComplianceServiceInterface $complianceService
     ) {
         $this->cognitoIdentityProviderClient = $cognitoIdentityProviderClient;
         $this->pinpointClientClient = $pinpointClientClient;
         $this->clientId = $clientId;
         $this->userPoolId = $userPoolId;
         $this->userService = $userService;
+        $this->complianceService = $complianceService;
     }
 
 
@@ -154,11 +163,16 @@ class AuthenticationService implements AuthenticationServiceInterface
 
                 $userEntity = $this->userService->fetch($userId);
 
+
+
                 return array_merge(
                     $result->get('AuthenticationResult'),
                     [
                         'userId' =>  $userId,
-                        'notification' => $userEntity->getNotification()
+                        'notification' => $userEntity->getNotification(),
+                        'UserKycDetails' => $this->complianceService->getUserKyc(
+                            $userId
+                        )
                     ]
                 );
             }

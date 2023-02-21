@@ -6,6 +6,7 @@ namespace App\Providers\Domain\Wallet\User\Service\Authentification;
 
 use Illuminate\Support\ServiceProvider;
 use Infrastructure\Secrets\SecretManagerInterface;
+use Wallet\Wallet\Document\Service\ComplianceServiceInterface;
 use Wallet\Wallet\User\Service\Authentification\AuthenticationService;
 use Wallet\Wallet\User\Service\Authentification\AuthenticationServiceInterface;
 use Wallet\Wallet\User\Service\UserServiceInterface;
@@ -21,7 +22,8 @@ class AuthenticationServiceProvider extends ServiceProvider
                 $app->make('Aws::Pinpoint::Provider'),
                 $app->make(SecretManagerInterface::class)->get('AWS_COGNITO_USER_POOL_CLIENT_ID'),
                 $app->make(SecretManagerInterface::class)->get('AWS_COGNITO_USER_POOL_ID'),
-                $app->make(UserServiceInterface::class)
+                $app->make(UserServiceInterface::class),
+                $app->make(ComplianceServiceInterface::class)
             );
         });
     }
