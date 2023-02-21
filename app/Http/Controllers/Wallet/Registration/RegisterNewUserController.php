@@ -126,7 +126,7 @@ class RegisterNewUserController extends Controller
                 ->create(
                     UserEntity::fromArray(
                         [
-                            "email" => $request->get('email'),
+                            "email" => strtolower($request->get('email')),
                             "firstName" => $request->get('firstName'),
                             "lastName" => $request->get('lastName'),
                             "birthDay" => $request->get('birthDay'),
