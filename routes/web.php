@@ -410,6 +410,28 @@ $router->post('v1/authentication/users/enable', [
     ]
 ]);
 
+$router->post('v1/authentication/users/refresh/token', [
+    'uses' => 'Wallet\Authentication\AuthenticateWalletUserController@refreshToken',
+    'middleware'=>'auth',
+    'as'=>'adl-gateway/AuthenticateUsers',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
+$router->post('v1/authentication/users/token/signOut', [
+    'uses' => 'Wallet\Authentication\AuthenticateWalletUserController@signOut',
+    'middleware'=>'auth',
+    'as'=>'adl-gateway/AuthenticateUsers',
+    'groups'=> [
+        'root',
+        'admin',
+        'user'
+    ]
+]);
+
 #----------------------------------------- End ----------------------------------------------------------------
 
 

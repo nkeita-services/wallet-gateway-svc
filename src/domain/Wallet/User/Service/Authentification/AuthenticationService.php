@@ -4,6 +4,7 @@
 namespace Wallet\Wallet\User\Service\Authentification;
 
 use Exception;
+use Aws\Result;
 use Aws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException;
 use Wallet\Wallet\Document\Service\ComplianceServiceInterface;
@@ -15,6 +16,13 @@ use Wallet\Wallet\User\Service\UserServiceInterface;
 
 class AuthenticationService implements AuthenticationServiceInterface
 {
+
+    /**
+     * Constant representing the not authorized exception.
+     *
+     * @var string
+     */
+    const COGNITO_NOT_AUTHORIZED_ERROR = 'NotAuthorizedException';
 
     /**
      * @var CognitoIdentityProviderClient
@@ -37,6 +45,11 @@ class AuthenticationService implements AuthenticationServiceInterface
     private $userPoolId;
 
     /**
+     * @var bool
+     */
+    protected $boolClientSecret;
+
+    /**
      * @var UserServiceInterface
      */
     private $userService;
@@ -52,6 +65,7 @@ class AuthenticationService implements AuthenticationServiceInterface
      * @param PinpointClient $pinpointClientClient
      * @param string $clientId
      * @param string $userPoolId
+     * @param bool $boolClientSecret
      * @param UserServiceInterface $userService
      * @param ComplianceServiceInterface $complianceService
      */
@@ -60,6 +74,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         PinpointClient $pinpointClientClient,
         string $clientId,
         string $userPoolId,
+        bool $boolClientSecret,
         UserServiceInterface $userService,
         ComplianceServiceInterface $complianceService
     ) {
@@ -67,14 +82,42 @@ class AuthenticationService implements AuthenticationServiceInterface
         $this->pinpointClientClient = $pinpointClientClient;
         $this->clientId = $clientId;
         $this->userPoolId = $userPoolId;
+        $this->boolClientSecret = $boolClientSecret;
         $this->userService = $userService;
         $this->complianceService = $complianceService;
     }
 
+    /**
+     * Creates a HMAC from a string.
+     *
+     * @param string $message
+     * @return string
+     */
+    protected function hash($message)
+    {
+        $hash = hash_hmac(
+            'sha256',
+            $message,
+            "",
+            true
+        );
+
+        return base64_encode($hash);
+    }
+
 
     /**
-     * @inheritDoc
+     * Creates the Cognito secret hash.
+     * @param string $username
+     * @return string
      */
+    protected function cognitoSecretHash($username)
+    {
+        return $this->hash($username . $this->clientId);
+    }
+
+
+    /*** @inheritDoc */
     public function register(
         string $username,
         string $password,
@@ -109,10 +152,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         return $this;
     }
 
-
-    /**
-     * @inheritDoc
-     */
+    /*** @inheritDoc */
     public function addUserToGroup(string $username, string $groupName)
     {
         $this
@@ -127,30 +167,17 @@ class AuthenticationService implements AuthenticationServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * @param Result $result
+     * @return array
      * @throws Exception
      */
-    public function authenticate(
-        AwsRequestEntityInterface $awsRequestEntity
-    ) {
-
+    public function formatAuthResult(Result $result): array
+    {
         try {
-            $result = $this
-                ->cognitoIdentityProviderClient
-                ->initiateAuth([
-                    'AuthFlow' => 'USER_PASSWORD_AUTH',
-                    'AuthParameters' => [
-                        'USERNAME' => $awsRequestEntity->getEmail(),
-                        'PASSWORD' => $awsRequestEntity->getPassword()
-                    ],
-                    'ClientId' => $this->clientId
-                ]);
-
             if (
                 $result->hasKey('AuthenticationResult') &&
                 isset($result->get('AuthenticationResult')['AccessToken'])
-            )
-            {
+            ) {
                 $userData = array_filter($this->getUser(
                     $result->get('AuthenticationResult')['AccessToken']
                 ), function($value, $k) {
@@ -158,12 +185,8 @@ class AuthenticationService implements AuthenticationServiceInterface
                 }, ARRAY_FILTER_USE_BOTH);
 
                 $userData = current($userData);
-
                 $userId = isset($userData['Value']) ? $userData['Value'] : "";
-
                 $userEntity = $this->userService->fetch($userId);
-
-
 
                 return array_merge(
                     $result->get('AuthenticationResult'),
@@ -176,6 +199,31 @@ class AuthenticationService implements AuthenticationServiceInterface
                     ]
                 );
             }
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+        return [];
+    }
+
+    /*** @inheritDoc */
+    public function authenticate(
+        AwsRequestEntityInterface $awsRequestEntity
+    ) {
+        try {
+            $result = $this
+                ->cognitoIdentityProviderClient
+                ->initiateAuth([
+                    'AuthFlow' => 'USER_PASSWORD_AUTH',
+                    'AuthParameters' => [
+                        'USERNAME' => $awsRequestEntity->getEmail(),
+                        'PASSWORD' => $awsRequestEntity->getPassword()
+                    ],
+                    'ClientId' => $this->clientId,
+                    'UserPoolId' => $this->userPoolId
+                ]);
+
+            return $this->formatAuthResult($result);
         } catch (CognitoIdentityProviderException $exception) {
             throw $exception;
         } catch (UserNotFoundException $exception) {
@@ -186,20 +234,71 @@ class AuthenticationService implements AuthenticationServiceInterface
                     'StatusDescription' => $exception->getMessage()
                 ], 404
             );
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $e->getCode(),
+                    'StatusDescription' => $e->getMessage()
+                ], 404
+            );
         }
-
-        return response()->json(
-            [
-                'status' => 'error',
-                'StatusCode' => 500,
-                'StatusDescription' => "Something wrong"
-            ], 404
-        );
     }
 
-    /**
-     * @inheritDoc
+
+
+    /*** @inheritDoc
+     * @throws Exception
      */
+    public function refreshTokenAuth(
+        string $refreshToken
+    ) {
+        //var_dump($refreshToken);die();
+        try {
+            $result = $this
+                ->cognitoIdentityProviderClient
+                ->adminInitiateAuth([
+                    'AuthFlow' => 'REFRESH_TOKEN_AUTH',
+                    'AuthParameters' => [
+                        'REFRESH_TOKEN' => $refreshToken
+                    ],
+                    'ClientId' => $this->clientId,
+                    'UserPoolId' => $this->userPoolId,
+                ]);
+
+            // Reuse same refreshToken
+            $result['AuthenticationResult']['RefreshToken'] = $refreshToken;
+
+            return $this->formatAuthResult($result);
+        } catch (CognitoIdentityProviderException $e) {
+            throw $e;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /*** @inheritDoc
+     * @throws Exception
+     */
+    public function signOut(string $accessToken) {
+        try {
+            $this->cognitoIdentityProviderClient->globalSignOut([
+                'AccessToken' => $accessToken
+            ]);
+
+        } catch (CognitoIdentityProviderException $e) {
+            if ($e->getAwsErrorCode() === self::COGNITO_NOT_AUTHORIZED_ERROR) {
+                return true;
+            }
+
+            throw $e;
+        } catch (Exception $e) {
+            throw $e;
+        }
+        return true;
+    }
+
+    /*** @inheritDoc */
     public function confirmRegistration(string $username, string $code)
     {
         $result = $this
@@ -212,9 +311,7 @@ class AuthenticationService implements AuthenticationServiceInterface
             );
     }
 
-    /**
-     * @inheritDoc
-     */
+    /*** @inheritDoc */
     public function getUser(string $accessToken)
     {
         $result = $this
@@ -226,9 +323,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         return $result->get('UserAttributes');
     }
 
-    /**
-     * @inheritDoc
-     */
+    /*** @inheritDoc */
     public function updateUserAttributes(string $userId, string $accessToken)
     {
         $result = $this
@@ -245,10 +340,7 @@ class AuthenticationService implements AuthenticationServiceInterface
             );
     }
 
-    /**
-     * @param string $username
-     * @return mixed
-     */
+    /*** @inheritDoc */
     public function resendConfirmationCode(string $username)
     {
         try {
@@ -265,10 +357,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         }
     }
 
-    /**
-     * @param string $username
-     * @return mixed
-     */
+    /*** @inheritDoc */
     public function forgotPassword(string $username)
     {
         try {
@@ -287,13 +376,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         }
     }
 
-    /**
-     * @param string $username
-     * @param string $password
-     * @param string $confirmationCode
-     * @return mixed
-     *
-     */
+    /*** @inheritDoc */
     public function confirmForgotPassword(
         string $username,
         string $password,
@@ -315,12 +398,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         }
     }
 
-    /**
-     * @param string $accessToken
-     * @param string $previousPassword
-     * @param string $proposedPassword
-     * @return mixed
-     */
+    /*** @inheritDoc */
     public function changePassword(
         string $accessToken,
         string $previousPassword,
@@ -342,10 +420,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         }
     }
 
-    /**
-     * @param string $userName
-     * @return mixed
-     */
+    /*** @inheritDoc */
     public function disableUser(string $userName)
     {
         try {
@@ -362,10 +437,7 @@ class AuthenticationService implements AuthenticationServiceInterface
         }
     }
 
-    /**
-     * @param string $userName
-     * @return mixed
-     */
+    /*** @inheritDoc */
     public function enableUser(string $userName)
     {
         try {

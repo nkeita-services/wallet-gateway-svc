@@ -208,6 +208,10 @@ paths:
     $ref: 'open-api-wallet-forgot-password-users-spec.yaml'
   /v1/authentication/forgot/confirm/new/password/users:
     $ref: 'open-api-wallet-confirm-forgot-password-users-spec.yaml'
+  /v1/authentication/users/refresh/token:
+    $ref: 'open-api-wallet-authentication-refresh-token-spec.yaml'
+  /v1/authentication/users/token/signOut:
+    $ref: 'open-api-wallet-authentication-signout-spec.yaml'
   /v1/authentication/users/disable:
     $ref: 'open-api-wallet-authentication-disable-spec.yaml'
   /v1/authentication/users/enable:
@@ -1078,6 +1082,21 @@ components:
 #        address:
 #          $ref: '#/components/schemas/Address'
 
+    RefreshTokenAuthenticationRequest:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          example: |
+              eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ....
+
+    SignOutRequest:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          example: |
+            eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ....
 
     AuthenticationResponse:
       type: object

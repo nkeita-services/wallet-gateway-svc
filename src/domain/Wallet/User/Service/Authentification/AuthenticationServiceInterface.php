@@ -44,6 +44,18 @@ interface AuthenticationServiceInterface
     );
 
     /**
+     * @param string $refreshToken
+     * @return mixed
+     */
+    public function refreshTokenAuth(string $refreshToken);
+
+    /**
+     * @param string $accessToken
+     * @return mixed
+     */
+    public function signOut(string $accessToken);
+
+    /**
      * @param string $username
      * @param string $code
      * @return mixed
@@ -62,7 +74,9 @@ interface AuthenticationServiceInterface
     );
 
     /**
-     * @inheritDoc
+     * @param string $userId
+     * @param string $accessToken
+     * @return mixed
      */
     public function updateUserAttributes(
         string $userId,
@@ -117,7 +131,4 @@ interface AuthenticationServiceInterface
      * @return mixed
      */
     public function enableUser(string $userName);
-
-
-
 }

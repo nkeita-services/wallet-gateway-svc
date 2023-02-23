@@ -159,11 +159,6 @@ class AuthenticateWalletUserController extends Controller
                 );
             }
 
-
-            /*$this->complianceService->getUserKyc(
-                $userAuthentication['userId']
-            );*/
-
         } catch(CognitoIdentityProviderException $c) {
             return response()->json(
                 [
@@ -182,13 +177,119 @@ class AuthenticateWalletUserController extends Controller
             );
         }
 
-
         return response()->json(
             [
                 'status' => 'success',
                 'data' => $userAuthentication
             ]
         );
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function refreshToken(Request $request)
+    {
+        $validator = Validator::make(
+            $request->json()->all(),
+            [
+                'refreshToken' => ['required', 'string'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => "0000",
+                    'StatusDescription' => $validator->errors()
+                ]
+            );
+        }
+
+        try {
+            return response()->json(
+                [
+                    'status' => 'success',
+                    'data' => $this
+                        ->userAuthenticationService
+                        ->refreshTokenAuth(
+                            trim($request->json()->get('refreshToken'))
+                        )
+                ]
+            );
+
+        } catch(CognitoIdentityProviderException $c) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $c->getStatusCode(),
+                    'StatusDescription' => $c->getAwsErrorMessage()
+                ] , $c->getStatusCode()
+            );
+        } catch (Exception $exception) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $exception->getCode(),
+                    'StatusDescription' => $exception->getMessage()
+                ], 401
+            );
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function signOut(Request $request) {
+        $validator = Validator::make(
+            $request->json()->all(),
+            [
+                'accessToken' => ['required', 'string'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => "0000",
+                    'StatusDescription' => $validator->errors()
+                ]
+            );
+        }
+
+        try {
+            return response()->json(
+                [
+                    'status' => 'success',
+                    'data' => $this
+                        ->userAuthenticationService
+                        ->signOut(
+                            urldecode($request->json()->get('accessToken'))
+                        )
+                ]
+            );
+
+        } catch(CognitoIdentityProviderException $c) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $c->getStatusCode(),
+                    'StatusDescription' => $c->getAwsErrorMessage()
+                ] , $c->getStatusCode()
+            );
+        } catch (Exception $exception) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $exception->getCode(),
+                    'StatusDescription' => $exception->getMessage()
+                ], 401
+            );
+        }
     }
 
     /**

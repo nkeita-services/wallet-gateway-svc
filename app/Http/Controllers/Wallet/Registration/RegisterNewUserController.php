@@ -58,9 +58,7 @@ class RegisterNewUserController extends Controller
         AuthenticationServiceInterface $userAuthenticationService,
         AccountService $accountService,
         AccountMapper $accountMapper
-
-    )
-    {
+    ) {
         $this->userService = $userService;
         $this->userAuthenticationService = $userAuthenticationService;
         $this->accountService = $accountService;
@@ -73,8 +71,7 @@ class RegisterNewUserController extends Controller
      */
     public function register(
         Request $request
-    )
-    {
+    ) {
 
         $validator = Validator::make(
             $request->json()->all(),

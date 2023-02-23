@@ -50,9 +50,12 @@ class UserApiGuzzleHttpClient implements UserApiClientInterface
         );
     }
 
+    /**
+     * @param string $userId
+     * @return UserEntityInterface
+     */
     public function get(string $userId): UserEntityInterface
     {
-
         try {
             $response = $this->guzzleClient->get(
                 sprintf('/v1/users/%s', $userId)

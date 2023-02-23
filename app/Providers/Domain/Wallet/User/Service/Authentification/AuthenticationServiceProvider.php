@@ -22,6 +22,7 @@ class AuthenticationServiceProvider extends ServiceProvider
                 $app->make('Aws::Pinpoint::Provider'),
                 $app->make(SecretManagerInterface::class)->get('AWS_COGNITO_USER_POOL_CLIENT_ID'),
                 $app->make(SecretManagerInterface::class)->get('AWS_COGNITO_USER_POOL_ID'),
+                true,
                 $app->make(UserServiceInterface::class),
                 $app->make(ComplianceServiceInterface::class)
             );
