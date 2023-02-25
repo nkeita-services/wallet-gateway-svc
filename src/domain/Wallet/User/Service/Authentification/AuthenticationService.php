@@ -253,7 +253,6 @@ class AuthenticationService implements AuthenticationServiceInterface
     public function refreshTokenAuth(
         string $refreshToken
     ) {
-        //var_dump($refreshToken);die();
         try {
             $result = $this
                 ->cognitoIdentityProviderClient

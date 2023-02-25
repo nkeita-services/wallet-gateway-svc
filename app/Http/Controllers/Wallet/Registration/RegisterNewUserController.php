@@ -210,4 +210,90 @@ class RegisterNewUserController extends Controller
             ]
         );
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function registerAdminAccount(
+        Request $request
+    ) {
+        $validator = Validator::make(
+            $request->json()->all(),
+            [
+                'email' => ['required', 'email', app(UserEmailRule::class)],
+                'password' => ['required', 'string'],
+                'mobileNumber' => [
+                    'required',
+                    'string',
+                    'regex:/^([0-9\s\-\+\(\)]*)$/','min:10',
+                    app(UserMobileNumberRule::class)
+                ],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => 0000,
+                    'StatusDescription' => $validator->errors()
+                ]
+            );
+        }
+
+        try {
+
+            $userEntity = $this
+                ->userService
+                ->create(
+                    UserEntity::fromArray(
+                        [
+                            "email" => strtolower($request->get('email')),
+                            "mobileNumber" => $request->get('mobileNumber'),
+                            "walletOrganizations" => $request->get('ApiConsumer')->getOrganizations()
+                        ]
+                    ),
+                    $request->get('ApiConsumer')->getOrganizations()
+                );
+
+            $this
+                ->userAuthenticationService
+                ->register(
+                    strtolower($request->get('email')),
+                    $request->get('password'),
+                    strtolower($request->get('email')),
+                    $request->get('mobileNumber'),
+                    $userEntity->getUserId()
+                )->addUserToGroup(
+                    $request->get('email'),
+                    'Admin'
+                );
+        } catch (UserNotFoundException $exception) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $exception->getCode(),
+                    'StatusDescription' => $exception->getMessage()
+                ], 404
+            );
+        } catch(CognitoIdentityProviderException $c) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'StatusCode' => $c->getStatusCode(),
+                    'StatusDescription' => $c->getAwsErrorMessage()
+                ], 404
+            );
+        }
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'data'=> [
+                    'walletAccountUser'=> $userEntity->toArray()
+                ]
+            ]
+        );
+    }
 }

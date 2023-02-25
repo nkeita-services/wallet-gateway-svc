@@ -53,6 +53,14 @@ RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 777 /var/www/html/storage
 COPY --from=0 /var/www/html/vendor /var/www/html/vendor
 
+#upload
+RUN echo "file_uploads = On\n" \
+         "memory_limit = 600M\n" \
+         "upload_max_filesize = 600M\n" \
+         "post_max_size = 600M\n" \
+         "max_execution_time = 700\n" \
+         > /usr/local/etc/php/conf.d/uploads.ini
+
 # Use the PORT environment variable in Apache configuration files.
 RUN sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
 
