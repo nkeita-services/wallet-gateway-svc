@@ -60,8 +60,8 @@ class CreateAccountController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode'=> 0,
-                    'StatusDescription'=> $validator->errors()
+                    'statusCode'=> 0,
+                    'statusDescription'=> $validator->errors()
                 ]
             );
         }

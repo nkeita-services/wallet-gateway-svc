@@ -58,8 +58,8 @@ class UpdateUserNotifyController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => 0000,
-                    'StatusDescription' => $validator->errors()
+                    'statusCode' => 0000,
+                    'statusDescription' => $validator->errors()
                 ]
             );
         }
@@ -102,8 +102,8 @@ class UpdateUserNotifyController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 404
             );
         }

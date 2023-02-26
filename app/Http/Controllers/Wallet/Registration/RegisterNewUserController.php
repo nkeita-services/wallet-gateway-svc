@@ -72,7 +72,6 @@ class RegisterNewUserController extends Controller
     public function register(
         Request $request
     ) {
-
         $validator = Validator::make(
             $request->json()->all(),
             [
@@ -95,6 +94,7 @@ class RegisterNewUserController extends Controller
                 'address.postCode' => ['required', 'string'],
                 //'address.state' => ['required', 'string'],
                 //'address.country' => ['required', 'string'],
+                //'address.country_code' => ['required', 'string'],
                 'language' => ['required', 'string'],
                 //'deviceToken' => ['required', 'string'],
                 //'deviceOs' => ['required', 'string'],
@@ -106,8 +106,8 @@ class RegisterNewUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => 0000,
-                    'StatusDescription' => $validator->errors()
+                    'statusCode' => 0000,
+                    'statusDescription' => $validator->errors()
                 ]
             );
         }
@@ -179,24 +179,24 @@ class RegisterNewUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 404
             );
         } catch(CognitoIdentityProviderException $c) {
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $c->getStatusCode(),
-                    'StatusDescription' => $c->getAwsErrorMessage()
+                    'statusCode' => $c->getStatusCode(),
+                    'statusDescription' => $c->getAwsErrorMessage()
                 ], 404
             );
         } catch(AccountNotFoundException $c) {
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $c->getStatusCode(),
-                    'StatusDescription' => $c->getAwsErrorMessage()
+                    'statusCode' => $c->getStatusCode(),
+                    'statusDescription' => $c->getAwsErrorMessage()
                 ], 404
             );
         }
@@ -236,8 +236,8 @@ class RegisterNewUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => 0000,
-                    'StatusDescription' => $validator->errors()
+                    'statusCode' => 0000,
+                    'statusDescription' => $validator->errors()
                 ]
             );
         }
@@ -273,16 +273,16 @@ class RegisterNewUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 404
             );
         } catch(CognitoIdentityProviderException $c) {
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $c->getStatusCode(),
-                    'StatusDescription' => $c->getAwsErrorMessage()
+                    'statusCode' => $c->getStatusCode(),
+                    'statusDescription' => $c->getAwsErrorMessage()
                 ], 404
             );
         }

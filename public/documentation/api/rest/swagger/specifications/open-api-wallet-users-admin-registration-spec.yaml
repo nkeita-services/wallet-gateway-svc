@@ -1,0 +1,29 @@
+post:
+  summary: Register new user Admin
+  security:
+    - oAuth2:
+        - RegisterNewUsers
+  tags:
+    - Wallet Registration
+  requestBody:
+    description: Registration request
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/AdminRegistrationRequest'
+  responses:
+    '200':
+      description: Successfully registered the user
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                type: object
+                properties:
+                  walletAccountUser:
+                    $ref: 'open-api-spec.yaml#/components/schemas/WalletAccountUserWithId'

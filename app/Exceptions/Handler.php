@@ -48,8 +48,8 @@ class Handler extends ExceptionHandler
         return response()->json(
             [
                 'status' => 'error',
-                'StatusCode' => $exception->getCode(),
-                'StatusDescription' => $exception->getMessage()
+                'statusCode' => $exception->getCode(),
+                'statusDescription' => $exception->getMessage()
             ], 500
         );
     }

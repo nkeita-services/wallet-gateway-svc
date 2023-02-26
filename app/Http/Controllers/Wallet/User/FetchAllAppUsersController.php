@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Wallet\User;
 use App\Http\Controllers\Controller;
 use App\Rules\Wallet\WalletPlanIdRule;
 use App\Rules\Wallet\WalletUserIdRule;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -22,13 +23,17 @@ class FetchAllAppUsersController extends Controller
 
     /**
      * FetchUserDataController constructor.
-     * @param UserServiceInterface $userService
+     * @param UserService $userService
      */
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function fetchAllAppUser(
         Request $request
     ){
@@ -43,14 +48,11 @@ class FetchAllAppUsersController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode'=> 0,
-                    'StatusDescription'=> $validator->errors()
+                    'statusCode'=> 0,
+                    'statusDescription'=> $validator->errors()
                 ]
             );
         }
-
-        /*$requestMobilesNumber = collect($request->json()
-            ->get('mobileNumbers'));*/
 
         $appUsers = $this
             ->userService
@@ -61,8 +63,6 @@ class FetchAllAppUsersController extends Controller
                         ->get('mobileNumbers')
                 ]
             );
-
-        //var_dump($appUsers);
 
         return response()->json(
             [

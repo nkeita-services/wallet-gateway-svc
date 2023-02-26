@@ -55,9 +55,9 @@ info:
 
     | Field Name        | Field Description     |
     |-------------------|-----------------------|
-    | Status            | "fail" or "error"     |
-    | StatusCode        | A business error code |
-    | StatusDescription | Error description     |
+    | status            | "fail" or "error"     |
+    | statusCode        | A business error code |
+    | statusDescription | Error description     |
 
     ## Error codes
 
@@ -219,6 +219,8 @@ paths:
 
   /v1/registration/users:
     $ref: 'open-api-wallet-users-registration-spec.yaml'
+  /v1/registration/users/admin:
+    $ref: 'open-api-wallet-users-admin-registration-spec.yaml'
   /v1/registration/users/confirmation/{userName}/{code}:
     $ref: 'open-api-wallet-users-registration-confirmation-spec.yaml'
   /v1/registration/users/resend/{userName}/confirmationcode:
@@ -903,6 +905,26 @@ components:
           enum:
             - USER
             - ADMIN
+
+    AdminRegistrationRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          description: user email address
+          example: joe@hakili.io
+        password:
+          type: string
+          description: user password
+          example: "M0oiuyt12@uiU"
+        mobileNumber:
+          type: string
+          description: User mobile number
+          example: "+447307568957"
     Extras:
       type: object
     Originator:

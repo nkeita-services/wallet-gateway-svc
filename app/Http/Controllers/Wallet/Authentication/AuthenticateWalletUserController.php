@@ -79,16 +79,16 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $c->getStatusCode(),
-                    'StatusDescription' => $c->getAwsErrorMessage()
+                    'statusCode' => $c->getStatusCode(),
+                    'statusDescription' => $c->getAwsErrorMessage()
                 ] , $c->getStatusCode()
             );
         } catch (Exception $exception) {
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 401
             );
         }
@@ -115,8 +115,8 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => "0000",
-                    'StatusDescription' => $validator->errors()
+                    'statusCode' => "0000",
+                    'statusDescription' => $validator->errors()
                 ]
             );
         }
@@ -163,16 +163,16 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $c->getStatusCode(),
-                    'StatusDescription' => $c->getAwsErrorMessage()
+                    'statusCode' => $c->getStatusCode(),
+                    'statusDescription' => $c->getAwsErrorMessage()
                 ] , $c->getStatusCode()
             );
         } catch (Exception $exception) {
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 401
             );
         }
@@ -202,8 +202,8 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => "0000",
-                    'StatusDescription' => $validator->errors()
+                    'statusCode' => "0000",
+                    'statusDescription' => $validator->errors()
                 ]
             );
         }
@@ -224,16 +224,16 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $c->getStatusCode(),
-                    'StatusDescription' => $c->getAwsErrorMessage()
+                    'statusCode' => $c->getStatusCode(),
+                    'statusDescription' => $c->getAwsErrorMessage()
                 ] , $c->getStatusCode()
             );
         } catch (Exception $exception) {
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 401
             );
         }
@@ -255,8 +255,8 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => "0000",
-                    'StatusDescription' => $validator->errors()
+                    'statusCode' => "0000",
+                    'statusDescription' => $validator->errors()
                 ]
             );
         }
@@ -277,16 +277,16 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $c->getStatusCode(),
-                    'StatusDescription' => $c->getAwsErrorMessage()
+                    'statusCode' => $c->getStatusCode(),
+                    'statusDescription' => $c->getAwsErrorMessage()
                 ] , $c->getStatusCode()
             );
         } catch (Exception $exception) {
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 401
             );
         }
@@ -321,8 +321,8 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 401
             );
         }
@@ -349,8 +349,8 @@ class AuthenticateWalletUserController extends Controller
                 return response()->json(
                     [
                         'status' => 'error',
-                        'StatusCode' => "0000",
-                        'StatusDescription' => $validator->errors()
+                        'statusCode' => "0000",
+                        'statusDescription' => $validator->errors()
                     ]
                 );
             }
@@ -373,16 +373,16 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $c->getStatusCode(),
-                    'StatusDescription' => $c->getAwsErrorMessage()
+                    'statusCode' => $c->getStatusCode(),
+                    'statusDescription' => $c->getAwsErrorMessage()
                 ] , $c->getStatusCode()
             );
         } catch (Exception $exception) {
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 401
             );
         }
@@ -416,16 +416,16 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $c->getStatusCode(),
-                    'StatusDescription' => $c->getAwsErrorMessage()
+                    'statusCode' => $c->getStatusCode(),
+                    'statusDescription' => $c->getAwsErrorMessage()
                 ] , $c->getStatusCode()
             );
         } catch (Exception $exception) {
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 401
             );
         }
@@ -448,8 +448,8 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => "0000",
-                    'StatusDescription' => $validator->errors()
+                    'statusCode' => "0000",
+                    'statusDescription' => $validator->errors()
                 ]
             );
         }
@@ -467,16 +467,16 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $c->getStatusCode(),
-                    'StatusDescription' => $c->getAwsErrorMessage()
+                    'statusCode' => $c->getStatusCode(),
+                    'statusDescription' => $c->getAwsErrorMessage()
                 ] , $c->getStatusCode()
             );
         } catch (Exception $exception) {
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 401
             );
         }
@@ -509,8 +509,8 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => "0000",
-                    'StatusDescription' => $validator->errors()
+                    'statusCode' => "0000",
+                    'statusDescription' => $validator->errors()
                 ]
             );
         }
@@ -528,16 +528,16 @@ class AuthenticateWalletUserController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $c->getStatusCode(),
-                    'StatusDescription' => $c->getAwsErrorMessage()
+                    'statusCode' => $c->getStatusCode(),
+                    'statusDescription' => $c->getAwsErrorMessage()
                 ] , $c->getStatusCode()
             );
         } catch (Exception $exception) {
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 401
             );
         }

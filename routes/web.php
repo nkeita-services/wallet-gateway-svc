@@ -446,6 +446,15 @@ $router->post('/v1/registration/users', [
     ]
 ]);
 
+$router->post('/v1/registration/users/admin', [
+    'uses' => 'Wallet\Registration\RegisterNewUserController@registerAdminAccount',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/RegisterNewUsers',
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);
 
 $router->get('/v1/registration/users/confirmation/{userName}/{code}', [
     'uses' => 'Wallet\Registration\ConfirmUserRegistrationController@confirm',

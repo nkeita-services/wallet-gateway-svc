@@ -7,6 +7,7 @@ use Exception;
 use Aws\Result;
 use Aws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException;
+use Infrastructure\Api\Consumer\Authorization\OpenID\Client;
 use Wallet\Wallet\Document\Service\ComplianceServiceInterface;
 use Wallet\Wallet\User\Entity\AwsRequestEntityInterface;
 use Aws\Pinpoint\PinpointClient;
@@ -186,13 +187,21 @@ class AuthenticationService implements AuthenticationServiceInterface
 
                 $userData = current($userData);
                 $userId = isset($userData['Value']) ? $userData['Value'] : "";
-                $userEntity = $this->userService->fetch($userId);
+
+                try {
+                    $notification = $this
+                        ->userService
+                        ->fetch($userId)
+                        ->getNotification();
+                } catch (UserNotFoundException $exception) {
+                    $notification = [];
+                }
 
                 return array_merge(
                     $result->get('AuthenticationResult'),
                     [
                         'userId' =>  $userId,
-                        'notification' => $userEntity->getNotification(),
+                        'notification' => $notification,
                         'UserKycDetails' => $this->complianceService->getUserKyc(
                             $userId
                         )
@@ -230,16 +239,16 @@ class AuthenticationService implements AuthenticationServiceInterface
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 404
             );
         } catch (Exception $e) {
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $e->getCode(),
-                    'StatusDescription' => $e->getMessage()
+                    'statusCode' => $e->getCode(),
+                    'statusDescription' => $e->getMessage()
                 ], 404
             );
         }
@@ -309,6 +318,21 @@ class AuthenticationService implements AuthenticationServiceInterface
                 ]
             );
     }
+
+    /*** @inheritDoc */
+    public function getAdminGetUser(string $username)
+    {
+        $result = $this
+            ->cognitoIdentityProviderClient
+            ->adminGetUser([
+                'Username' => $username,
+                'UserPoolId' => $this->userPoolId,
+            ]);
+
+        return $result;
+    }
+
+
 
     /*** @inheritDoc */
     public function getUser(string $accessToken)

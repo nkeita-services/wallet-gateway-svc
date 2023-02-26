@@ -22,8 +22,7 @@ class ConfirmUserRegistrationController extends Controller
      */
     public function __construct(
         AuthenticationServiceInterface $userAuthenticationService
-    )
-    {
+    ) {
         $this->userAuthenticationService = $userAuthenticationService;
     }
 
@@ -36,21 +35,30 @@ class ConfirmUserRegistrationController extends Controller
     public function confirm(
         string $userName,
         string $code
-    )
-    {
+    ) {
 
-        $this
-            ->userAuthenticationService
-            ->confirmRegistration(
-                urldecode($userName),
-                $code
+        try {
+            $this
+                ->userAuthenticationService
+                ->confirmRegistration(
+                    urldecode($userName),
+                    $code
+                );
+        } catch(CognitoIdentityProviderException $c) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'statusCode' => $c->getStatusCode(),
+                    'statusDescription' => $c->getAwsErrorMessage()
+                ]
             );
+        }
 
         return response()->json(
             [
                 'status' => 'success',
                 'data'=> [
-                    'email'=>urldecode($userName)
+                    'email'=> urldecode($userName)
                 ]
             ]
         );
@@ -62,8 +70,7 @@ class ConfirmUserRegistrationController extends Controller
      */
     public function resendConfirmationCode(
         string $userName
-    )
-    {
+    ) {
         try {
             $this
                 ->userAuthenticationService
@@ -74,8 +81,8 @@ class ConfirmUserRegistrationController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'code' => $c->getStatusCode(),
-                    'message' => $c->getAwsErrorMessage()
+                    'statusCode' => $c->getStatusCode(),
+                    'statusDescription' => $c->getAwsErrorMessage()
                 ]
             );
         }
@@ -90,6 +97,4 @@ class ConfirmUserRegistrationController extends Controller
             ]
         );
     }
-
-
 }

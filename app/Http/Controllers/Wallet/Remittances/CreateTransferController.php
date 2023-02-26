@@ -60,8 +60,8 @@ class CreateTransferController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 404
             );
         }
@@ -91,8 +91,8 @@ class CreateTransferController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => $exception->getCode(),
-                    'StatusDescription' => $exception->getMessage()
+                    'statusCode' => $exception->getCode(),
+                    'statusDescription' => $exception->getMessage()
                 ], 404
             );
         }

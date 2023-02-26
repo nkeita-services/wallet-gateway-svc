@@ -52,8 +52,8 @@ class FetchAccessTokenController extends Controller
             return response()->json(
                 [
                     'status' => 'error',
-                    'StatusCode' => 0,
-                    'StatusDescription' => $e->getMessage()
+                    'statusCode' => 0,
+                    'statusDescription' => $e->getMessage()
                 ], 401
             );
         }
