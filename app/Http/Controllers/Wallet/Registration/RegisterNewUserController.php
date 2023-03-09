@@ -108,7 +108,8 @@ class RegisterNewUserController extends Controller
                     'status' => 'error',
                     'statusCode' => 0000,
                     'statusDescription' => $validator->errors()
-                ]
+                ],
+                401
             );
         }
 
@@ -238,7 +239,8 @@ class RegisterNewUserController extends Controller
                     'status' => 'error',
                     'statusCode' => 0000,
                     'statusDescription' => $validator->errors()
-                ]
+                ],
+                401
             );
         }
 
