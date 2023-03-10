@@ -7,7 +7,7 @@ use App\Http\Controllers\Wallet\Account\Mapper\AccountMapper;
 use App\Http\Controllers\Wallet\Account\Mapper\AccountMapperInterface;
 use App\Rules\User\UserEmailRule;
 use App\Rules\User\UserMobileNumberRule;
-use App\Rules\Wallet\WalletUserIdRule;
+use Exception;
 use Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -294,6 +294,100 @@ class RegisterNewUserController extends Controller
                 'status' => 'success',
                 'data'=> [
                     'walletAccountUser'=> $userEntity->toArray()
+                ]
+            ]
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function IsEmailExist(Request $request)
+    {
+        $validator = Validator::make(
+            $request->json()->all(),
+            [
+                'email' => ['required', 'email'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'statusCode' => 0000,
+                    'statusDescription' => $validator->errors()
+                ],
+                401
+            );
+        }
+        $isExist =  false;
+        try {
+            $this
+                ->userService
+                ->fetchByEmail(
+                    strtolower($request->get('email'))
+                );
+
+        } catch (UserNotFoundException | Exception $e) {
+            $isExist =  true;
+        }
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'data'=> [
+                    'isExist'=> $isExist
+                ]
+            ]
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function IsMobileNumberExist(Request $request)
+    {
+        $validator = Validator::make(
+            $request->json()->all(),
+            [
+                'mobileNumber' => [
+                    'required',
+                    'string',
+                    'regex:/^([0-9\s\-\+\(\)]*)$/','min:10'
+                ]
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'statusCode' => 0000,
+                    'statusDescription' => $validator->errors()
+                ],
+                401
+            );
+        }
+
+        $isExist =  false;
+        try {
+            $this
+                ->userService
+                ->fetchByMobileNumber(
+                    $request->get('mobileNumber')
+                );
+        } catch (UserNotFoundException | Exception $e) {
+            $isExist =  true;
+        }
+
+        return response()->json(
+            [
+                'status' => 'success',
+                'data'=> [
+                    'isExist'=> $isExist
                 ]
             ]
         );
