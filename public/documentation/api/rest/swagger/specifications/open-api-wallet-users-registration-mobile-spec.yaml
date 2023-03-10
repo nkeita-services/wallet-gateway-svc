@@ -1,0 +1,32 @@
+post:
+  summary: Check if Mobile Number already exists
+  security:
+    - oAuth2:
+        - RegisterNewUsers
+  tags:
+    - Wallet Registration
+  requestBody:
+    description: Registration request
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'open-api-spec.yaml#/components/schemas/MobileNumberRequest'
+  responses:
+    '200':
+      description: Successfully authenticated user
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: 'open-api-spec.yaml#/components/schemas/ResponseStatus'
+              data:
+                $ref: 'open-api-spec.yaml#/components/schemas/ExistResponse'
+    '401':
+      description: Invalid username or password
+      content:
+        application/json:
+          schema:
+            $ref: 'open-api-spec.yaml#/components/schemas/ErrorResponse'

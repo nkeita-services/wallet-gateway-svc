@@ -219,6 +219,10 @@ paths:
 
   /v1/registration/users:
     $ref: 'open-api-wallet-users-registration-spec.yaml'
+  /v1/registration/users/email/exists:
+    $ref: 'open-api-wallet-users-registration-email-spec.yaml'
+  /v1/registration/users/mobile/exists:
+    $ref: 'open-api-wallet-users-registration-mobile-spec.yaml'
   /v1/registration/users/admin:
     $ref: 'open-api-wallet-users-admin-registration-spec.yaml'
   /v1/registration/users/confirmation/{userName}/{code}:
@@ -1104,6 +1108,20 @@ components:
 #        address:
 #          $ref: '#/components/schemas/Address'
 
+    MobileNumberRequest:
+      type: object
+      properties:
+        mobileNumber:
+          type: string
+          description: User mobile number
+          example: "+447307568957"
+    EmailRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          description: user email address
+          example: john.doe@gmail.com
     RefreshTokenAuthenticationRequest:
       type: object
       properties:
@@ -1148,6 +1166,12 @@ components:
             2123445
 
 
+    ExistResponse:
+      type: object
+      properties:
+        isAlreadyExist:
+          type: boolean
+          example: true
     UpdateUserNotifyRequest:
       type: object
       properties:

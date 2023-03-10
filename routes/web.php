@@ -477,6 +477,27 @@ $router->get('v1/registration/users/resend/{userName}/confirmationcode', [
     ]
 ]);
 
+$router->post('/v1/registration/users/email/exists', [
+    'uses' => 'Wallet\Registration\RegisterNewUserController@IsEmailExist',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/RegisterNewUsers',
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);
+
+
+$router->post('/v1/registration/users/mobile/exists', [
+    'uses' => 'Wallet\Registration\RegisterNewUserController@IsMobileNumberExist',
+    'middleware'=>'auth',
+    'as'=>'wallet-gateway/RegisterNewUsers',
+    'groups'=> [
+        'root',
+        'admin'
+    ]
+]);
+
 #----------------------------------------- End ----------------------------------------------------------------
 
 $router->post('v1/wallets/regions', [

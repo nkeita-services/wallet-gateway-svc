@@ -330,15 +330,17 @@ class RegisterNewUserController extends Controller
                     strtolower($request->get('email'))
                 );
 
-        } catch (UserNotFoundException | Exception $e) {
             $isExist =  true;
+
+        } catch (UserNotFoundException | Exception $e) {
+            $isExist =  false;
         }
 
         return response()->json(
             [
                 'status' => 'success',
                 'data'=> [
-                    'isExist'=> $isExist
+                    'isAlreadyExist'=> $isExist
                 ]
             ]
         );
@@ -372,22 +374,22 @@ class RegisterNewUserController extends Controller
             );
         }
 
-        $isExist =  false;
         try {
             $this
                 ->userService
                 ->fetchByMobileNumber(
                     $request->get('mobileNumber')
                 );
-        } catch (UserNotFoundException | Exception $e) {
             $isExist =  true;
+        } catch (UserNotFoundException | Exception $e) {
+            $isExist =  false;
         }
 
         return response()->json(
             [
                 'status' => 'success',
                 'data'=> [
-                    'isExist'=> $isExist
+                    'isAlreadyExist'=> $isExist
                 ]
             ]
         );
