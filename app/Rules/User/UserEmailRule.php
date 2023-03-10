@@ -29,18 +29,17 @@ class UserEmailRule implements Rule
      */
     public function passes($attribute, $value)
     {
-
         try {
             $this
                 ->walletUserService
                 ->fetchByEmail(
-                    $value
+                    strtolower($value)
                 );
-            $emailNotExist = false;
+
         } catch (UserNotFoundException | Exception $e) {
-            $emailNotExist = true;
+           return true;
         }
-        return $emailNotExist;
+        return false;
     }
 
     /**
@@ -48,6 +47,6 @@ class UserEmailRule implements Rule
      */
     public function message()
     {
-        return ":A user with this email already exist";
+        return "A user with this email already exist";
     }
 }

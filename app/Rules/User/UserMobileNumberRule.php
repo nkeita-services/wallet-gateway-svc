@@ -35,12 +35,10 @@ class UserMobileNumberRule implements Rule
                 ->fetchByMobileNumber(
                     $value
                 );
-            $mobileNumber = false;
         } catch (UserNotFoundException | Exception $e) {
-            $mobileNumber = true;
+            return true;
         }
-
-        return $mobileNumber;
+        return false;
     }
 
     /**
@@ -48,6 +46,6 @@ class UserMobileNumberRule implements Rule
      */
     public function message()
     {
-        return ":A user with this mobile number already exist";
+        return "A user with this mobile number already exist";
     }
 }
