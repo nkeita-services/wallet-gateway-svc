@@ -24,6 +24,8 @@ class UserMapper implements UserMapperInterface
             $payload['firstName'],
             $payload['address'],
             $payload['email'],
+            $payload['birthDay'] ?? null,
+            $payload['nationality'] ?? null,
             $payload['phoneNumber'] ?? null,
             $payload['mobileNumber'],
             $payload['language'],
@@ -33,7 +35,7 @@ class UserMapper implements UserMapperInterface
             $request->get('ApiConsumer')->getOrganizations(),
             $payload['userId'] ?? null,
             $payload['createdAt'] ?? null,
-            $payload['status'] "active"
+            $payload['status'] ?? "active"
 
         );
     }
