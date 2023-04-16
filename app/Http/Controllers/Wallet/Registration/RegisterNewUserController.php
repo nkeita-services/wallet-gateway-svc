@@ -252,6 +252,8 @@ class RegisterNewUserController extends Controller
                     UserEntity::fromArray(
                         [
                             "email" => strtolower($request->get('email')),
+                            "firstName" => strtolower($request->get('firstName')),
+                            "lastName" => strtolower($request->get('lastName')),
                             "mobileNumber" => $request->get('mobileNumber'),
                             "walletOrganizations" => $request->get('ApiConsumer')->getOrganizations()
                         ]
