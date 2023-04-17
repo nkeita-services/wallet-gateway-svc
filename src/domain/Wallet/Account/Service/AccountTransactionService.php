@@ -34,8 +34,7 @@ class AccountTransactionService implements AccountTransactionServiceInterface
         string $accountId,
         ?DateTimeInterface $fromDate = null,
         ?DateTimeInterface $toDate = null
-    )
-    {
+    ) {
         $eventCollection = $this
             ->eventService
             ->fetchWithCriteriaAndDateRange(
@@ -52,6 +51,7 @@ class AccountTransactionService implements AccountTransactionServiceInterface
 
         return array_map(function (array $event) {
             return [
+                'action' => $event['actions'] ?? [],
                 'amount' => $event['data']['amount'] ?? null,
                 'description' => $event['description'] ?? null,
                 'datetime' => $event['timestamp'] ?? null,

@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Wallet\Account;
 
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Wallet\Wallet\Account\Service\AccountTransactionService;
 
@@ -23,11 +24,17 @@ class FetchAccountTransactionsController
         $this->accountTransactionService = $accountTransactionService;
     }
 
-
-    public function fetchAll($userId,
-                             $accountId,
-                             Request $request)
-    {
+    /**
+     * @param $userId
+     * @param $accountId
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function fetchAll(
+        $userId,
+        $accountId,
+        Request $request
+    ) {
         return response()->json(
             [
                 'status' => 'success',
