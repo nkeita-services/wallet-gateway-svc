@@ -19,9 +19,11 @@ class AccountTransactionService implements AccountTransactionServiceInterface
      */
     protected $eventService;
 
-    const CREDIT = "AccountBalanceOperation::Credit";
+    const T_CREDIT = "AccountBalanceOperation::Credit";
+    const T_DEBIT = "AccountBalanceOperation::Debit";
 
-    const DEBIT = "AccountBalanceOperation::Debit";
+    const CREDIT = "CREDIT";
+    const DEBIT = "DEBIT";
 
     /**
      * AccountTransactionService constructor.
@@ -63,10 +65,10 @@ class AccountTransactionService implements AccountTransactionServiceInterface
             );
 
         return array_map(function (array $event) {
-            $action = $event['actions'];
+            $type = in_array(self::T_CREDIT, $event['actions']) ? self::CREDIT :  self::DEBIT;
             return [
                 'action' => $event['actions'] ?? [],
-                'type' => in_array(self::CREDIT, $event['actions']) ? "CREDIT" : "DEBIT",
+                'type' => $type,
                 'amount' => $event['data']['amount'] ?? null,
                 'description' => $event['description'] ?? null,
                 'datetime' => $event['timestamp'] ?? null,
