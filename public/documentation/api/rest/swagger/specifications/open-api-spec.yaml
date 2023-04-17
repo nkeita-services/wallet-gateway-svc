@@ -1198,6 +1198,12 @@ components:
           type: string
           description: disable or enable user
           example: User is disabled or enabled successfully
+    TransactionType:
+      type: string
+      enum:
+        - ""
+        - Debit
+        - Credit
 
 
 

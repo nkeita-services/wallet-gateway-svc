@@ -16,6 +16,23 @@ get:
       name: accountId
       schema:
         type: string
+    - name: type
+      in: query
+      schema:
+        $ref: 'open-api-spec.yaml#/components/schemas/TransactionType'
+    - name: fromDate
+      in: query
+      schema:
+        type: string
+        description: Transaction time in UTC
+        example: 10/09/2020 12:20:09
+    - name: toDate
+      in: query
+      schema:
+        type: string
+        description: Transaction time in UTC
+        example: 10/09/2020 12:20:09
+
   responses:
     '200':
       description: Successfully obtained wallet transactions

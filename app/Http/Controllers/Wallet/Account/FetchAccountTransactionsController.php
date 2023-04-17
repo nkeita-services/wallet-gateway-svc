@@ -35,14 +35,16 @@ class FetchAccountTransactionsController
         $accountId,
         Request $request
     ) {
+
         return response()->json(
             [
                 'status' => 'success',
                 'data' => [
                     'walletAccountTransactions' => $this->accountTransactionService->fetchWithAccountIdAndDateRange(
                         $accountId,
-                        null,
-                        null
+                        $request->get('type', null),
+                        $request->get('fromDta', null),
+                        $request->get('toDate', null)
                     )
                 ]
             ]
