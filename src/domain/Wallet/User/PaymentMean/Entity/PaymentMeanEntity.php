@@ -38,6 +38,11 @@ class PaymentMeanEntity implements PaymentMeanEntityInterface
     private $bankAccountDetails;
 
     /**
+     * @var array
+     */
+    private $eWalletAccountDetails;
+
+    /**
      * @var string
      */
     private $createdAt;
@@ -65,6 +70,7 @@ class PaymentMeanEntity implements PaymentMeanEntityInterface
      * @param string $status
      * @param array $debitCardDetails
      * @param array $bankAccountDetails
+     * @param array|null $eWalletAccountDetails
      * @param string $createdAt
      * @param string $modifiedAt
      * @param string $userId
@@ -77,6 +83,7 @@ class PaymentMeanEntity implements PaymentMeanEntityInterface
         ?string $status,
         ?array $debitCardDetails,
         ?array $bankAccountDetails,
+        ?array $eWalletAccountDetails,
         ?string $createdAt,
         ?string $modifiedAt,
         ?string $userId,
@@ -88,6 +95,7 @@ class PaymentMeanEntity implements PaymentMeanEntityInterface
         $this->status = $status;
         $this->debitCardDetails = $debitCardDetails;
         $this->bankAccountDetails = $bankAccountDetails;
+        $this->eWalletAccountDetails = $eWalletAccountDetails;
         $this->createdAt = $createdAt;
         $this->modifiedAt = $modifiedAt;
         $this->userId = $userId;
@@ -100,18 +108,27 @@ class PaymentMeanEntity implements PaymentMeanEntityInterface
      */
     public function toArray(): array
     {
-        return [
+        $paymentMeanData =  [
             'paymentMeanId' => $this->paymentMeanId,
             'name' => $this->name,
             'userId' => $this->userId,
             'type' => $this->type,
             'debitCardDetails' => $this->debitCardDetails,
             'bankAccountDetails' => $this->bankAccountDetails,
+            'eWalletAccountDetails' => $this->eWalletAccountDetails,
             'createdAt' => $this->createdAt,
             'modifiedAt' => $this->modifiedAt,
             'status' => $this->status,
             'organizations' => $this->organizations,
         ];
+
+        return array_filter(
+            $paymentMeanData,
+            function ($propertyValue, $propertyName){
+                return $propertyValue !== null;
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
     }
 
     /**
@@ -126,6 +143,7 @@ class PaymentMeanEntity implements PaymentMeanEntityInterface
             $data['status'] ?? null,
             $data['debitCardDetails'] ?? null,
             $data['bankAccountDetails'] ?? null,
+            $data['eWalletAccountDetails'] ?? null,
             $data['createdAt'] ?? null,
             $data['modifiedAt'] ?? null,
             $data['userId'] ?? null,

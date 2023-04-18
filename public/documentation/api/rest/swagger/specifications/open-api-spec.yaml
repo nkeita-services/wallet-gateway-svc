@@ -837,6 +837,7 @@ components:
           enum:
             - BANK_ACCOUNT
             - DEBIT_CARD
+            - E_WALLET
         debitCardDetails:
           type: object
           properties:
@@ -863,6 +864,17 @@ components:
               type: string
               description: IBAN
               example: FR76 3000 4022 8000 0005 3292 671
+        eWalletAccountDetails:
+          type: object
+          properties:
+            phone_country_code:
+              type: string
+              description: Phone Country Code
+              example: "+33"
+            mobileNumber:
+              type: string
+              description: Mobile Phone Number
+              example: "634566776"
     RegistrationRequest:
       type: object
       properties:
