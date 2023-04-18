@@ -43,6 +43,7 @@ class AccountTransactionService implements AccountTransactionServiceInterface
         ?DateTimeInterface $fromDate = null,
         ?DateTimeInterface $toDate = null
     ) {
+
         $actions = ['AccountBalanceOperation'];
 
         if (in_array($type, ['Debit', 'Credit'])) {

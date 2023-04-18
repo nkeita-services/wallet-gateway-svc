@@ -3,7 +3,7 @@
 
 namespace App\Http\Controllers\Wallet\Account;
 
-
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Wallet\Wallet\Account\Service\AccountTransactionService;
@@ -36,6 +36,18 @@ class FetchAccountTransactionsController
         Request $request
     ) {
 
+        if($request->has('fromDate')) {
+            $fromDate = Carbon::createFromFormat(
+                'm/d/Y H:i:s',
+                $request->get('fromDate'));
+        }
+
+        if($request->has('toDate')) {
+            $toDate = Carbon::createFromFormat(
+                'm/d/Y H:i:s',
+                $request->get('toDate'));
+        }
+
         return response()->json(
             [
                 'status' => 'success',
@@ -43,8 +55,8 @@ class FetchAccountTransactionsController
                     'walletAccountTransactions' => $this->accountTransactionService->fetchWithAccountIdAndDateRange(
                         $accountId,
                         $request->get('type', null),
-                        $request->get('fromDta', null),
-                        $request->get('toDate', null)
+                        $fromDate ?? null,
+                        $toDate ?? null
                     )
                 ]
             ]
