@@ -9,6 +9,8 @@ use GPBMetadata\Google\Api\Expr\V1Alpha1\Value;
 use Wallet\Wallet\Account\Entity\TransactionEntity;
 use Wallet\Wallet\Event\Entity\EventEntity;
 use Wallet\Wallet\Event\Entity\EventEntityInterface;
+use Wallet\Wallet\Event\Entity\EventFilterEntityInterface;
+use Wallet\Wallet\Event\Entity\EventPaginationEntityInterface;
 use Wallet\Wallet\Event\Service\EventServiceInterface;
 
 class AccountTransactionService implements AccountTransactionServiceInterface
@@ -38,35 +40,18 @@ class AccountTransactionService implements AccountTransactionServiceInterface
      * @inheritDoc
      */
     public function fetchWithAccountIdAndDateRange(
-        string $accountId,
-        ?string $type,
-        ?DateTimeInterface $fromDate = null,
-        ?DateTimeInterface $toDate = null
-    ) {
+        EventFilterEntityInterface $eventFilterEntity
+    ) : EventPaginationEntityInterface {
 
-        $actions = ['AccountBalanceOperation'];
-
-        if (in_array($type, ['Debit', 'Credit'])) {
-            $actions = [
-                sprintf('AccountBalanceOperation::%s', $type)
-            ];
-        }
-
-
-        $eventCollection = $this
+        $eventPaginationEntity = $this
             ->eventService
             ->fetchWithCriteriaAndDateRange(
-                [
-                    'entityId' => $accountId,
-                    'entity' => 'WalletAccount',
-                    'actions' => $actions
-                ],
-                $fromDate instanceof DateTimeInterface ? $fromDate->getTimestamp() : null,
-                $toDate instanceof DateTimeInterface ? $toDate->getTimestamp() : null
+                $eventFilterEntity
             );
 
-        return array_map(function (array $event) {
-            $type = in_array(self::T_CREDIT, $event['actions']) ? self::CREDIT :  self::DEBIT;
+        $eventPaginationEntity->setWalletAccountTransactions( array_map(function (array $event) {
+            $type = in_array(self::T_CREDIT, $event['actions']) ? self::CREDIT :self::DEBIT;
+
             return [
                 'action' => $event['actions'] ?? [],
                 'type' => $type,
@@ -75,7 +60,10 @@ class AccountTransactionService implements AccountTransactionServiceInterface
                 'datetime' => $event['timestamp'] ?? null,
                 'transactionId' => $event['eventId'] ?? null
             ];
-        }, $eventCollection->toArray());
+        }, $eventPaginationEntity->getWalletAccountTransactions()));
+
+
+        return $eventPaginationEntity;
     }
 
     /**

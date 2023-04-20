@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Wallet\Wallet\Account\Service\AccountTransactionService;
+use Wallet\Wallet\Event\Entity\EventFilterEntity;
 
 class FetchAccountTransactionsController
 {
@@ -37,30 +38,44 @@ class FetchAccountTransactionsController
     ) {
 
         if($request->has('fromDate')) {
-            $fromDate = Carbon::createFromFormat(
+            $fromTimestamp = Carbon::createFromFormat(
                 'm/d/Y H:i:s',
-                $request->get('fromDate'));
+                $request->get('fromDate'))->getTimestamp();
         }
 
         if($request->has('toDate')) {
-            $toDate = Carbon::createFromFormat(
+            $toTimestamp = Carbon::createFromFormat(
                 'm/d/Y H:i:s',
-                $request->get('toDate'));
+                $request->get('toDate'))->getTimestamp();
+        }
+
+        $actions = ['AccountBalanceOperation'];
+
+        if (in_array($request->get('type', null), ['Debit', 'Credit'])) {
+            $actions = [
+                sprintf('AccountBalanceOperation::%s', $request->get('type'))
+            ];
         }
 
         return response()->json(
             [
                 'status' => 'success',
                 'data' => [
-                    'walletAccountTransactions' => $this->accountTransactionService->fetchWithAccountIdAndDateRange(
-                        $accountId,
-                        $request->get('type', null),
-                        $fromDate ?? null,
-                        $toDate ?? null
-                    )
+                     $this->accountTransactionService->fetchWithAccountIdAndDateRange(
+                        EventFilterEntity::fromArray(
+                            [
+                                'entityId' => $accountId,
+                                'entity' => 'WalletAccount',
+                                'actions'=> $actions,
+                                'fromTimestamp' => $fromTimestamp ?? null,
+                                'toTimestamp' => $toTimestamp ?? null,
+                                'page' =>  $request->get('page', 1),
+                                'limit' => $request->get('limit', 10)
+                            ]
+                        )
+                    )->toArray()
                 ]
             ]
-
         );
     }
 }

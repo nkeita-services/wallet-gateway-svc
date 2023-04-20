@@ -32,6 +32,18 @@ get:
         type: string
         description: Transaction time in UTC
         example: 10/09/2020 12:20:09
+    - name: page
+      in: query
+      schema:
+        type: int
+        description: page
+        example: 1
+    - name: limit
+      in: query
+      schema:
+        type: int
+        description: Page Limit
+        example: 10
 
   responses:
     '200':

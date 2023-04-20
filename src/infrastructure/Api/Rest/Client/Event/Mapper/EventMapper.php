@@ -7,8 +7,11 @@ namespace Infrastructure\Api\Rest\Client\Event\Mapper;
 use Psr\Http\Message\ResponseInterface;
 use Wallet\Wallet\Event\Collection\EventCollection;
 use Wallet\Wallet\Event\Collection\EventCollectionInterface;
+use Wallet\Wallet\Event\Collection\EventPaginationCollection;
 use Wallet\Wallet\Event\Entity\EventEntity;
 use Wallet\Wallet\Event\Entity\EventEntityInterface;
+use Wallet\Wallet\Event\Entity\EventPaginationEntity;
+use Wallet\Wallet\Event\Entity\EventPaginationEntityInterface;
 
 class EventMapper implements EventMapperInterface
 {
@@ -27,6 +30,28 @@ class EventMapper implements EventMapperInterface
 
         return EventCollection::fromArray(
             $eventData['data']['WalletEvents']
+        );
+    }
+
+    /**
+     * @param ResponseInterface $response
+     * @return EventPaginationEntityInterface
+     */
+    public function createEventPaginationCollectionFromApiResponse(
+        ResponseInterface $response
+    ):EventPaginationEntityInterface {
+        $eventData = json_decode(
+            $response->getBody()->getContents(),
+            true
+        );
+
+        return EventPaginationEntity::fromArray(
+            [
+                'total' => $eventData['data']['total_number'],
+                'page' => $eventData['data']['page'],
+                'limit' => $eventData['data']['limit'],
+                'walletAccountTransactions' => $eventData['data']['WalletEvents']
+            ]
         );
     }
 

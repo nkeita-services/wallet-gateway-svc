@@ -6,23 +6,19 @@ namespace Wallet\Wallet\Event\Service;
 
 use Wallet\Wallet\Event\Collection\EventCollectionInterface;
 use Wallet\Wallet\Event\Entity\EventEntityInterface;
+use Wallet\Wallet\Event\Entity\EventFilterEntityInterface;
+use Wallet\Wallet\Event\Entity\EventPaginationEntityInterface;
 
 interface EventServiceInterface
 {
 
     /**
-     * @param array $criteria
-     * @param int|null $fromTimestamp
-     * @param int|null $toTimestamp
-     * @param int|null $limit
-     * @return EventCollectionInterface
+     * @param EventFilterEntityInterface $eventFilterEntity
+     * @return EventPaginationEntityInterface
      */
     public function fetchWithCriteriaAndDateRange(
-        array $criteria,
-        ?int $fromTimestamp = null,
-        ?int $toTimestamp = null,
-        ?int $limit = null
-    ): EventCollectionInterface;
+        EventFilterEntityInterface $eventFilterEntity
+    ): EventPaginationEntityInterface;
 
     /**
      * @param EventEntityInterface $eventEntity

@@ -6,23 +6,24 @@ namespace Wallet\Wallet\Account\Service;
 use DateTimeInterface;
 use Wallet\Wallet\Account\Entity\TransactionEntity;
 use Wallet\Wallet\Event\Entity\EventEntityInterface;
+use Wallet\Wallet\Event\Entity\EventFilterEntityInterface;
+use Wallet\Wallet\Event\Entity\EventPaginationEntityInterface;
 
 interface AccountTransactionServiceInterface
 {
 
     /**
-     * @param string $accountId
-     * @param string|null $type
-     * @param DateTimeInterface $fromDate
-     * @param DateTimeInterface $toDate
+     * @param EventFilterEntityInterface $eventFilterEntity
      * @return mixed
      */
     public function fetchWithAccountIdAndDateRange(
-        string $accountId,
+       /* string $accountId,
         ?string $type,
         DateTimeInterface $fromDate,
-        DateTimeInterface $toDate
-    );
+        DateTimeInterface $toDate*/
+
+        EventFilterEntityInterface $eventFilterEntity
+    ) :  EventPaginationEntityInterface;
 
     /**
      * @param TransactionEntity $transactionEntity

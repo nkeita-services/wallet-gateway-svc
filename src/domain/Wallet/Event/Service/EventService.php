@@ -6,6 +6,8 @@ namespace Wallet\Wallet\Event\Service;
 
 use Wallet\Wallet\Event\Collection\EventCollectionInterface;
 use Wallet\Wallet\Event\Entity\EventEntityInterface;
+use Wallet\Wallet\Event\Entity\EventFilterEntityInterface;
+use Wallet\Wallet\Event\Entity\EventPaginationEntityInterface;
 use Wallet\Wallet\Event\Repository\EventRepositoryInterface;
 
 class EventService implements EventServiceInterface
@@ -29,14 +31,12 @@ class EventService implements EventServiceInterface
      * @inheritDoc
      */
     public function fetchWithCriteriaAndDateRange(
-        array $criteria,
-        ?int $fromTimestamp = null,
-        ?int $toTimestamp = null,
-        ?int $limit = null): EventCollectionInterface{
+        EventFilterEntityInterface $eventFilterEntity
+    ): EventPaginationEntityInterface {
         return $this
             ->eventRepository
             ->fetchAllWithCriteria(
-                $criteria
+                $eventFilterEntity
             );
     }
 

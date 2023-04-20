@@ -9,6 +9,8 @@ use GuzzleHttp\RequestOptions;
 use Infrastructure\Api\Rest\Client\Event\Mapper\EventMapperInterface;
 use Wallet\Wallet\Event\Collection\EventCollectionInterface;
 use Wallet\Wallet\Event\Entity\EventEntityInterface;
+use Wallet\Wallet\Event\Entity\EventFilterEntityInterface;
+use Wallet\Wallet\Event\Entity\EventPaginationEntityInterface;
 
 class EventApiGuzzleHttpClient implements EventApiClientInterface
 {
@@ -37,15 +39,16 @@ class EventApiGuzzleHttpClient implements EventApiClientInterface
      * @inheritDoc
      */
     public function fetchAll(
-        array $filter
-    ): EventCollectionInterface{
+        EventFilterEntityInterface $eventFilterEntity
+    ): EventPaginationEntityInterface {
+
         $response = $this->guzzleClient->post('/v1/events/search', [
-            RequestOptions::JSON => $filter
+            RequestOptions::JSON => $eventFilterEntity->toArray()
         ]);
 
         return $this
             ->eventMapper
-            ->createEventCollectionFromApiResponse(
+            ->createEventPaginationCollectionFromApiResponse(
                 $response
             );
     }

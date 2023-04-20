@@ -6,17 +6,19 @@ namespace Wallet\Wallet\Event\Repository;
 
 use Wallet\Wallet\Event\Collection\EventCollectionInterface;
 use Wallet\Wallet\Event\Entity\EventEntityInterface;
+use Wallet\Wallet\Event\Entity\EventFilterEntityInterface;
+use Wallet\Wallet\Event\Entity\EventPaginationEntityInterface;
 
 interface EventRepositoryInterface
 {
 
     /**
-     * @param array $criteria
-     * @return EventCollectionInterface
+     * @param EventFilterEntityInterface $eventFilterEntity
+     * @return EventPaginationEntityInterface
      */
     public function fetchAllWithCriteria(
-        array $criteria
-    ):EventCollectionInterface;
+        EventFilterEntityInterface $eventFilterEntity
+    ):EventPaginationEntityInterface;
 
     /**
      * @param EventEntityInterface $eventEntity

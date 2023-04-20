@@ -4,13 +4,12 @@
 namespace Wallet\Wallet\Event\Collection;
 
 
-use Wallet\Account\Entity\AccountEntityInterface;
 use Wallet\Wallet\Event\Entity\EventEntity;
 use Wallet\Wallet\Event\Entity\EventEntityInterface;
 use Wallet\Wallet\Event\Entity\EventPaginationEntity;
 use Wallet\Wallet\Event\Entity\EventPaginationEntityInterface;
 
-class EventCollection implements EventCollectionInterface
+class EventPaginationCollection implements EventPaginationCollectionInterface
 {
 
     /**
@@ -30,11 +29,11 @@ class EventCollection implements EventCollectionInterface
     /**
      * @inheritDoc
      */
-    public static function fromArray(array $data): EventCollectionInterface
+    public static function fromArray(array $data): EventPaginationCollectionInterface
     {
         return new static(
             array_map(function (array $event) {
-                return EventEntity::fromArray($event);
+                return EventPaginationEntity::fromArray($event);
             }, $data)
         );
     }
@@ -45,8 +44,8 @@ class EventCollection implements EventCollectionInterface
      */
     public function toArray(): array
     {
-        return array_map(function (EventEntityInterface $eventEntity){
-            return $eventEntity->toArray();
+        return array_map(function (EventPaginationEntityInterface $eventPaginationEntity){
+            return $eventPaginationEntity->toArray();
         },$this->collection);
     }
 }

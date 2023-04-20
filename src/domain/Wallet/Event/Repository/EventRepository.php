@@ -7,6 +7,8 @@ namespace Wallet\Wallet\Event\Repository;
 use Infrastructure\Api\Rest\Client\Event\EventApiClientInterface;
 use Wallet\Wallet\Event\Collection\EventCollectionInterface;
 use Wallet\Wallet\Event\Entity\EventEntityInterface;
+use Wallet\Wallet\Event\Entity\EventFilterEntityInterface;
+use Wallet\Wallet\Event\Entity\EventPaginationEntityInterface;
 
 class EventRepository implements EventRepositoryInterface
 {
@@ -29,13 +31,13 @@ class EventRepository implements EventRepositoryInterface
      * @inheritDoc
      */
     public function fetchAllWithCriteria(
-        array $criteria
-    ): EventCollectionInterface
+        EventFilterEntityInterface $eventFilterEntity
+    ): EventPaginationEntityInterface
     {
         return $this
             ->eventApiClient
             ->fetchAll(
-                $criteria
+                $eventFilterEntity
             );
     }
 
