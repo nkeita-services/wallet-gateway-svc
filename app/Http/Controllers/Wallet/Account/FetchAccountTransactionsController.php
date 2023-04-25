@@ -39,13 +39,13 @@ class FetchAccountTransactionsController
 
         if($request->has('fromDate')) {
             $fromTimestamp = Carbon::createFromFormat(
-                'm/d/Y H:i:s',
+                'd/m/Y H:i:s',
                 $request->get('fromDate'))->getTimestamp();
         }
 
         if($request->has('toDate')) {
             $toTimestamp = Carbon::createFromFormat(
-                'm/d/Y H:i:s',
+                'd/m/Y H:i:s',
                 $request->get('toDate'))->getTimestamp();
         }
 
